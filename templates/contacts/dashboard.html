@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - SK Contact Base{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div>
+            <h1><i class="fas fa-chart-line me-2"></i>Dashboard</h1>
+            <p>Welcome back — here's what's happening with SK Contact Base</p>
+        </div>
+        <div style="font-size:13px; opacity:0.85;">
+            <i class="fas fa-clock me-1"></i>
+            {% now "F j, Y" %}
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="stats-card">
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="number">{{ total_contacts }}</div>
+                <div class="label">Total Contacts</div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="stats-card">
+                <div class="icon" style="color: var(--success);">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="number">{{ today_contacts }}</div>
+                <div class="label">Added Today</div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="stats-card">
+                <div class="icon" style="color: var(--warning);">
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+                <div class="number">{{ this_week_contacts }}</div>
+                <div class="label">This Week</div>
+            </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="stats-card">
+                <div class="icon" style="color: var(--sky-dark);">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="number">{{ country_stats|length }}</div>
+                <div class="label">Countries</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Days Since Launch Banner -->
+    <div class="card mb-4" style="border-left: 4px solid var(--sky); background: var(--sky-pale);">
+        <div class="card-body d-flex align-items-center gap-3 py-3">
+            <div style="font-size: 2rem; color: var(--sky);">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div>
+                <div style="font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--text-dark);">
+                    {{ days_since_start }} Days Since Launch
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">
+                    SK Contact Base has been collecting contacts since day one — keep growing!
+                </div>
+            </div>
+            <div class="ms-auto text-end">
+                <div style="font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--sky-dark);">
+                    {{ total_contacts }}
+                </div>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">
+                    Total Saves
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-bolt me-2" style="color: var(--sky);"></i>Quick Actions
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'contact-add' %}" class="btn btn-primary me-2 mb-2">
+                        <i class="fas fa-user-plus me-1"></i>Add New Contact
+                    </a>
+                    <a href="{% url 'contact-list' %}" class="btn btn-secondary me-2 mb-2">
+                        <i class="fas fa-list me-1"></i>View All Contacts
+                    </a>
+                    <a href="{% url 'export-excel' %}" class="btn btn-success me-2 mb-2">
+                        <i class="fas fa-file-excel me-1"></i>Export to Excel
+                    </a>
+                    <a href="{% url 'export-csv' %}" class="btn btn-warning me-2 mb-2">
+                        <i class="fas fa-file-csv me-1"></i>Export to CSV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+        <!-- Category Breakdown -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <i class="fas fa-tag me-2" style="color: var(--sky);"></i>Contacts by Category
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="categoryChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Breakdown -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <i class="fas fa-share-alt me-2" style="color: var(--sky);"></i>Contacts by Social Media
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <canvas id="socialChart" height="220"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Country Stats -->
+    {% if country_stats %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <span><i class="fas fa-globe me-2" style="color: var(--sky);"></i>Contacts by Country</span>
+                    <span class="badge badge-sky">{{ country_stats|length }} Countries</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Country</th>
+                                    <th>Contacts</th>
+                                    <th>Share</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for stat in country_stats %}
+                                <tr>
+                                    <td style="color: var(--text-muted); font-size: 12px;">{{ forloop.counter }}</td>
+                                    <td style="font-weight: 500;">{{ stat.country }}</td>
+                                    <td>
+                                        <span class="badge badge-sky">{{ stat.count }}</span>
+                                    </td>
+                                    <td style="width: 200px;">
+                                        <div style="background: var(--sky-pale); border-radius: 999px; height: 6px; overflow: hidden;">
+                                            <div style="background: linear-gradient(90deg, var(--sky), var(--sky-dark)); height: 100%; width: {% widthratio stat.count total_contacts 100 %}%; border-radius: 999px;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Contact Count Footer Bar -->
+    <div class="card" style="border: 2px solid var(--sky); background: linear-gradient(135deg, #EFF9FF, #DBEEFF);">
+        <div class="card-body py-3">
+            <div class="row align-items-center text-center">
+                <div class="col-md-4 border-end" style="border-color: var(--border) !important;">
+                    <div style="font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--sky-dark);">
+                        {{ total_contacts }}
+                    </div>
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">
+                        Total Contacts Saved
+                    </div>
+                </div>
+                <div class="col-md-4 border-end" style="border-color: var(--border) !important;">
+                    <div style="font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--sky-dark);">
+                        {{ today_contacts }}
+                    </div>
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">
+                        Saved Today
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--sky-dark);">
+                        {{ days_since_start }}
+                    </div>
+                    <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);">
+                        Days Since Launch
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // ── CATEGORY CHART ──
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [{% for cat in category_stats %}'{{ cat.category }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+            datasets: [{
+                data: [{% for cat in category_stats %}{{ cat.count }}{% if not forloop.last %},{% endif %}{% endfor %}],
+                backgroundColor: [
+                    '#38B6FF','#7DD3FC','#0EA5E9','#0284C7','#BAE6FD',
+                    '#38BDF8','#60A5FA','#93C5FD','#BFDBFE','#DBEAFE'
+                ],
+                borderWidth: 0,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#3B6A9A',
+                        font: { family: 'DM Sans', size: 12 },
+                        padding: 14,
+                        boxWidth: 12
+                    }
+                }
+            },
+            cutout: '65%'
+        }
+    });
+
+    // ── SOCIAL MEDIA CHART ──
+    const socialCtx = document.getElementById('socialChart').getContext('2d');
+    new Chart(socialCtx, {
+        type: 'bar',
+        data: {
+            labels: [{% for s in social_stats %}'{{ s.social_media }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+            datasets: [{
+                label: 'Contacts',
+                data: [{% for s in social_stats %}{{ s.count }}{% if not forloop.last %},{% endif %}{% endfor %}],
+                backgroundColor: 'rgba(56,182,255,0.18)',
+                borderColor: '#38B6FF',
+                borderWidth: 2,
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#3B6A9A', font: { family: 'DM Sans', size: 12 } },
+                    grid: { color: 'rgba(56,182,255,0.06)' }
+                },
+                y: {
+                    ticks: { color: '#3B6A9A', font: { family: 'DM Sans', size: 12 } },
+                    grid: { color: 'rgba(56,182,255,0.06)' },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

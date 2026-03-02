@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SK Contact Base{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sky:        #38B6FF;
+            --sky-light:  #7DD3FC;
+            --sky-dark:   #0EA5E9;
+            --sky-deep:   #0284C7;
+            --sky-pale:   #E0F4FF;
+            --sky-bg:     #F0F9FF;
+            --white:      #FFFFFF;
+            --off-white:  #F8FBFF;
+            --border:     rgba(56,182,255,0.2);
+            --border-soft:rgba(56,182,255,0.1);
+            --text-dark:  #0C2340;
+            --text-mid:   #3B6A9A;
+            --text-muted: #7AADC8;
+            --success:    #22C55E;
+            --danger:     #EF4444;
+            --warning:    #F59E0B;
+            --shadow-sm:  0 2px 10px rgba(56,182,255,0.08);
+            --shadow-md:  0 6px 24px rgba(56,182,255,0.12);
+            --shadow-lg:  0 12px 40px rgba(56,182,255,0.18);
+        }
+
+        * {
+            font-family: 'DM Sans', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--sky-bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            background: var(--white) !important;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-brand {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text-dark) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.03em;
+        }
+
+        .navbar-brand .brand-icon {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(56,182,255,0.35);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-mid) !important;
+            font-weight: 400;
+            font-size: 14px;
+            padding: 6px 14px !important;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--sky-dark) !important;
+            background: var(--sky-pale);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--sky-dark) !important;
+            background: var(--sky-pale);
+        }
+
+        .nav-logout-btn {
+            background: rgba(56,182,255,0.08) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--sky-dark) !important;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .nav-logout-btn:hover {
+            background: rgba(56,182,255,0.16) !important;
+            color: var(--sky-deep) !important;
+        }
+
+        /* ── DASHBOARD BUTTON (brand-side, always visible) ── */
+        .nav-dashboard-btn {
+            background: linear-gradient(135deg, var(--sky), var(--sky-dark)) !important;
+            color: #fff !important;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 7px 16px !important;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(56,182,255,0.3);
+            white-space: nowrap;
+        }
+
+        .nav-dashboard-btn:hover {
+            background: linear-gradient(135deg, var(--sky-dark), var(--sky-deep)) !important;
+            color: #fff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(56,182,255,0.45);
+        }
+
+        /* On mobile, the brand-side dashboard pill collapses into the toggler row */
+        @media (max-width: 991.98px) {
+            .navbar-brand-area {
+                flex: 1;
+            }
+            .nav-dashboard-pill {
+                margin-left: auto;
+                margin-right: 8px;
+            }
+        }
+
+        .navbar-toggler {
+            border-color: var(--border) !important;
+        }
+
+        /* ── CARDS ── */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            color: var(--text-dark);
+        }
+
+        .card:hover {
+            border-color: var(--border);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            background: var(--sky-pale) !important;
+            border-bottom: 1px solid var(--border-soft) !important;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-dark);
+            border-radius: 14px 14px 0 0 !important;
+            padding: 16px 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* ── STATS CARD ── */
+        .stats-card {
+            background: var(--white);
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sky), var(--sky-light));
+        }
+
+        .stats-card:hover {
+            border-color: var(--border);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stats-card .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--sky);
+        }
+
+        .stats-card .number {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1;
+        }
+
+        .stats-card .label {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-top: 6px;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--sky), var(--sky-dark)) !important;
+            border: none !important;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 600;
+            color: #fff !important;
+            font-family: 'Syne', sans-serif;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(56,182,255,0.25);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--sky-dark), var(--sky-deep)) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(56,182,255,0.35);
+        }
+
+        .btn-success {
+            background: var(--success) !important;
+            border: none !important;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 500;
+            color: #fff !important;
+        }
+
+        .btn-danger {
+            background: var(--danger) !important;
+            border: none !important;
+            border-radius: 8px;
+            color: #fff !important;
+        }
+
+        .btn-warning {
+            background: var(--warning) !important;
+            border: none !important;
+            border-radius: 8px;
+            color: #fff !important;
+        }
+
+        .btn-secondary {
+            background: var(--white) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 8px;
+            color: var(--text-mid) !important;
+        }
+
+        .btn-secondary:hover {
+            background: var(--sky-pale) !important;
+            border-color: var(--sky) !important;
+            color: var(--sky-dark) !important;
+        }
+
+        .btn-outline-secondary {
+            border-color: var(--border) !important;
+            color: var(--text-mid) !important;
+            border-radius: 8px;
+        }
+
+        .btn-outline-secondary:hover {
+            background: var(--sky-pale) !important;
+            color: var(--sky-dark) !important;
+        }
+
+        /* ── FORMS ── */
+        .form-control, .form-select {
+            background: var(--white) !important;
+            border: 1px solid rgba(56,182,255,0.25) !important;
+            border-radius: 8px !important;
+            color: var(--text-dark) !important;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--sky) !important;
+            box-shadow: 0 0 0 3px rgba(56,182,255,0.12) !important;
+            background: var(--white) !important;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted) !important;
+        }
+
+        .form-select option {
+            background: var(--white);
+            color: var(--text-dark);
+        }
+
+        .form-label {
+            color: var(--text-mid);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .form-text {
+            color: var(--text-muted) !important;
+        }
+
+        /* ── TABLE ── */
+        .table {
+            color: var(--text-dark) !important;
+            border-color: var(--border-soft) !important;
+            background: var(--white);
+        }
+
+        .table thead {
+            background: var(--sky-pale) !important;
+        }
+
+        .table thead th {
+            color: var(--sky-deep) !important;
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-color: var(--border-soft) !important;
+            padding: 14px 16px;
+        }
+
+        .table tbody tr {
+            border-color: var(--border-soft) !important;
+            transition: all 0.2s;
+        }
+
+        .table tbody tr:hover {
+            background: var(--sky-pale) !important;
+        }
+
+        .table tbody td {
+            border-color: var(--border-soft) !important;
+            color: var(--text-mid);
+            vertical-align: middle;
+            padding: 12px 16px;
+        }
+
+        /* ── FILTER SECTION ── */
+        .filter-section {
+            background: var(--white);
+            border: 1px solid var(--border-soft);
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* ── BADGES ── */
+        .badge {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 11px;
+        }
+
+        .badge-sky {
+            background: var(--sky-pale);
+            color: var(--sky-dark);
+            border: 1px solid var(--border);
+        }
+
+        /* ── ALERTS ── */
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+
+        .alert-success {
+            background: rgba(34,197,94,0.1) !important;
+            border: 1px solid rgba(34,197,94,0.25) !important;
+            color: #166534 !important;
+        }
+
+        .alert-danger {
+            background: rgba(239,68,68,0.1) !important;
+            border: 1px solid rgba(239,68,68,0.25) !important;
+            color: #991b1b !important;
+        }
+
+        .alert-warning {
+            background: rgba(245,158,11,0.1) !important;
+            border: 1px solid rgba(245,158,11,0.25) !important;
+            color: #92400e !important;
+        }
+
+        .alert-info {
+            background: rgba(56,182,255,0.1) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--sky-deep) !important;
+        }
+
+        /* ── PAGINATION ── */
+        .pagination .page-link {
+            background: var(--white);
+            border-color: var(--border-soft);
+            color: var(--text-mid);
+            border-radius: 6px;
+            margin: 0 2px;
+        }
+
+        .pagination .page-link:hover {
+            background: var(--sky-pale);
+            color: var(--sky-dark);
+            border-color: var(--border);
+        }
+
+        .pagination .page-item.active .page-link {
+            background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+            border-color: var(--sky);
+            color: #fff;
+        }
+
+        /* ── WHATSAPP ── */
+        .whatsapp-btn {
+            color: #25D366;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .whatsapp-btn:hover {
+            color: #128C7E;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--white);
+            border-top: 1px solid var(--border-soft);
+            color: var(--text-muted);
+            padding: 20px 0;
+            margin-top: 60px;
+            font-size: 13px;
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+            border-radius: 14px;
+            padding: 28px 28px;
+            margin-bottom: 28px;
+            color: #fff;
+            box-shadow: var(--shadow-md);
+        }
+
+        .page-header h1 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+            opacity: 0.85;
+            font-size: 14px;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--sky-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--sky-light); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--sky); }
+
+        /* ── UTILITY ── */
+        .text-sky { color: var(--sky) !important; }
+        .text-sky-dark { color: var(--sky-dark) !important; }
+        .bg-sky-pale { background: var(--sky-pale) !important; }
+        .border-sky { border-color: var(--border) !important; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; color: var(--text-dark); }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+
+            <!-- Brand + mobile dashboard pill row -->
+            <div class="d-flex align-items-center navbar-brand-area">
+                <a class="navbar-brand" href="{% url 'landing' %}">
+                    <img src="{% static 'images/logo.png' %}" alt="SK Brand Links" style="height:34px;width:auto;border-radius:8px;">
+                    SK Contact Base
+                </a>
+
+                <!-- Dashboard pill: only shown on mobile when logged in -->
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="nav-dashboard-btn nav-dashboard-pill d-lg-none ms-2" title="Dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="d-none d-sm-inline">Dashboard</span>
+                </a>
+                {% endif %}
+            </div>
+
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    {% if user.is_authenticated %}
+                        <!-- Dashboard: hidden on mobile (shown as pill above), visible on lg+ -->
+                        <li class="nav-item d-none d-lg-block">
+                            <a class="nav-link nav-dashboard-btn" href="{% url 'dashboard' %}">
+                                <i class="fas fa-chart-line"></i> Dashboard
+                            </a>
+                        </li>
+                        <!-- Dashboard in collapsed menu on mobile -->
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="{% url 'dashboard' %}">
+                                <i class="fas fa-chart-line me-1"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact-list' %}">
+                                <i class="fas fa-users me-1"></i>Contacts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact-add' %}">
+                                <i class="fas fa-user-plus me-1"></i>Add Contact
+                            </a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="nav-link nav-logout-btn" href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt me-1"></i>Logout
+                            </a>
+                        </li>
+                    {% endif %}
+                    <!-- NO login/admin button shown to unauthenticated users -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="container-fluid py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-1" style="color: var(--text-dark); font-weight: 600; font-size: 14px;">
+                <img src="{% static 'images/logo.png' %}" alt="SK" style="height:20px;width:auto;border-radius:4px;margin-right:6px;vertical-align:middle;">
+                SK Brand Links
+            </p>
+            <p class="mb-0" style="color: var(--text-muted);">
+                Connecting creators, influencers & brand owners with the right opportunities.
+                &nbsp;·&nbsp; © 2026 <span style="color: var(--sky-dark); font-weight: 600;">SK Brand Links</span>. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

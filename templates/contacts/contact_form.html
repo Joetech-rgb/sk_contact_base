@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Contact - SK Contact Base{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-{% if object %}edit{% else %}user-plus{% endif %} me-2"></i>
+                        {% if object %}Edit Contact{% else %}Add New Contact{% endif %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Basic Information -->
+                        <h5 class="mb-3"><i class="fas fa-user me-2"></i>Basic Information</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">
+                                    First Name <span class="text-danger">*</span>
+                                </label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="text-danger small">{{ form.first_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.surname.id_for_label }}" class="form-label">
+                                    Surname <span class="text-danger">*</span>
+                                </label>
+                                {{ form.surname }}
+                                {% if form.surname.errors %}
+                                    <div class="text-danger small">{{ form.surname.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.email.id_for_label }}" class="form-label">
+                                    Email
+                                </label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger small">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.whatsapp_contact.id_for_label }}" class="form-label">
+                                    WhatsApp Contact <span class="text-danger">*</span>
+                                </label>
+                                {{ form.whatsapp_contact }}
+                                <small class="form-text text-muted">Include country code, e.g., +233XXXXXXXXX</small>
+                                {% if form.whatsapp_contact.errors %}
+                                    <div class="text-danger small">{{ form.whatsapp_contact.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <!-- Categorization -->
+                        <h5 class="mb-3"><i class="fas fa-tags me-2"></i>Categorization</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.category.id_for_label }}" class="form-label">
+                                    Category <span class="text-danger">*</span>
+                                </label>
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                    <div class="text-danger small">{{ form.category.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.age_category.id_for_label }}" class="form-label">
+                                    Age Category <span class="text-danger">*</span>
+                                </label>
+                                {{ form.age_category }}
+                                {% if form.age_category.errors %}
+                                    <div class="text-danger small">{{ form.age_category.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="{{ form.country.id_for_label }}" class="form-label">
+                                    Country <span class="text-danger">*</span>
+                                </label>
+                                {{ form.country }}
+                                {% if form.country.errors %}
+                                    <div class="text-danger small">{{ form.country.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.country_code.id_for_label }}" class="form-label">
+                                    Country Code
+                                </label>
+                                {{ form.country_code }}
+                                <small class="form-text text-muted">Auto-filled from country</small>
+                                {% if form.country_code.errors %}
+                                    <div class="text-danger small">{{ form.country_code.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <!-- Social Media -->
+                        <h5 class="mb-3"><i class="fas fa-share-alt me-2"></i>Social Media</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="{{ form.social_media_platform.id_for_label }}" class="form-label">
+                                    Platform <span class="text-danger">*</span>
+                                </label>
+                                {{ form.social_media_platform }}
+                                {% if form.social_media_platform.errors %}
+                                    <div class="text-danger small">{{ form.social_media_platform.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.social_media_handle.id_for_label }}" class="form-label">
+                                    Handle/Username
+                                </label>
+                                {{ form.social_media_handle }}
+                                {% if form.social_media_handle.errors %}
+                                    <div class="text-danger small">{{ form.social_media_handle.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.followers_count.id_for_label }}" class="form-label">
+                                    Followers <span class="text-danger">*</span>
+                                </label>
+                                {{ form.followers_count }}
+                                {% if form.followers_count.errors %}
+                                    <div class="text-danger small">{{ form.followers_count.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <!-- Additional Information -->
+                        <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>Additional Information (Optional)</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.school.id_for_label }}" class="form-label">
+                                    School/University
+                                </label>
+                                {{ form.school }}
+                                {% if form.school.errors %}
+                                    <div class="text-danger small">{{ form.school.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.level.id_for_label }}" class="form-label">
+                                    Level/Grade
+                                </label>
+                                {{ form.level }}
+                                {% if form.level.errors %}
+                                    <div class="text-danger small">{{ form.level.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.notes.id_for_label }}" class="form-label">
+                                Notes
+                            </label>
+                            {{ form.notes }}
+                            {% if form.notes.errors %}
+                                <div class="text-danger small">{{ form.notes.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'contact-list' %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>
+                                {% if object %}Update{% else %}Add{% endif %} Contact
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Country -> Dial Code lookup (auto-generated from forms.py COUNTRIES list)
+    const DIAL_CODES = {
+        "Afghanistan": "+93", "Albania": "+355", "Algeria": "+213", "Andorra": "+376",
+        "Angola": "+244", "Argentina": "+54", "Armenia": "+374", "Australia": "+61",
+        "Austria": "+43", "Azerbaijan": "+994", "Bahamas": "+1-242", "Bahrain": "+973",
+        "Bangladesh": "+880", "Belarus": "+375", "Belgium": "+32", "Belize": "+501",
+        "Benin": "+229", "Bhutan": "+975", "Bolivia": "+591", "Bosnia and Herzegovina": "+387",
+        "Botswana": "+267", "Brazil": "+55", "Brunei": "+673", "Bulgaria": "+359",
+        "Burkina Faso": "+226", "Burundi": "+257", "Cambodia": "+855", "Cameroon": "+237",
+        "Canada": "+1", "Cape Verde": "+238", "Central African Republic": "+236", "Chad": "+235",
+        "Chile": "+56", "China": "+86", "Colombia": "+57", "Comoros": "+269",
+        "Congo": "+242", "Costa Rica": "+506", "Croatia": "+385", "Cuba": "+53",
+        "Cyprus": "+357", "Czech Republic": "+420", "Denmark": "+45", "Djibouti": "+253",
+        "Dominican Republic": "+1-809", "DR Congo": "+243", "Ecuador": "+593", "Egypt": "+20",
+        "El Salvador": "+503", "Equatorial Guinea": "+240", "Eritrea": "+291", "Estonia": "+372",
+        "Eswatini": "+268", "Ethiopia": "+251", "Fiji": "+679", "Finland": "+358",
+        "France": "+33", "Gabon": "+241", "Gambia": "+220", "Georgia": "+995",
+        "Germany": "+49", "Ghana": "+233", "Greece": "+30", "Guatemala": "+502",
+        "Guinea": "+224", "Guinea-Bissau": "+245", "Guyana": "+592", "Haiti": "+509",
+        "Honduras": "+504", "Hungary": "+36", "Iceland": "+354", "India": "+91",
+        "Indonesia": "+62", "Iran": "+98", "Iraq": "+964", "Ireland": "+353",
+        "Israel": "+972", "Italy": "+39", "Ivory Coast": "+225", "Jamaica": "+1-876",
+        "Japan": "+81", "Jordan": "+962", "Kazakhstan": "+7", "Kenya": "+254",
+        "Kuwait": "+965", "Kyrgyzstan": "+996", "Laos": "+856", "Latvia": "+371",
+        "Lebanon": "+961", "Lesotho": "+266", "Liberia": "+231", "Libya": "+218",
+        "Lithuania": "+370", "Luxembourg": "+352", "Madagascar": "+261", "Malawi": "+265",
+        "Malaysia": "+60", "Maldives": "+960", "Mali": "+223", "Malta": "+356",
+        "Mauritania": "+222", "Mauritius": "+230", "Mexico": "+52", "Moldova": "+373",
+        "Mongolia": "+976", "Montenegro": "+382", "Morocco": "+212", "Mozambique": "+258",
+        "Myanmar": "+95", "Namibia": "+264", "Nepal": "+977", "Netherlands": "+31",
+        "New Zealand": "+64", "Nicaragua": "+505", "Niger": "+227", "Nigeria": "+234",
+        "North Korea": "+850", "North Macedonia": "+389", "Norway": "+47", "Oman": "+968",
+        "Pakistan": "+92", "Panama": "+507", "Papua New Guinea": "+675", "Paraguay": "+595",
+        "Peru": "+51", "Philippines": "+63", "Poland": "+48", "Portugal": "+351",
+        "Qatar": "+974", "Romania": "+40", "Russia": "+7", "Rwanda": "+250",
+        "Saudi Arabia": "+966", "Senegal": "+221", "Serbia": "+381", "Sierra Leone": "+232",
+        "Singapore": "+65", "Slovakia": "+421", "Slovenia": "+386", "Somalia": "+252",
+        "South Africa": "+27", "South Korea": "+82", "South Sudan": "+211", "Spain": "+34",
+        "Sri Lanka": "+94", "Sudan": "+249", "Suriname": "+597", "Sweden": "+46",
+        "Switzerland": "+41", "Syria": "+963", "Taiwan": "+886", "Tajikistan": "+992",
+        "Tanzania": "+255", "Thailand": "+66", "Togo": "+228", "Trinidad and Tobago": "+1-868",
+        "Tunisia": "+216", "Turkey": "+90", "Turkmenistan": "+993", "Uganda": "+256",
+        "Ukraine": "+380", "United Arab Emirates": "+971", "United Kingdom": "+44",
+        "United States": "+1", "Uruguay": "+598", "Uzbekistan": "+998", "Venezuela": "+58",
+        "Vietnam": "+84", "Yemen": "+967", "Zambia": "+260", "Zimbabwe": "+263"
+    };
+
+    const countrySelect = document.getElementById('{{ form.country.id_for_label }}');
+    const countryCodeField = document.getElementById('{{ form.country_code.id_for_label }}');
+    const whatsappField = document.getElementById('{{ form.whatsapp_contact.id_for_label }}');
+
+    // Auto-fill country code when country is selected
+    countrySelect.addEventListener('change', function () {
+        const selected = this.value;
+        if (selected && DIAL_CODES[selected]) {
+            countryCodeField.value = DIAL_CODES[selected];
+        } else {
+            countryCodeField.value = '';
+        }
+    });
+
+    // Prevent duplicate + signs in WhatsApp field as user types
+    whatsappField.addEventListener('input', function () {
+        if (this.value.startsWith('+')) {
+            this.value = '+' + this.value.slice(1).replace(/\+/g, '');
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,717 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Join SK Brand Links — Contact Base{% endblock %}
+
+{% block extra_css %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --blue-900:#0C1F3F;--blue-800:#0F2D5A;--blue-700:#1A4080;
+    --blue-500:#1E6FD9;--blue-400:#38B6FF;--blue-300:#7DD3FC;
+    --blue-100:#DBEAFE;--blue-50:#EFF6FF;--white:#FFFFFF;
+    --gray-50:#F8FAFC;--gray-200:#E2E8F0;--gray-400:#94A3B8;--gray-600:#475569;
+    --shadow-sm:0 1px 3px rgba(12,31,63,0.08),0 1px 2px rgba(12,31,63,0.06);
+    --shadow-md:0 4px 16px rgba(12,31,63,0.10),0 2px 6px rgba(12,31,63,0.06);
+    --shadow-lg:0 12px 40px rgba(12,31,63,0.14),0 4px 12px rgba(12,31,63,0.08);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--blue-900);min-height:100vh;-webkit-font-smoothing:antialiased;}
+  body>nav.navbar{display:none;}
+  body>main.container-fluid{padding:0!important;}
+  body>footer.footer{display:none;}
+
+  /* NAV */
+  .sk-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--blue-100);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);animation:navSlide 0.5s ease both;}
+  @keyframes navSlide{from{opacity:0;transform:translateY(-100%);}to{opacity:1;transform:translateY(0);}}
+  .sk-nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .sk-nav-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--blue-700),var(--blue-500));border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#fff;box-shadow:0 3px 10px rgba(30,111,217,0.28);}
+  .sk-nav-name{font-size:15px;font-weight:600;color:var(--blue-900);letter-spacing:-0.01em;}
+
+  /* right-side nav group */
+  .sk-nav-right{display:flex;align-items:center;gap:12px;}
+
+  .sk-nav-pill{display:flex;align-items:center;gap:8px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--blue-700);}
+  .sk-nav-pill .live-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:livePulse 2s ease-in-out infinite;}
+  @keyframes livePulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+
+  /* ── ADMIN DASHBOARD BUTTON ── */
+  .sk-nav-dashboard{
+    display:inline-flex;align-items:center;gap:7px;
+    background:linear-gradient(135deg,var(--blue-400),var(--blue-500));
+    color:#fff!important;border-radius:8px;
+    padding:8px 16px;font-size:13px;font-weight:600;
+    text-decoration:none!important;letter-spacing:-0.01em;
+    transition:all 0.2s;
+    box-shadow:0 4px 14px rgba(30,111,217,0.28);
+    white-space:nowrap;
+  }
+  .sk-nav-dashboard:hover{
+    background:linear-gradient(135deg,var(--blue-500),var(--blue-700));
+    transform:translateY(-1px);
+    box-shadow:0 6px 20px rgba(30,111,217,0.42);
+  }
+  .sk-nav-dashboard i{font-size:12px;}
+  /* On very small screens: icon only, hide label text */
+  @media(max-width:480px){
+    .sk-nav-dashboard .db-label{display:none;}
+    .sk-nav-dashboard{padding:8px 11px;}
+    .sk-nav-pill{display:none;}  /* hide pill on tiny screens to save space */
+  }
+  @media(max-width:768px){
+    .sk-nav{padding:0 20px;}
+  }
+
+  /* HERO GRID */
+  .sk-hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px;}
+
+  /* LEFT PANEL */
+  .hero-content{
+    padding:80px 64px;
+    display:flex;flex-direction:column;justify-content:center;
+    position:relative;overflow:hidden;
+    background-image:url("{% static 'images/landing-5.png' %}");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+  }
+  .hero-content::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(12,31,63,0.76) 0%,rgba(12,31,63,0.58) 55%,rgba(15,45,90,0.52) 100%);
+    z-index:0;pointer-events:none;
+  }
+  .hero-content::after{
+    content:'';position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:130%;height:130%;
+    background:radial-gradient(ellipse at center,rgba(56,182,255,0.20) 0%,rgba(30,111,217,0.10) 38%,transparent 68%);
+    z-index:0;pointer-events:none;
+    animation:heroGlow 4s ease-in-out infinite;
+  }
+  @keyframes heroGlow{
+    0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1);}
+    50%{opacity:0.6;transform:translate(-50%,-50%) scale(1.10);}
+  }
+  .hero-content>*{position:relative;z-index:1;}
+
+  .hero-content-divider{display:none;}
+
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.13);border:1px solid rgba(255,255,255,0.30);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:600;color:#fff;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:36px;width:fit-content;animation:fadeUp 0.6s 0.1s ease both;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+  .hero-tag-bar{width:20px;height:2px;background:var(--blue-300);border-radius:1px;}
+  .hero-headline{font-family:'Playfair Display',serif;font-size:clamp(40px,4.2vw,64px);font-weight:800;line-height:1.06;letter-spacing:-0.025em;color:#fff;margin-bottom:28px;animation:fadeUp 0.6s 0.2s ease both;text-shadow:0 2px 24px rgba(0,0,0,0.35);}
+  .hero-headline .hl{color:var(--blue-300);position:relative;}
+  .hero-headline .hl::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue-300),var(--blue-400));border-radius:2px;opacity:0.55;}
+  .hero-sub{font-size:17px;line-height:1.75;color:rgba(255,255,255,0.83);font-weight:300;max-width:420px;margin-bottom:52px;animation:fadeUp 0.6s 0.3s ease both;text-shadow:0 1px 8px rgba(0,0,0,0.2);}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,0.20);border-radius:14px;overflow:hidden;background:rgba(255,255,255,0.11);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 32px rgba(0,0,0,0.28),0 0 0 1px rgba(56,182,255,0.18);animation:fadeUp 0.6s 0.4s ease both;}
+  .hstat{padding:22px 20px;text-align:center;border-right:1px solid rgba(255,255,255,0.13);transition:background 0.2s;}
+  .hstat:last-child{border-right:none;}
+  .hstat:hover{background:rgba(255,255,255,0.15);}
+  .hstat-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;line-height:1;margin-bottom:5px;text-shadow:0 0 22px rgba(56,182,255,0.55);}
+  .hstat-label{font-size:11px;font-weight:500;color:rgba(255,255,255,0.62);letter-spacing:0.06em;text-transform:uppercase;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+  /* RIGHT — form */
+  .hero-form{background:var(--blue-900);padding:64px 52px;display:flex;flex-direction:column;justify-content:flex-start;overflow-y:auto;position:relative;}
+  .hero-form::before{content:'';position:absolute;top:-150px;right:-150px;width:450px;height:450px;background:radial-gradient(circle,rgba(56,182,255,0.07) 0%,transparent 65%);pointer-events:none;}
+  .hero-form::after{content:'';position:absolute;bottom:-100px;left:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(30,111,217,0.1) 0%,transparent 65%);pointer-events:none;}
+  .form-head{margin-bottom:32px;position:relative;z-index:1;animation:fadeUp 0.5s 0.15s ease both;}
+  .form-head-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:6px;}
+  .form-head-sub{font-size:13px;color:rgba(255,255,255,0.38);font-weight:300;}
+  .form-head-sub em{color:var(--blue-300);font-style:normal;}
+  .fsec{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-300);margin:24px 0 12px;display:flex;align-items:center;gap:10px;position:relative;z-index:1;}
+  .fsec::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.07);}
+  .fg{display:grid;gap:10px;position:relative;z-index:1;}
+  .fg2{grid-template-columns:1fr 1fr;}
+  .fg3{grid-template-columns:1fr 1fr 1fr;}
+  .fw{display:flex;flex-direction:column;gap:5px;}
+  .fl{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.42);}
+  .fl .r{color:var(--blue-300);margin-left:2px;}
+  .fw input,.fw select,.fw textarea{background:rgba(255,255,255,0.05)!important;border:1px solid rgba(255,255,255,0.09)!important;border-radius:8px!important;color:#fff!important;padding:10px 12px!important;font-size:13px!important;font-family:'DM Sans',sans-serif!important;width:100%!important;outline:none!important;-webkit-appearance:none!important;appearance:none!important;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s!important;}
+  .fw input::placeholder{color:rgba(255,255,255,0.2)!important;}
+  .fw input:hover,.fw select:hover{border-color:rgba(56,182,255,0.3)!important;background:rgba(255,255,255,0.08)!important;}
+  .fw input:focus,.fw select:focus,.fw textarea:focus{border-color:var(--blue-400)!important;background:rgba(56,182,255,0.07)!important;box-shadow:0 0 0 3px rgba(56,182,255,0.1)!important;}
+  .fw select option{background:#0F2D5A;color:#fff;}
+  .fw-hint{font-size:10px;color:rgba(255,255,255,0.22);margin-top:2px;}
+  .fw-error{font-size:11px;color:#FCA5A5;}
+  .fphone{position:relative;}
+  .fphone-code{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:var(--blue-300);pointer-events:none;z-index:2;}
+  .fphone input{padding-left:44px!important;}
+  .f-btn{width:100%;background:linear-gradient(135deg,var(--blue-400) 0%,var(--blue-500) 100%);color:#fff;border:none;border-radius:10px;padding:14px 24px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:9px;position:relative;z-index:1;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 18px rgba(56,182,255,0.28);}
+  .f-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.1) 0%,transparent 60%);pointer-events:none;}
+  .f-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(56,182,255,0.42);}
+  .f-btn:active{transform:scale(0.98);}
+  .f-btn.loading .f-btn-label{opacity:0;}
+  .f-btn.loading::after{content:'';position:absolute;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .f-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.22);margin-top:12px;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:5px;}
+
+  /* IMAGE GALLERY */
+  .ig-section-label{background:var(--blue-900);padding:36px 64px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .ig-section-label-left{display:flex;align-items:center;gap:14px;}
+  .ig-section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(56,182,255,0.1);border:1px solid rgba(56,182,255,0.2);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--blue-300);letter-spacing:0.08em;text-transform:uppercase;}
+  .ig-section-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;}
+  .ig-section-sub{font-size:13px;color:rgba(255,255,255,0.4);font-weight:300;}
+  .img-gallery{position:relative;width:100%;height:520px;overflow:hidden;background:var(--blue-900);}
+  .ig-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease,transform 8s ease;transform:scale(1.06);}
+  .ig-slide.active{opacity:1;transform:scale(1);z-index:1;}
+  .ig-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+  .ig-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(12,31,63,0.72) 0%,transparent 45%),linear-gradient(to bottom,rgba(12,31,63,0.3) 0%,transparent 30%);z-index:2;}
+  .ig-caption{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:32px 64px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;}
+  .ig-caption-left{opacity:0;transform:translateY(14px);transition:opacity 0.6s 0.3s ease,transform 0.6s 0.3s ease;}
+  .ig-slide.active .ig-caption-left{opacity:1;transform:translateY(0);}
+  .ig-label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-300);margin-bottom:6px;}
+  .ig-title{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,30px);font-weight:700;color:#fff;line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,0.4);}
+  .ig-counter{font-size:13px;font-weight:600;color:rgba(255,255,255,0.55);flex-shrink:0;opacity:0;transition:opacity 0.6s 0.3s ease;}
+  .ig-slide.active .ig-counter{opacity:1;}
+  .ig-counter span{color:#fff;font-size:18px;}
+  .ig-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:8px;align-items:center;}
+  .ig-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);border:none;cursor:pointer;padding:0;transition:all 0.35s;}
+  .ig-dot.active{background:#fff;width:28px;border-radius:4px;}
+  .ig-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(8px);border-radius:50%;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.25s;}
+  .ig-arrow:hover{background:var(--blue-500);border-color:var(--blue-500);transform:translateY(-50%) scale(1.08);}
+  .ig-arrow.prev{left:28px;}
+  .ig-arrow.next{right:28px;}
+  .ig-progress{position:absolute;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue-400),var(--blue-300));z-index:10;width:0%;transition:width linear;}
+
+  /* FEATURES SLIDESHOW */
+  .slideshow-section{background:var(--white);padding:72px 64px;overflow:hidden;}
+  .slideshow-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;flex-wrap:wrap;gap:20px;}
+  .ss-dots{display:flex;gap:8px;align-items:center;padding-bottom:4px;}
+  .ss-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-100);cursor:pointer;transition:all 0.3s;border:none;padding:0;}
+  .ss-dot.active{background:var(--blue-500);width:24px;border-radius:4px;}
+  .slideshow-track-wrap{overflow:hidden;position:relative;}
+  .slideshow-track{display:flex;gap:20px;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
+  .ss-card{flex:0 0 calc(33.333% - 14px);background:var(--gray-50);border:1px solid var(--blue-100);border-radius:16px;padding:36px 32px;position:relative;overflow:hidden;transition:all 0.3s;}
+  .ss-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-400),var(--blue-500));opacity:0;transition:opacity 0.3s;}
+  .ss-card:hover{border-color:var(--blue-300);box-shadow:var(--shadow-md);transform:translateY(-4px);background:var(--white);}
+  .ss-card:hover::before{opacity:1;}
+  .ss-card-ico{width:52px;height:52px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--blue-500);margin-bottom:22px;transition:all 0.3s;}
+  .ss-card:hover .ss-card-ico{background:var(--blue-500);color:#fff;border-color:var(--blue-500);box-shadow:0 6px 18px rgba(30,111,217,0.3);}
+  .ss-card-tag{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-400);margin-bottom:8px;}
+  .ss-card-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--blue-900);margin-bottom:12px;line-height:1.2;}
+  .ss-card-desc{font-size:14px;color:var(--gray-600);line-height:1.7;font-weight:300;}
+  .ss-card-benefit{margin-top:20px;padding-top:16px;border-top:1px solid var(--blue-100);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--blue-500);}
+  .ss-card-benefit i{font-size:12px;}
+  .ss-nav-btns{display:flex;gap:8px;}
+  .ss-btn{width:38px;height:38px;background:var(--white);border:1px solid var(--blue-100);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--blue-500);cursor:pointer;transition:all 0.2s;}
+  .ss-btn:hover{background:var(--blue-500);border-color:var(--blue-500);color:#fff;}
+
+  /* TRUST STRIP */
+  .trust-strip{background:var(--gray-50);border-top:1px solid var(--blue-100);border-bottom:1px solid var(--blue-100);padding:22px 64px;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+  .ti{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:var(--gray-600);}
+  .ti i{font-size:15px;color:var(--blue-500);}
+
+  /* HOW IT WORKS */
+  .how-section{padding:96px 64px;background:var(--white);}
+  .stag{display:inline-flex;align-items:center;gap:8px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--blue-500);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px;}
+  .stitle{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--blue-900);letter-spacing:-0.02em;margin-bottom:14px;line-height:1.1;}
+  .ssub{font-size:16px;color:var(--gray-600);font-weight:300;line-height:1.7;max-width:500px;margin-bottom:56px;}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--blue-100);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-md);}
+  .step{background:var(--white);padding:40px 32px;transition:background 0.25s;position:relative;}
+  .step:hover{background:#C8E6FA;}
+  .step-n{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--blue-100);line-height:1;margin-bottom:18px;transition:color 0.25s;}
+  .step:hover .step-n{color:var(--blue-500);}
+  .step-ico{width:42px;height:42px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--blue-500);margin-bottom:18px;transition:all 0.25s;}
+  .step:hover .step-ico{background:var(--blue-500);color:#fff;border-color:var(--blue-500);box-shadow:0 4px 14px rgba(30,111,217,0.35);}
+  .step-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--blue-900);margin-bottom:10px;transition:color 0.25s;}
+  .step:hover .step-t{color:var(--blue-800);}
+  .step-d{font-size:14px;color:var(--gray-600);line-height:1.65;font-weight:300;transition:color 0.25s;}
+  .step:hover .step-d{color:var(--blue-800);}
+
+  /* CATEGORIES */
+  .cats-section{background:var(--blue-900);padding:96px 64px;position:relative;overflow:hidden;}
+  .cats-section::before{content:'';position:absolute;top:-180px;right:-180px;width:550px;height:550px;background:radial-gradient(circle,rgba(56,182,255,0.05) 0%,transparent 65%);pointer-events:none;}
+  .cats-section .stag{background:rgba(56,182,255,0.08);border-color:rgba(56,182,255,0.18);color:var(--blue-300);}
+  .cats-section .stitle{color:#fff;}
+  .cats-section .ssub{color:rgba(255,255,255,0.45);}
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1;}
+  .cat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px;display:flex;align-items:center;gap:12px;transition:all 0.22s;}
+  .cat:hover{background:rgba(56,182,255,0.09);border-color:rgba(56,182,255,0.25);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.25);}
+  .cat-ico{width:34px;height:34px;background:rgba(56,182,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--blue-300);flex-shrink:0;transition:all 0.22s;}
+  .cat:hover .cat-ico{background:var(--blue-500);color:#fff;}
+  .cat-name{font-size:14px;font-weight:500;color:rgba(255,255,255,0.78);}
+
+  /* FOOTER CTA */
+  .fcta{background:var(--white);padding:80px 64px;text-align:center;border-top:1px solid var(--blue-100);}
+  .fcta .stag{margin:0 auto 18px;}
+  .fcta .ssub{margin:0 auto 36px;text-align:center;}
+  .cta-link{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--blue-500),var(--blue-700));color:#fff;border:none;border-radius:10px;padding:14px 34px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 18px rgba(30,111,217,0.3);}
+  .cta-link:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(30,111,217,0.42);color:#fff;text-decoration:none;}
+
+  /* PAGE FOOTER */
+  .pg-footer{background:var(--blue-900);padding:24px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .pg-footer-brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.5);}
+  .pg-footer-ico{width:26px;height:26px;background:linear-gradient(135deg,var(--blue-500),var(--blue-400));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;font-family:'Playfair Display',serif;}
+  .pg-footer-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+
+  /* RESPONSIVE */
+  @media(max-width:960px){
+    .sk-hero{grid-template-columns:1fr;}
+    .hero-content{padding:48px 32px;}
+    .hero-form{padding:48px 32px;}
+    .steps{grid-template-columns:1fr;}
+    .cats{grid-template-columns:1fr 1fr;}
+    .how-section,.cats-section,.fcta{padding:64px 32px;}
+    .slideshow-section{padding:56px 32px;}
+    .ss-card{flex:0 0 calc(50% - 10px);}
+    .trust-strip{padding:20px 32px;gap:24px;}
+    .pg-footer{padding:22px 32px;}
+    .fg3{grid-template-columns:1fr 1fr;}
+    .img-gallery{height:420px;}
+    .ig-section-label{padding:28px 32px 0;}
+    .ig-caption{padding:24px 32px;}
+    .ig-arrow.prev{left:14px;}
+    .ig-arrow.next{right:14px;}
+  }
+  @media(max-width:560px){
+    .sk-nav{padding:0 20px;}
+    .hero-content{padding:40px 20px;}
+    .hero-form{padding:36px 20px;}
+    .fg2,.fg3{grid-template-columns:1fr;}
+    .cats{grid-template-columns:1fr;}
+    .ss-card{flex:0 0 100%;}
+    .slideshow-section{padding:48px 20px;}
+    .hero-stats{grid-template-columns:1fr 1fr;}
+    .hstat:nth-child(2){border-right:none;}
+    .hstat:nth-child(1),.hstat:nth-child(2){border-bottom:1px solid rgba(255,255,255,0.12);}
+    .img-gallery{height:320px;}
+    .ig-section-label{padding:24px 20px 0;flex-direction:column;align-items:flex-start;}
+    .ig-caption{padding:20px;}
+    .ig-title{font-size:18px;}
+    .ig-arrow{display:none;}
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+<nav class="sk-nav">
+  <a class="sk-nav-brand" href="#">
+    <img class="sk-nav-logo" src="{% static 'images/logo.png' %}" alt="SK Brand Links">
+    <span class="sk-nav-name">SK Brand Links</span>
+  </a>
+
+  <div class="sk-nav-right">
+    <div class="sk-nav-pill">
+      <span class="live-dot"></span>
+      {{ total_contacts }} contacts registered
+    </div>
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}" class="sk-nav-dashboard">
+        <i class="fas fa-chart-line"></i>
+        <span class="db-label">Dashboard</span>
+      </a>
+    {% else %}
+      <a href="{% url 'login' %}" class="sk-nav-dashboard">
+        <i class="fas fa-lock"></i>
+        <span class="db-label">Admin</span>
+      </a>
+    {% endif %}
+  </div>
+</nav>
+
+<section class="sk-hero">
+
+  <div class="hero-content">
+    <div class="hero-content-divider"></div>
+
+    <div class="hero-tag">
+      <div class="hero-tag-bar"></div>
+      Professional Contact Network
+    </div>
+
+    <h1 class="hero-headline">
+      Get Into<br>
+      The <span class="hl">Right</span><br>
+      Hands.
+    </h1>
+
+    <p class="hero-sub">
+      SK Brand Links connects creators, influencers, brand owners and talent with the right opportunities. Register your details and we'll reach out directly on WhatsApp.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">{{ total_contacts }}+</div>
+        <div class="hstat-label">Registered</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">7</div>
+        <div class="hstat-label">Categories</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">6</div>
+        <div class="hstat-label">Platforms</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-form">
+    <div class="form-head">
+      <h2 class="form-head-title">Join the Network</h2>
+      <p class="form-head-sub">Fields marked <em>*</em> are required</p>
+    </div>
+
+    <form method="post" novalidate id="joinForm">
+      {% csrf_token %}
+
+      <p class="fsec">Personal Details</p>
+      <div class="fg fg2">
+        <div class="fw">
+          <label class="fl">First Name <span class="r">*</span></label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}<p class="fw-error">{{ form.first_name.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="fw">
+          <label class="fl">Surname <span class="r">*</span></label>
+          {{ form.surname }}
+          {% if form.surname.errors %}<p class="fw-error">{{ form.surname.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+
+      <div class="fg fg2" style="margin-top:10px">
+        <div class="fw">
+          <label class="fl">Email</label>
+          {{ form.email }}
+          {% if form.email.errors %}<p class="fw-error">{{ form.email.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="fw">
+          <label class="fl">WhatsApp <span class="r">*</span></label>
+          <div class="fphone">
+            <span class="fphone-code" id="code-badge">+</span>
+            {{ form.whatsapp_contact }}
+          </div>
+          <p class="fw-hint">Include country code e.g. +233...</p>
+          {% if form.whatsapp_contact.errors %}<p class="fw-error">{{ form.whatsapp_contact.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+
+      <p class="fsec">Profile</p>
+      <div class="fg fg3">
+        <div class="fw">
+          <label class="fl">Category <span class="r">*</span></label>
+          {{ form.category }}
+          {% if form.category.errors %}<p class="fw-error">{{ form.category.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="fw">
+          <label class="fl">Age Range <span class="r">*</span></label>
+          {{ form.age_category }}
+          {% if form.age_category.errors %}<p class="fw-error">{{ form.age_category.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="fw">
+          <label class="fl">Country <span class="r">*</span></label>
+          {{ form.country }}
+          {% if form.country.errors %}<p class="fw-error">{{ form.country.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+
+      <p class="fsec">Social Media</p>
+      <div class="fg fg3">
+        <div class="fw">
+          <label class="fl">Platform <span class="r">*</span></label>
+          {{ form.social_media_platform }}
+          {% if form.social_media_platform.errors %}<p class="fw-error">{{ form.social_media_platform.errors.0 }}</p>{% endif %}
+        </div>
+        <div class="fw">
+          <label class="fl">Handle</label>
+          {{ form.social_media_handle }}
+        </div>
+        <div class="fw">
+          <label class="fl">Followers <span class="r">*</span></label>
+          {{ form.followers_count }}
+          {% if form.followers_count.errors %}<p class="fw-error">{{ form.followers_count.errors.0 }}</p>{% endif %}
+        </div>
+      </div>
+
+      <div class="fg fg2" style="margin-top:10px">
+        <div class="fw">
+          <label class="fl">School / University</label>
+          {{ form.school }}
+        </div>
+        <div class="fw">
+          <label class="fl">Level / Year</label>
+          {{ form.level }}
+        </div>
+      </div>
+
+      <button type="submit" class="f-btn" id="submitBtn">
+        <span class="f-btn-label">
+          <i class="fas fa-arrow-right"></i>
+          Submit My Details
+        </span>
+      </button>
+      <p class="f-note"><i class="fas fa-lock"></i> Your information is private and secure</p>
+    </form>
+  </div>
+</section>
+
+<!-- IMAGE GALLERY -->
+<div class="ig-section-label">
+  <div class="ig-section-label-left">
+    <div class="ig-section-tag"><i class="fas fa-images"></i> SK Brand Gallery</div>
+    <div>
+      <div class="ig-section-title">Inside the Network</div>
+      <div class="ig-section-sub">A glimpse of the SK Brand Links community</div>
+    </div>
+  </div>
+</div>
+
+<div class="img-gallery" id="imgGallery">
+  <div class="ig-progress" id="igProgress"></div>
+  <div class="ig-slide active">
+    <img src="{% static 'images/landing-1.png' %}" alt="SK Brand Gallery 1">
+    <div class="ig-caption"><div class="ig-caption-left"><div class="ig-label">SK Brand Links</div><div class="ig-title">Where Creators Meet<br>Opportunity</div></div><div class="ig-counter"><span>01</span> / 04</div></div>
+  </div>
+  <div class="ig-slide">
+    <img src="{% static 'images/landing-2.png' %}" alt="SK Brand Gallery 2">
+    <div class="ig-caption"><div class="ig-caption-left"><div class="ig-label">Community</div><div class="ig-title">Influencers, Talent &<br>Brand Owners</div></div><div class="ig-counter"><span>02</span> / 04</div></div>
+  </div>
+  <div class="ig-slide">
+    <img src="{% static 'images/landing-3.png' %}" alt="SK Brand Gallery 3">
+    <div class="ig-caption"><div class="ig-caption-left"><div class="ig-label">Campaigns</div><div class="ig-title">Targeted. Direct.<br>Impactful.</div></div><div class="ig-counter"><span>03</span> / 04</div></div>
+  </div>
+  <div class="ig-slide">
+    <img src="{% static 'images/landing-4.png' %}" alt="SK Brand Gallery 4">
+    <div class="ig-caption"><div class="ig-caption-left"><div class="ig-label">Growth</div><div class="ig-title">Register Today &<br>Get Noticed.</div></div><div class="ig-counter"><span>04</span> / 04</div></div>
+  </div>
+  <button class="ig-arrow prev" id="igPrev"><i class="fas fa-arrow-left"></i></button>
+  <button class="ig-arrow next" id="igNext"><i class="fas fa-arrow-right"></i></button>
+  <div class="ig-dots" id="igDots">
+    <button class="ig-dot active" data-idx="0"></button>
+    <button class="ig-dot" data-idx="1"></button>
+    <button class="ig-dot" data-idx="2"></button>
+    <button class="ig-dot" data-idx="3"></button>
+  </div>
+</div>
+
+<!-- FEATURES SLIDESHOW -->
+<section class="slideshow-section">
+  <div class="slideshow-header">
+    <div class="slideshow-header-left">
+      <div class="stag">What We Offer</div>
+      <h2 class="stitle">Core Functions & Benefits</h2>
+      <p class="ssub" style="margin-bottom:0;max-width:480px;">Everything SK Brand Links does to help you grow, connect and get noticed by the right people.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+      <div class="ss-nav-btns">
+        <button class="ss-btn" id="ssPrev"><i class="fas fa-arrow-left"></i></button>
+        <button class="ss-btn" id="ssNext"><i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div class="ss-dots" id="ssDots"></div>
+    </div>
+  </div>
+  <div class="slideshow-track-wrap">
+    <div class="slideshow-track" id="ssTrack">
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-address-book"></i></div><div class="ss-card-tag">Core Function</div><div class="ss-card-title">Centralised Contact Management</div><p class="ss-card-desc">Every contact — creator, influencer or brand owner — is stored, organised and searchable in one professional system.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Instant access to your entire network</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-bullseye"></i></div><div class="ss-card-tag">Core Function</div><div class="ss-card-title">Category-Based Campaigns</div><p class="ss-card-desc">Campaigns are targeted by category — Face Card, Curvy, Brand Owner and more — so only the right people are contacted.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Relevant outreach, zero noise</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fab fa-whatsapp"></i></div><div class="ss-card-tag">Automation</div><div class="ss-card-title">Instant WhatsApp Messaging</div><p class="ss-card-desc">The moment someone registers, they receive a personalised WhatsApp message with their contact number and brand details.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Real-time engagement from day one</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-file-excel"></i></div><div class="ss-card-tag">Data Export</div><div class="ss-card-title">Excel & CSV Export</div><p class="ss-card-desc">Download your full contact database in Excel or CSV format at any time — filtered by country, category or social platform.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Your data, always in your hands</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-globe"></i></div><div class="ss-card-tag">Reach</div><div class="ss-card-title">Multi-Country Coverage</div><p class="ss-card-desc">Register contacts from any country. Country codes are automatically detected and stored alongside each contact record.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Build a truly global network</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-chart-bar"></i></div><div class="ss-card-tag">Analytics</div><div class="ss-card-title">Live Dashboard & Stats</div><p class="ss-card-desc">Track total contacts, daily registrations, country breakdowns and social media platform stats from a clean admin dashboard.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Decisions backed by real data</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-shield-alt"></i></div><div class="ss-card-tag">Trust & Security</div><div class="ss-card-title">Private & Duplicate-Free</div><p class="ss-card-desc">Duplicate emails and numbers are blocked. All data is stored securely and only accessible to authorised admins.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Clean, trustworthy data always</div></div>
+      <div class="ss-card"><div class="ss-card-ico"><i class="fas fa-id-badge"></i></div><div class="ss-card-tag">Client Benefit</div><div class="ss-card-title">Your Unique Contact Number</div><p class="ss-card-desc">Every person who registers receives a unique contact number — so they always know their position in the SK Brand Links network.</p><div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Personal, trackable identity</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="ti"><i class="fas fa-shield-alt"></i> Data is Private & Secure</div>
+  <div class="ti"><i class="fab fa-whatsapp"></i> WhatsApp Confirmation Sent</div>
+  <div class="ti"><i class="fas fa-globe"></i> Open to All Countries</div>
+  <div class="ti"><i class="fas fa-bolt"></i> Instant Registration</div>
+</div>
+
+<section class="how-section">
+  <div class="stag">How It Works</div>
+  <h2 class="stitle">Three Simple Steps</h2>
+  <p class="ssub">Getting into the SK Brand Links network is fast and straightforward. No account needed, no login required.</p>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><div class="step-ico"><i class="fas fa-pen"></i></div><div class="step-t">Fill Your Details</div><p class="step-d">Complete the registration form with your personal information, social media profile and category.</p></div>
+    <div class="step"><div class="step-n">02</div><div class="step-ico"><i class="fab fa-whatsapp"></i></div><div class="step-t">Get Your Number</div><p class="step-d">Receive your unique contact number and a brand message on WhatsApp immediately after registration.</p></div>
+    <div class="step"><div class="step-n">03</div><div class="step-ico"><i class="fas fa-bullhorn"></i></div><div class="step-t">Join Campaigns</div><p class="step-d">We reach out directly with targeted campaigns matched to your category, country and audience size.</p></div>
+  </div>
+</section>
+
+<section class="cats-section">
+  <div class="stag">Who We Work With</div>
+  <h2 class="stitle">Our Contact Categories</h2>
+  <p class="ssub">We work with a diverse range of talent across multiple categories for focused brand campaigns.</p>
+  <div class="cats">
+    <div class="cat"><div class="cat-ico"><i class="fas fa-id-card"></i></div><span class="cat-name">Face Card</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-smile"></i></div><span class="cat-name">Chubby</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-briefcase"></i></div><span class="cat-name">Brand Owner</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-female"></i></div><span class="cat-name">Slim</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-venus"></i></div><span class="cat-name">Curvy</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-circle"></i></div><span class="cat-name">Dark Skin</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-adjust"></i></div><span class="cat-name">Half Cast</span></div>
+    <div class="cat"><div class="cat-ico"><i class="fas fa-plus-circle"></i></div><span class="cat-name">More Added Regularly</span></div>
+  </div>
+</section>
+
+<section class="fcta">
+  <div class="stag" style="margin:0 auto 18px;">Ready to Join?</div>
+  <h2 class="stitle">Register Your Contact Today</h2>
+  <p class="ssub">Fill in the form above and become part of the SK Brand Links network.</p>
+  <a href="#" class="cta-link" id="scrollToForm"><i class="fas fa-arrow-up"></i> Go to Registration Form</a>
+</section>
+
+<footer class="pg-footer">
+  <div class="pg-footer-brand">
+    <img src="{% static 'images/logo.png' %}" alt="SK Brand Links" style="height:26px;width:auto;border-radius:6px;">
+    SK Brand Links Contact Base
+  </div>
+  <div class="pg-footer-copy">&copy; 2026 SK Brand Links. All rights reserved.</div>
+</footer>
+
+{% endblock %}
+{% block extra_js %}
+<script>
+(function () {
+
+  const waInput = document.getElementById('{{ form.whatsapp_contact.id_for_label }}');
+  const badge   = document.getElementById('code-badge');
+  const ccField = document.getElementById('{{ form.country_code.id_for_label }}');
+  if (waInput) {
+    waInput.addEventListener('input', function () {
+      const m = this.value.match(/^\+(\d{1,4})/);
+      badge.textContent = m ? '+' + m[1] : '+';
+      if (ccField) ccField.value = badge.textContent;
+    });
+  }
+
+  const form      = document.getElementById('joinForm');
+  const submitBtn = document.getElementById('submitBtn');
+  if (form && submitBtn) {
+    form.addEventListener('submit', () => {
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+    });
+  }
+
+  const scrollBtn = document.getElementById('scrollToForm');
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector('.hero-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  (function () {
+    const TOTAL = 4, INT = 5000;
+    const slides = document.querySelectorAll('.ig-slide');
+    const dots   = document.querySelectorAll('.ig-dot');
+    const prev   = document.getElementById('igPrev');
+    const next   = document.getElementById('igNext');
+    const bar    = document.getElementById('igProgress');
+    let cur = 0, timer = null;
+
+    function go(i) {
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur = (i + TOTAL) % TOTAL;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      if (bar) {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        bar.offsetWidth;
+        bar.style.transition = 'width ' + INT + 'ms linear';
+        bar.style.width = '100%';
+      }
+    }
+
+    function startAuto() { clearInterval(timer); timer = setInterval(() => go(cur + 1), INT); }
+    function reset() {
+      startAuto();
+      if (bar) {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        bar.offsetWidth;
+        bar.style.transition = 'width ' + INT + 'ms linear';
+        bar.style.width = '100%';
+      }
+    }
+
+    if (prev) prev.addEventListener('click', () => { go(cur - 1); reset(); });
+    if (next) next.addEventListener('click', () => { go(cur + 1); reset(); });
+    dots.forEach(d => d.addEventListener('click', () => { go(parseInt(d.dataset.idx)); reset(); }));
+
+    const gal = document.getElementById('imgGallery');
+    if (gal) {
+      gal.addEventListener('mouseenter', () => { clearInterval(timer); if (bar) bar.style.transition = 'none'; });
+      gal.addEventListener('mouseleave', reset);
+      let sx = 0;
+      gal.addEventListener('touchstart', e => { sx = e.changedTouches[0].clientX; }, { passive: true });
+      gal.addEventListener('touchend',   e => {
+        const d = sx - e.changedTouches[0].clientX;
+        if (Math.abs(d) > 40) { d > 0 ? go(cur + 1) : go(cur - 1); reset(); }
+      }, { passive: true });
+    }
+
+    startAuto();
+    if (bar) { bar.style.transition = 'width ' + INT + 'ms linear'; bar.style.width = '100%'; }
+  })();
+
+  (function () {
+    const track = document.getElementById('ssTrack');
+    const dw    = document.getElementById('ssDots');
+    const p     = document.getElementById('ssPrev');
+    const n     = document.getElementById('ssNext');
+    if (!track) return;
+
+    const cards = track.querySelectorAll('.ss-card');
+    const vc    = window.innerWidth < 640 ? 1 : window.innerWidth < 960 ? 2 : 3;
+    const total = Math.ceil(cards.length / vc);
+    let cur = 0, at;
+
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'ss-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goF(i));
+      dw.appendChild(dot);
+    }
+
+    function cw() {
+      const gap = 20, w = track.parentElement.offsetWidth;
+      const v = window.innerWidth < 640 ? 1 : window.innerWidth < 960 ? 2 : 3;
+      return (w - gap * (v - 1)) / v + gap;
+    }
+
+    function goF(i) {
+      cur = (i + total) % total;
+      track.style.transform = 'translateX(-' + (cur * vc * cw()) + 'px)';
+      dw.querySelectorAll('.ss-dot').forEach((d, j) => d.classList.toggle('active', j === cur));
+    }
+
+    function ra() { clearInterval(at); at = setInterval(() => goF(cur + 1), 4500); }
+    p.addEventListener('click', () => { goF(cur - 1); ra(); });
+    n.addEventListener('click', () => { goF(cur + 1); ra(); });
+    ra();
+    track.addEventListener('mouseenter', () => clearInterval(at));
+    track.addEventListener('mouseleave', ra);
+  })();
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, e.target.dataset.delay || 0);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.step, .cat, .ti').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    el.dataset.delay = (i % 4) * 80;
+    obs.observe(el);
+  });
+
+})();
+</script>
+{% endblock %}

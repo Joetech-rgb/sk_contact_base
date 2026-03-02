@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %}You're In — SK Contact Base{% endblock %}
+
+{% block extra_css %}
+<style>
+  .thankyou-wrap {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+
+    /* ── Background Image ── */
+    background-image: url("{% static 'images/thank you.png' %}");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  /* Dark overlay so the card stays readable over the image */
+  .thankyou-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 0;
+  }
+
+  .thankyou-wrap::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(56,182,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Make sure the card sits above the overlay */
+  .card-inner {
+    background: #fff;
+    border: 1px solid rgba(56,182,255,0.2);
+    border-radius: 20px;
+    padding: 56px 48px;
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    box-shadow: 0 20px 60px rgba(56,182,255,0.12);
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .card-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--sky), var(--sky-light), var(--sky));
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* ── Check circle ── */
+  .check-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 32px;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(56,182,255,0.35);
+    animation: popIn 0.4s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── Title ── */
+  .ty-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  .ty-title span {
+    color: var(--sky-dark);
+  }
+
+  .ty-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+
+  /* ── Contact Number Badge ── */
+  .contact-number-box {
+    background: var(--sky-pale);
+    border: 2px solid var(--sky);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.4s 0.5s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .contact-number-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .contact-number-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--sky-dark);
+    line-height: 1;
+  }
+
+  .contact-number-name {
+    font-size: 13px;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+
+  /* ── Divider ── */
+  .ty-divider {
+    height: 1px;
+    background: rgba(56,182,255,0.12);
+    margin: 0 0 24px;
+  }
+
+  /* ── WhatsApp notice ── */
+  .whatsapp-notice {
+    background: rgba(37,211,102,0.08);
+    border: 1px solid rgba(37,211,102,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .whatsapp-notice .wa-icon {
+    font-size: 22px;
+    color: #25D366;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .whatsapp-notice .wa-text {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  .whatsapp-notice .wa-text strong {
+    color: #128C7E;
+    display: block;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+
+  /* ── Social Links ── */
+  .social-section {
+    margin-bottom: 28px;
+    text-align: left;
+  }
+
+  .social-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .social-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .social-link-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    color: #fff;
+  }
+
+  .social-link-btn:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+
+  .social-link-btn i { font-size: 16px; }
+
+  .sl-instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+  .sl-tiktok    { background: #010101; border-color: rgba(255,255,255,0.1); }
+  .sl-facebook  { background: #1877F2; }
+  .sl-linkedin  { background: #0A66C2; }
+  .sl-snapchat  { background: #FFFC00; color: #000 !important; }
+  .sl-snapchat:hover { color: #000 !important; }
+  .sl-youtube   { background: #FF0000; }
+  .sl-whatsapp  { background: #25D366; }
+
+  /* ── Back button ── */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(56,182,255,0.3);
+  }
+
+  .back-btn:hover {
+    background: linear-gradient(135deg, var(--sky-dark), var(--sky-deep));
+    color: #fff;
+    transform: translateY(-1px);
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(56,182,255,0.4);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="thankyou-wrap">
+  <div class="card-inner">
+
+    <!-- Check Icon -->
+    <div class="check-circle">
+      <i class="fas fa-check"></i>
+    </div>
+
+    <!-- Title -->
+    <h1 class="ty-title">You're <span>In!</span></h1>
+    <p class="ty-sub">
+      Your details have been saved successfully.<br>
+      Welcome to the SK Brand community!
+    </p>
+
+    <!-- Contact Number -->
+    {% if contact_number %}
+    <div class="contact-number-box">
+      <div class="contact-number-label">Your Contact Number</div>
+      <div class="contact-number-value">#{{ contact_number }}</div>
+      {% if contact_name %}
+      <div class="contact-number-name">{{ contact_name }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="ty-divider"></div>
+
+    <!-- WhatsApp Notice -->
+    <div class="whatsapp-notice">
+      <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
+      <div class="wa-text">
+        <strong>Check your WhatsApp!</strong>
+        A brand message has been sent to you. Please save <strong>S.K. Brand Links</strong> as a contact on WhatsApp to receive future updates and campaigns.
+      </div>
+    </div>
+
+    <!-- Social Media Links -->
+    <div class="social-section">
+      <div class="social-section-title">Follow & Join SK Brand</div>
+      <div class="social-links-grid">
+        <a href="#" class="social-link-btn sl-instagram" target="_blank">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="#" class="social-link-btn sl-tiktok" target="_blank">
+          <i class="fab fa-tiktok"></i> TikTok
+        </a>
+        <a href="#" class="social-link-btn sl-facebook" target="_blank">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </a>
+        <a href="#" class="social-link-btn sl-linkedin" target="_blank">
+          <i class="fab fa-linkedin-in"></i> LinkedIn
+        </a>
+        <a href="#" class="social-link-btn sl-snapchat" target="_blank">
+          <i class="fab fa-snapchat-ghost"></i> <span style="color:#000;">Snapchat</span>
+        </a>
+        <a href="#" class="social-link-btn sl-youtube" target="_blank">
+          <i class="fab fa-youtube"></i> YouTube
+        </a>
+        <a href="#" class="social-link-btn sl-whatsapp" target="_blank" style="grid-column: span 2;">
+          <i class="fab fa-whatsapp"></i> Join SK WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="ty-divider"></div>
+
+    <!-- Back Button -->
+    <a href="{% url 'landing' %}" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      Submit Another Contact
+    </a>
+
+  </div>
+</div>
+{% endblock %}

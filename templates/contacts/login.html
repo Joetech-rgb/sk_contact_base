@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Login — SK Brand Links{% endblock %}
+
+{% block extra_css %}
+<style>
+  .login-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .login-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(56,182,255,0.15);
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid rgba(56,182,255,0.15);
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .login-logo img {
+    height: 52px;
+    width: auto;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .login-logo h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0C2340;
+    margin: 0;
+  }
+
+  .login-logo p {
+    font-size: 13px;
+    color: #7AADC8;
+    margin: 4px 0 0;
+  }
+
+  .login-card label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #3B6A9A;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .login-card input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid rgba(56,182,255,0.25);
+    border-radius: 8px;
+    font-size: 14px;
+    color: #0C2340;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 18px;
+  }
+
+  .login-card input:focus {
+    border-color: #38B6FF;
+    box-shadow: 0 0 0 3px rgba(56,182,255,0.12);
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, #38B6FF, #0EA5E9);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(56,182,255,0.3);
+    margin-top: 4px;
+  }
+
+  .login-btn:hover {
+    background: linear-gradient(135deg, #0EA5E9, #0284C7);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(56,182,255,0.4);
+  }
+
+  .login-error {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #991b1b;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <div class="login-logo">
+      <img src="{% static 'images/logo.png' %}" alt="SK Brand Links">
+      <h1>SK Brand Links</h1>
+      <p>Admin Dashboard Access</p>
+    </div>
+
+    {% if error %}
+    <div class="login-error">
+      <i class="fas fa-exclamation-circle me-1"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" autofocus>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password">
+
+      <button type="submit" class="login-btn">
+        <i class="fas fa-sign-in-alt me-2"></i> Login to Dashboard
+      </button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
