@@ -226,7 +226,7 @@ class ContactForm(forms.ModelForm):
             'whatsapp_contact': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': '+233XXXXXXXXX',
-                'autocomplete': 'tel',
+                'autocomplete': 'off',
             }),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'age_category': forms.Select(attrs={'class': 'form-control'}),
