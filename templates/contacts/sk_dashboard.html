@@ -135,7 +135,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 .ctbl thead th:last-child{border-radius:0 10px 0 0;}
 .ctbl tbody td{padding:11px 14px;border-bottom:1px solid var(--gray-50);vertical-align:middle;}
 .ctbl tbody tr:last-child td{border-bottom:none;}
-.ctbl tbody tr:hover td{background:var(--blue-50);}
+.ctbl tbody tr:hover td{background:var(--blue-50);cursor:pointer;}
 .cn-badge{display:inline-flex;align-items:center;gap:5px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;color:var(--blue-500);}
 .handle-cell{display:flex;align-items:center;gap:6px;}
 .handle-toggle{width:22px;height:22px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:9px;color:var(--blue-400);transition:all 0.2s;flex-shrink:0;border-top-style:solid;}
@@ -238,7 +238,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 .oauth-connect-btn:hover{border-color:var(--blue-300);background:var(--blue-50);color:var(--blue-700);}
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .modal-overlay.open{display:flex;}
-.modal-box{background:var(--white);border:1px solid var(--blue-100);border-radius:16px;padding:32px;width:min(520px,92vw);max-height:85vh;overflow-y:auto;position:relative;animation:mIn 0.25s ease both;box-shadow:var(--shadow-lg);}
+.modal-box{background:var(--white);border:1px solid var(--blue-100);border-radius:16px;padding:32px;width:min(600px,92vw);max-height:85vh;overflow-y:auto;position:relative;animation:mIn 0.25s ease both;box-shadow:var(--shadow-lg);}
 @keyframes mIn{from{opacity:0;transform:scale(0.95) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
 .modal-close{position:absolute;top:12px;right:12px;width:28px;height:28px;background:var(--gray-100);border:none;border-radius:50%;color:var(--gray-400);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
 .modal-close:hover{background:var(--gray-200);color:var(--gray-700);}
@@ -390,14 +390,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
           <div class="sh"><div class="sh-title">Daily Registrations</div><div class="sh-tag"><i class="fas fa-calendar"></i> Last 14 days</div><div class="sh-line"></div></div>
           <div style="border-radius:10px;overflow:hidden;border:1px solid var(--blue-100);">
             <table class="day-tbl">
-              <thead><tr><th>Date</th><th>Day</th><th style="text-align:right;">Count</th></tr></thead>
+              <thead><tr><th>Date</th><th>Day</th><th style="text-align:right;">Count</th> </thead>
               <tbody>
                 {% for row in daily_registrations %}
                 <tr>
-                  <td>{{ row.day|date:"d M" }}</td>
-                  <td style="color:var(--gray-400);font-size:11px;">{{ row.day|date:"D" }}</td>
-                  <td style="text-align:right;"><span class="count-badge {% if row.count >= 5 %}hi{% elif row.count >= 2 %}mid{% endif %}">{{ row.count }}</span></td>
-                </tr>
+                  <td>{{ row.day|date:"d M" }} </td>
+                  <td style="color:var(--gray-400);font-size:11px;">{{ row.day|date:"D" }} </td>
+                  <td style="text-align:right;"><span class="count-badge {% if row.count >= 5 %}hi{% elif row.count >= 2 %}mid{% endif %}">{{ row.count }}</span> </td>
+                 </tr>
                 {% empty %}<tr><td colspan="3" style="text-align:center;padding:20px;color:var(--gray-400);">No registrations in the last 14 days.</td></tr>{% endfor %}
               </tbody>
             </table>
@@ -406,7 +406,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
       </div>
     </div>
 
-    <!-- CONTACTS — FIXED: category.name, Actions column, delete button, colspan=11 -->
+    <!-- CONTACTS — with click handler -->
     <div class="tab-panel" id="panel-contacts">
       <div class="sh" style="margin-top:0;">
         <div class="sh-title">All Contacts</div>
@@ -415,7 +415,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <button class="sh-action sh-action-ghost"><i class="fas fa-filter"></i> Filter</button>
         <button class="sh-action sh-action-primary" onclick="setTab('download')"><i class="fas fa-download"></i> Export</button>
       </div>
-      <p style="font-size:12px;color:var(--gray-400);margin-bottom:14px;">Click <i class="fas fa-external-link-alt" style="color:var(--blue-400);"></i> next to any handle to open their profile directly.</p>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:14px;">Click <i class="fas fa-external-link-alt" style="color:var(--blue-400);"></i> next to any handle to open their profile directly. <strong>Click any row to view full details.</strong></p>
       <div class="tbl-wrap">
         <table class="ctbl">
           <thead>
@@ -423,39 +423,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
               <th>#</th><th>Name</th><th>Country</th><th>WhatsApp</th><th>Platform</th>
               <th>Handle</th><th>Followers</th><th>Category</th><th>Age</th>
               <th>Registered</th><th>Actions</th>
-            </tr>
+             </tr>
           </thead>
           <tbody id="contactsTbody">
             {% for contact in contacts %}
-            <tr>
-              <td><span class="cn-badge">{{ forloop.counter }}</span></td>
-              <td style="font-weight:600;color:var(--blue-900);">{{ contact.full_name }}</td>
-              <td><div class="cc-cell"><span class="cc-code">{{ contact.country_code }}</span><span class="cc-name">{{ contact.country }}</span></div></td>
-              <td><a href="{{ contact.whatsapp_chat_url }}" target="_blank" style="color:var(--blue-500);font-weight:600;font-size:12px;text-decoration:none;">{{ contact.full_whatsapp }}</a></td>
+            <tr onclick="showContactDetail({{ contact.pk }})" style="cursor:pointer;">
+              <td><span class="cn-badge">{{ forloop.counter }}</span> </td>
+              <td style="font-weight:600;color:var(--blue-900);">{{ contact.full_name }} </td>
+              <td><div class="cc-cell"><span class="cc-code">{{ contact.country_code }}</span><span class="cc-name">{{ contact.country }}</span></div> </td>
+              <td><a href="{{ contact.whatsapp_chat_url }}" target="_blank" style="color:var(--blue-500);font-weight:600;font-size:12px;text-decoration:none;">{{ contact.full_whatsapp }}</a> </td>
               <td>
                 <div class="plat-cell">
                   <div class="plat-ico plat-{{ contact.platform|lower }}"><i class="fab fa-{{ contact.platform|lower }}"></i></div>
                   <span style="font-size:12px;font-weight:500;color:var(--gray-700);">{{ contact.platform|title }}</span>
                 </div>
-              </td>
+               </td>
               <td>
                 <div class="handle-cell">
                   {% if contact.platform_profile_url %}
-                  <button class="handle-toggle" onclick="window.open('{{ contact.platform_profile_url }}','_blank')" title="Open profile"><i class="fas fa-external-link-alt"></i></button>
+                  <button class="handle-toggle" onclick="event.stopPropagation(); window.open('{{ contact.platform_profile_url }}','_blank')" title="Open profile"><i class="fas fa-external-link-alt"></i></button>
                   {% endif %}
                   <span class="handle-val">@{{ contact.handle_clean }}</span>
                 </div>
-              </td>
-              <td style="font-size:12px;color:var(--gray-600);">{{ contact.get_follower_range_display|default:"&mdash;" }}</td>
-              <td><span class="sbadge sbadge-gray">{{ contact.category.name|default:"&mdash;" }}</span></td>
-              <td style="font-size:12px;color:var(--gray-600);">{{ contact.age_range|default:"&mdash;" }}</td>
-              <td style="font-size:11px;color:var(--gray-400);">{{ contact.date_added|date:"M d, Y" }}</td>
+               </td>
+              <td style="font-size:12px;color:var(--gray-600);">{{ contact.get_follower_range_display|default:"&mdash;" }} </td>
+              <td><span class="sbadge sbadge-gray">{{ contact.category.name|default:"&mdash;" }}</span> </td>
+              <td style="font-size:12px;color:var(--gray-600);">{{ contact.age_range|default:"&mdash;" }} </td>
+              <td style="font-size:11px;color:var(--gray-400);">{{ contact.date_added|date:"M d, Y" }} </td>
               <td>
-                <form method="post" action="{% url 'contact-delete' contact.pk %}" style="display:inline;" onsubmit="return confirm('Delete {{ contact.full_name|escapejs }}? This cannot be undone.')">
+                <form method="post" action="{% url 'contact-delete' contact.pk %}" style="display:inline;" onsubmit="event.stopPropagation(); return confirm('Delete {{ contact.full_name|escapejs }}? This cannot be undone.')">
                   {% csrf_token %}
-                  <button type="submit" class="cat-del" title="Delete contact"><i class="fas fa-trash"></i></button>
+                  <button type="submit" class="cat-del" title="Delete contact" onclick="event.stopPropagation();"><i class="fas fa-trash"></i></button>
                 </form>
-              </td>
+               </td>
             </tr>
             {% empty %}
             <tr><td colspan="11" style="text-align:center;padding:30px;color:var(--gray-400);"><i class="fas fa-users" style="font-size:24px;margin-bottom:8px;display:block;"></i>No contacts registered yet.</td></tr>
@@ -580,7 +580,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
   </footer>
 </div>
 
-<!-- MODALS -->
+<!-- ADD CATEGORY MODAL -->
 <div class="modal-overlay" id="addCatModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('addCatModal')"><i class="fas fa-times"></i></button>
@@ -594,6 +594,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
     </form>
   </div>
 </div>
+
+<!-- ADD SECTION MODAL -->
 <div class="modal-overlay" id="addSectionModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('addSectionModal')"><i class="fas fa-times"></i></button>
@@ -604,6 +606,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
     <button class="modal-save" onclick="addSection()"><i class="fas fa-layer-group"></i> Add Section</button>
   </div>
 </div>
+
+<!-- ADD FIELD MODAL -->
 <div class="modal-overlay" id="addFieldModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('addFieldModal')"><i class="fas fa-times"></i></button>
@@ -614,6 +618,66 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
     <div class="fw"><label class="fl">Field Type</label><select class="fi fi-select" id="newFieldType"><option value="text">Text</option><option value="select">Dropdown</option><option value="number">Number</option><option value="email">Email</option><option value="textarea">Text Area</option><option value="checkbox">Checkbox</option></select></div>
     <div class="fw" style="flex-direction:row;align-items:center;gap:10px;"><input type="checkbox" id="newFieldRequired" style="width:16px;height:16px;accent-color:var(--blue-500);"><label class="fl" style="margin:0;cursor:pointer;" for="newFieldRequired">Required field</label></div>
     <button class="modal-save" onclick="addFormField()"><i class="fas fa-plus"></i> Add Field</button>
+  </div>
+</div>
+
+<!-- CONTACT DETAIL MODAL -->
+<div class="modal-overlay" id="contactDetailModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('contactDetailModal')"><i class="fas fa-times"></i></button>
+    <div class="modal-title" id="contactDetailName">Contact Details</div>
+    <p class="modal-sub" id="contactDetailSub">Full information</p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
+      <div class="fw">
+        <label class="fl">Full Name</label>
+        <div id="detail-fullname" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Email</label>
+        <div id="detail-email" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">WhatsApp</label>
+        <div id="detail-whatsapp" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Country</label>
+        <div id="detail-country" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Platform</label>
+        <div id="detail-platform" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Handle</label>
+        <div id="detail-handle" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Category</label>
+        <div id="detail-category" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Followers</label>
+        <div id="detail-followers" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Age Range</label>
+        <div id="detail-age" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Region</label>
+        <div id="detail-region" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Referral Source</label>
+        <div id="detail-referral" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+      <div class="fw">
+        <label class="fl">Date Registered</label>
+        <div id="detail-date" class="fi" style="background: var(--gray-50);">---</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -649,6 +713,34 @@ window.toast=function(msg,type){
   m.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);
 };
 function animateBars(){setTimeout(()=>{document.querySelectorAll('.bar-fill[data-w],.conv-rate-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%';});},150);}
+
+// Contact Detail Function
+window.showContactDetail=function(contactId){
+  fetch(`/api/contacts/${contactId}/`)
+    .then(response=>response.json())
+    .then(data=>{
+      document.getElementById('contactDetailName').textContent=data.full_name;
+      document.getElementById('contactDetailSub').textContent=`ID: #${data.id}`;
+      document.getElementById('detail-fullname').textContent=data.full_name||'---';
+      document.getElementById('detail-email').textContent=data.email||'---';
+      document.getElementById('detail-whatsapp').textContent=data.whatsapp||'---';
+      document.getElementById('detail-country').textContent=data.country||'---';
+      document.getElementById('detail-platform').textContent=data.platform||'---';
+      document.getElementById('detail-handle').textContent=data.handle?`@${data.handle}`:'---';
+      document.getElementById('detail-category').textContent=data.category||'---';
+      document.getElementById('detail-followers').textContent=data.follower_range||'---';
+      document.getElementById('detail-age').textContent=data.age_range||'---';
+      document.getElementById('detail-region').textContent=data.region||'---';
+      document.getElementById('detail-referral').textContent=data.referral_source||'---';
+      document.getElementById('detail-date').textContent=data.date_added||'---';
+      openModal('contactDetailModal');
+    })
+    .catch(error=>{
+      console.error('Error loading contact:',error);
+      toast('Failed to load contact details','error');
+    });
+};
+
 let FORM_SECTIONS=[
   {id:'sec1',name:'Personal Information',icon:'user',core:true,fields:[
     {id:'f1',label:'First Name',type:'text',core:true,active:true,required:true},

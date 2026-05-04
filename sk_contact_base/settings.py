@@ -1,7 +1,8 @@
 import os
+import sys
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
+
 
 # Load .env file
 load_dotenv()
@@ -37,7 +38,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'sk_contact_base.urls'
@@ -61,9 +61,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'sk_contact_base.wsgi.application'
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -79,10 +84,10 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
@@ -90,4 +95,34 @@ LOGOUT_REDIRECT_URL = 'landing'
 
 # Africa's Talking
 AFRICASTALKING_USERNAME = os.getenv('AFRICASTALKING_USERNAME')
-AFRICASTALKING_API_KEY = os.getenv('AFRICASTALKING_API_KEY')
+AFRICASTALKING_API_KEY  = os.getenv('AFRICASTALKING_API_KEY')
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+]
+
+# ── Google OAuth (for Contacts sync) ───────────────────────────────────────────
+# Get these from https://console.cloud.google.com/
+# → APIs & Services → Credentials → OAuth 2.0 Client IDs
+# Add these three lines to your .env file instead of hardcoding them:
+#   GOOGLE_OAUTH_CLIENT_ID=your-id.apps.googleusercontent.com
+#   GOOGLE_OAUTH_CLIENT_SECRET=your-secret
+#   GOOGLE_OAUTH_REDIRECT_URI=http://127.0.0.1:8000/dashboard/google/callback/
+GOOGLE_OAUTH_CLIENT_ID     = os.getenv('GOOGLE_OAUTH_CLIENT_ID', '')
+GOOGLE_OAUTH_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET', '')
+GOOGLE_OAUTH_REDIRECT_URI  = os.getenv(
+    'GOOGLE_OAUTH_REDIRECT_URI',
+    'http://127.0.0.1:8000/dashboard/google/callback/'
+)
+# ── Production security settings ──────────────────────────────────────────────
+
+
+# Only apply strict security settings in production (not during local dev)
+if not DEBUG:
+    SECURE_HSTS_SECONDS        = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD        = True
+    SECURE_SSL_REDIRECT        = True
+    SESSION_COOKIE_SECURE      = True
+    CSRF_COOKIE_SECURE         = True

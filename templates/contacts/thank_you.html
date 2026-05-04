@@ -1,357 +1,228 @@
 {% extends 'base.html' %}
-{% load static %} 
+{% load static %}
 
-{% block title %}You're In — SK Contact Base{% endblock %}
+{% block title %}You're In — S.K Contact Base{% endblock %}
 
 {% block extra_css %}
 <style>
-  .thankyou-wrap {
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    position: relative;
-    overflow: hidden;
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-    /* ── Background Image ── */
-    background-image: url("{% static 'images/thank you.png' %}");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  :root {
+    --blue-900:#0C1F3F;--blue-800:#0F2D5A;--blue-700:#1A4080;
+    --blue-500:#1E6FD9;--blue-400:#38B6FF;--blue-300:#7DD3FC;
+    --blue-100:#DBEAFE;--white:#FFFFFF;
   }
 
-  /* Dark overlay so the card stays readable over the image */
-  .thankyou-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 0;
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{font-family:'DM Sans',sans-serif;background:var(--blue-900);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  body>nav.navbar,body>footer.footer{display:none;}
+  body>main.container-fluid{padding:0!important;}
+
+  .sk-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--blue-100);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(12,31,63,0.08);animation:navSlide 0.5s ease both;}
+  @keyframes navSlide{from{opacity:0;transform:translateY(-100%);}to{opacity:1;transform:translateY(0);}}
+  .sk-nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .sk-nav-logo{width:36px;height:36px;border-radius:8px;object-fit:cover;}
+  .sk-nav-name{font-size:15px;font-weight:600;color:var(--blue-900);letter-spacing:-0.01em;}
+  .sk-nav-right{display:flex;align-items:center;gap:12px;}
+  .sk-nav-pill{display:flex;align-items:center;gap:8px;background:var(--blue-100);border:1px solid var(--blue-100);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--blue-700);}
+  .sk-nav-pill i{font-size:11px;color:var(--blue-500);}
+  .sk-nav-back{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));color:#fff!important;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;text-decoration:none!important;transition:all 0.2s;box-shadow:0 4px 14px rgba(30,111,217,0.28);}
+  .sk-nav-back:hover{transform:translateY(-1px);background:linear-gradient(135deg,var(--blue-500),var(--blue-700));}
+
+  .ty-page{min-height:100vh;padding-top:68px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
+  .ty-page::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 70% at 15% 55%,rgba(30,111,217,0.16) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 85% 25%,rgba(56,182,255,0.09) 0%,transparent 55%);}
+
+  .ty-left{padding:72px 64px 100px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;}
+
+  .ty-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue-300);margin-bottom:30px;animation:fadeUp 0.5s 0.1s ease both;}
+  .ty-eyebrow-bar{width:28px;height:2px;background:var(--blue-300);border-radius:1px;}
+
+  .ty-headline{font-family:'Playfair Display',serif;font-size:clamp(46px,4.8vw,72px);font-weight:800;line-height:1.0;letter-spacing:-0.03em;color:#fff;margin-bottom:22px;animation:fadeUp 0.5s 0.18s ease both;}
+  .ty-headline em{font-style:italic;color:var(--blue-300);display:block;}
+
+  .ty-sub{font-size:16px;font-weight:300;color:rgba(255,255,255,0.52);line-height:1.75;max-width:380px;margin-bottom:52px;animation:fadeUp 0.5s 0.24s ease both;}
+  .ty-sub strong{color:rgba(255,255,255,0.82);font-weight:500;}
+
+  .ty-num{margin-bottom:44px;padding-left:22px;border-left:3px solid var(--blue-400);animation:fadeUp 0.5s 0.3s ease both;}
+  .ty-num-lbl{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:6px;}
+  .ty-num-val{font-family:'Playfair Display',serif;font-size:clamp(56px,6vw,88px);font-weight:800;line-height:1;letter-spacing:-0.03em;color:var(--blue-300);text-shadow:0 0 40px rgba(56,182,255,0.45),0 0 80px rgba(56,182,255,0.18);}
+  .ty-num-name{margin-top:8px;font-size:14px;color:rgba(255,255,255,0.4);font-weight:400;}
+
+  .ty-pills{display:flex;gap:10px;flex-wrap:wrap;animation:fadeUp 0.5s 0.36s ease both;}
+  .ty-pill{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:100px;font-size:12px;font-weight:600;}
+  .ty-pill-wa{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.28);color:#4ade80;}
+  .ty-pill-sms{background:rgba(56,182,255,0.1);border:1px solid rgba(56,182,255,0.28);color:var(--blue-300);}
+  .ty-pill-fail{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.22);color:#fca5a5;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  .ty-right{padding:72px 56px 100px 48px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;border-left:1px solid rgba(255,255,255,0.05);}
+
+  .ty-notices{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+  .ty-notice{border-radius:12px;padding:18px 20px;display:flex;align-items:flex-start;gap:14px;}
+  .ty-notice-wa{background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.14);animation:fadeUp 0.5s 0.42s ease both;}
+  .ty-notice-sms{background:rgba(56,182,255,0.05);border:1px solid rgba(56,182,255,0.12);animation:fadeUp 0.5s 0.48s ease both;}
+  .ty-notice-ico{font-size:21px;flex-shrink:0;margin-top:2px;}
+  .ty-notice-ico-wa{color:#25D366;}
+  .ty-notice-ico-sms{color:var(--blue-400);}
+  .ty-notice-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+  .ty-notice-title-wa{color:#4ade80;}
+  .ty-notice-title-sms{color:var(--blue-300);}
+  .ty-notice-desc{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;font-weight:300;}
+  .ty-notice-desc b{color:rgba(255,255,255,0.65);font-weight:500;}
+
+  .ty-rule{height:1px;background:rgba(255,255,255,0.06);margin:0 0 28px;}
+
+  .ty-soc-lbl{font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:14px;animation:fadeUp 0.5s 0.52s ease both;}
+  .ty-soc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:32px;animation:fadeUp 0.5s 0.56s ease both;}
+  .ty-soc-btn{display:flex;align-items:center;gap:9px;padding:11px 15px;border-radius:9px;font-size:13px;font-weight:500;color:#fff;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,255,0.07);}
+  .ty-soc-btn:hover{transform:translateY(-2px);color:#fff;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+  .ty-soc-btn i{font-size:15px;}
+  .soc-ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);}
+  .soc-tt{background:rgba(255,255,255,0.07);}
+  .soc-fb{background:#1877F2;}
+  .soc-yt{background:#FF0000;}
+  .soc-wa{background:#25D366;grid-column:span 2;}
+
+  .ty-cta{display:flex;align-items:center;gap:14px;animation:fadeUp 0.5s 0.6s ease both;}
+  .ty-cta-btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));color:#fff;border:none;border-radius:10px;padding:13px 28px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 18px rgba(56,182,255,0.28);white-space:nowrap;}
+  .ty-cta-btn:hover{color:#fff;text-decoration:none;transform:translateY(-2px);box-shadow:0 8px 28px rgba(56,182,255,0.42);background:linear-gradient(135deg,var(--blue-500),var(--blue-700));}
+  .ty-cta-note{font-size:12px;color:rgba(255,255,255,0.25);font-weight:300;line-height:1.55;}
+
+  .ty-footer{position:absolute;bottom:0;left:0;right:0;padding:16px 64px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.05);z-index:2;}
+  .ty-footer-brand{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.28);}
+  .ty-footer-copy{font-size:11px;color:rgba(255,255,255,0.16);}
+
+  @media(max-width:960px){
+    .ty-page{grid-template-columns:1fr;padding-bottom:72px;}
+    .ty-left{padding:52px 32px 28px;}
+    .ty-right{padding:28px 32px 52px;border-left:none;border-top:1px solid rgba(255,255,255,0.05);}
+    .ty-footer{padding:14px 32px;}
+    .sk-nav{padding:0 20px;}
+    .sk-nav-pill{display:none;}
   }
-
-  .thankyou-wrap::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(56,182,255,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* Make sure the card sits above the overlay */
-  .card-inner {
-    background: #fff;
-    border: 1px solid rgba(56,182,255,0.2);
-    border-radius: 20px;
-    padding: 56px 48px;
-    text-align: center;
-    max-width: 560px;
-    width: 100%;
-    position: relative;
-    z-index: 2;
-    animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-    box-shadow: 0 20px 60px rgba(56,182,255,0.12);
-  }
-
-  @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.88); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  .card-inner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--sky), var(--sky-light), var(--sky));
-    border-radius: 0 0 4px 4px;
-  }
-
-  /* ── Check circle ── */
-  .check-circle {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    font-size: 32px;
-    color: #fff;
-    box-shadow: 0 8px 24px rgba(56,182,255,0.35);
-    animation: popIn 0.4s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.5); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-
-  /* ── Title ── */
-  .ty-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 34px;
-    font-weight: 800;
-    color: var(--text-dark);
-    margin-bottom: 8px;
-  }
-
-  .ty-title span {
-    color: var(--sky-dark);
-  }
-
-  .ty-sub {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.7;
-    font-weight: 400;
-    margin-bottom: 28px;
-  }
-
-  /* ── Contact Number Badge ── */
-  .contact-number-box {
-    background: var(--sky-pale);
-    border: 2px solid var(--sky);
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    animation: fadeUp 0.4s 0.5s both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .contact-number-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-  }
-
-  .contact-number-value {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: var(--sky-dark);
-    line-height: 1;
-  }
-
-  .contact-number-name {
-    font-size: 13px;
-    color: var(--text-mid);
-    margin-top: 4px;
-  }
-
-  /* ── Divider ── */
-  .ty-divider {
-    height: 1px;
-    background: rgba(56,182,255,0.12);
-    margin: 0 0 24px;
-  }
-
-  /* ── WhatsApp notice ── */
-  .whatsapp-notice {
-    background: rgba(37,211,102,0.08);
-    border: 1px solid rgba(37,211,102,0.25);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    text-align: left;
-  }
-
-  .whatsapp-notice .wa-icon {
-    font-size: 22px;
-    color: #25D366;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .whatsapp-notice .wa-text {
-    font-size: 13px;
-    color: var(--text-mid);
-    line-height: 1.6;
-  }
-
-  .whatsapp-notice .wa-text strong {
-    color: #128C7E;
-    display: block;
-    margin-bottom: 2px;
-    font-size: 14px;
-  }
-
-  /* ── Social Links ── */
-  .social-section {
-    margin-bottom: 28px;
-    text-align: left;
-  }
-
-  .social-section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
-  .social-links-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .social-link-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 11px 14px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.2s;
-    border: 1px solid transparent;
-    color: #fff;
-  }
-
-  .social-link-btn:hover {
-    transform: translateY(-2px);
-    text-decoration: none;
-    color: #fff;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-  }
-
-  .social-link-btn i { font-size: 16px; }
-
-  .sl-instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
-  .sl-tiktok    { background: #010101; border-color: rgba(255,255,255,0.1); }
-  .sl-facebook  { background: #1877F2; }
-  .sl-linkedin  { background: #0A66C2; }
-  .sl-snapchat  { background: #FFFC00; color: #000 !important; }
-  .sl-snapchat:hover { color: #000 !important; }
-  .sl-youtube   { background: #FF0000; }
-  .sl-whatsapp  { background: #25D366; }
-
-  /* ── Back button ── */
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, var(--sky), var(--sky-dark));
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 28px;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.2s;
-    box-shadow: 0 4px 14px rgba(56,182,255,0.3);
-  }
-
-  .back-btn:hover {
-    background: linear-gradient(135deg, var(--sky-dark), var(--sky-deep));
-    color: #fff;
-    transform: translateY(-1px);
-    text-decoration: none;
-    box-shadow: 0 6px 20px rgba(56,182,255,0.4);
+  @media(max-width:560px){
+    .ty-left{padding:36px 20px 24px;}
+    .ty-right{padding:24px 20px 44px;}
+    .ty-headline{font-size:48px;}
+    .ty-num-val{font-size:60px;}
+    .ty-soc-grid{grid-template-columns:1fr;}
+    .soc-wa{grid-column:span 1;}
+    .ty-cta{flex-direction:column;align-items:flex-start;}
+    .ty-footer{padding:12px 20px;flex-direction:column;gap:4px;text-align:center;}
   }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="thankyou-wrap">
-  <div class="card-inner">
 
-    <!-- Check Icon -->
-    <div class="check-circle">
-      <i class="fas fa-check"></i>
+<nav class="sk-nav">
+  <a class="sk-nav-brand" href="{% url 'landing' %}">
+    <img class="sk-nav-logo" src="{% static 'images/logo.png' %}" alt="S.K Contact Base">
+    <span class="sk-nav-name">S.K Contact Base</span>
+  </a>
+  <div class="sk-nav-right">
+    <div class="sk-nav-pill">
+      <i class="fas fa-users"></i> Growing every day
     </div>
+    <a href="{% url 'landing' %}" class="sk-nav-back">
+      <i class="fas fa-arrow-left"></i> Back to Form
+    </a>
+  </div>
+</nav>
 
-    <!-- Title -->
-    <h1 class="ty-title">You're <span>In!</span></h1>
+<div class="ty-page">
+
+  <div class="ty-left">
+    <div class="ty-eyebrow">
+      <div class="ty-eyebrow-bar"></div>
+      Registration Confirmed
+    </div>
+    <h1 class="ty-headline">
+      Welcome<br>to the<br>
+      <em>Network.</em>
+    </h1>
     <p class="ty-sub">
-      Your details have been saved successfully.<br>
-      Welcome to the SK Brand community!
+      You're now part of <strong>S.K Contact Base</strong> —
+      Ghana's most connected talent and creator network.
+      We'll reach you directly on WhatsApp.
     </p>
 
-    <!-- Contact Number -->
-    {% if contact_number %}
-    <div class="contact-number-box">
-      <div class="contact-number-label">Your Contact Number</div>
-      <div class="contact-number-value">#{{ contact_number }}</div>
-      {% if contact_name %}
-      <div class="contact-number-name">{{ contact_name }}</div>
-      {% endif %}
+    {% if contact %}
+    <div class="ty-num">
+      <div class="ty-num-lbl">Your registration number</div>
+      <div class="ty-num-val">#{{ registration_number }}</div>
+      <div class="ty-num-name">{{ contact.full_name }}</div>
+    </div>
+    {% elif contact_name %}
+    <div class="ty-num">
+      <div class="ty-num-lbl">Welcome</div>
+      <div class="ty-num-val" style="font-size:36px;padding-top:6px;">{{ contact_name }}</div>
     </div>
     {% endif %}
 
-    <div class="ty-divider"></div>
-
-    <!-- WhatsApp Notice -->
-    <div class="whatsapp-notice">
-      <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
-      <div class="wa-text">
-        <strong>Check your WhatsApp!</strong>
-        A brand message has been sent to you. Please save <strong>S.K. Brand Links</strong> as a contact on WhatsApp to receive future updates and campaigns.
-      </div>
+    <div class="ty-pills">
+      {% if whatsapp_sent %}
+        <span class="ty-pill ty-pill-wa"><i class="fab fa-whatsapp"></i> WhatsApp sent</span>
+      {% else %}
+        <span class="ty-pill ty-pill-fail"><i class="fab fa-whatsapp"></i> WhatsApp not sent</span>
+      {% endif %}
+      {% if sms_sent %}
+        <span class="ty-pill ty-pill-sms"><i class="fas fa-sms"></i> SMS sent</span>
+      {% else %}
+        <span class="ty-pill ty-pill-fail"><i class="fas fa-sms"></i> SMS not sent</span>
+      {% endif %}
     </div>
-
-    <!-- Social Media Links -->
-    <div class="social-section">
-      <div class="social-section-title">Follow & Join SK Brand</div>
-      <div class="social-links-grid">
-        <a href="#" class="social-link-btn sl-instagram" target="_blank">
-          <i class="fab fa-instagram"></i> Instagram
-        </a>
-        <a href="#" class="social-link-btn sl-tiktok" target="_blank">
-          <i class="fab fa-tiktok"></i> TikTok
-        </a>
-        <a href="#" class="social-link-btn sl-facebook" target="_blank">
-          <i class="fab fa-facebook-f"></i> Facebook
-        </a>
-        <a href="#" class="social-link-btn sl-linkedin" target="_blank">
-          <i class="fab fa-linkedin-in"></i> LinkedIn
-        </a>
-        <a href="#" class="social-link-btn sl-snapchat" target="_blank">
-          <i class="fab fa-snapchat-ghost"></i> <span style="color:#000;">Snapchat</span>
-        </a>
-        <a href="#" class="social-link-btn sl-youtube" target="_blank">
-          <i class="fab fa-youtube"></i> YouTube
-        </a>
-        <a href="#" class="social-link-btn sl-whatsapp" target="_blank" style="grid-column: span 2;">
-          <i class="fab fa-whatsapp"></i> Join SK WhatsApp
-        </a>
-      </div>
-    </div>
-
-    <div class="ty-divider"></div>
-
-    <!-- Back Button -->
-    <a href="{% url 'landing' %}" class="back-btn">
-      <i class="fas fa-arrow-left"></i>
-      Submit Another Contact
-    </a>
-
   </div>
+
+  <div class="ty-right">
+    <div class="ty-notices">
+      <div class="ty-notice ty-notice-wa">
+        <div class="ty-notice-ico ty-notice-ico-wa"><i class="fab fa-whatsapp"></i></div>
+        <div>
+          <div class="ty-notice-title ty-notice-title-wa">Check your WhatsApp</div>
+          <div class="ty-notice-desc">A personal welcome message has been sent to your number. Save <b>S.K. Brand Links</b> as a contact so you never miss a campaign or opportunity.</div>
+        </div>
+      </div>
+      <div class="ty-notice ty-notice-sms">
+        <div class="ty-notice-ico ty-notice-ico-sms"><i class="fas fa-comment-sms"></i></div>
+        <div>
+          <div class="ty-notice-title ty-notice-title-sms">Check your SMS</div>
+          <div class="ty-notice-desc">A confirmation text has been sent to your phone. Your registration number is your permanent ID in the SK network.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ty-rule"></div>
+
+    <div class="ty-soc-lbl">Stay connected with S.K Brand</div>
+    <div class="ty-soc-grid">
+      <a href="#" class="ty-soc-btn soc-ig" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="#" class="ty-soc-btn soc-tt" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+      <a href="#" class="ty-soc-btn soc-fb" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+      <a href="#" class="ty-soc-btn soc-yt" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+      <a href="#" class="ty-soc-btn soc-wa" target="_blank"><i class="fab fa-whatsapp"></i> Join SK WhatsApp Channel</a>
+    </div>
+
+    <div class="ty-rule"></div>
+
+    <div class="ty-cta">
+      <a href="{% url 'landing' %}" class="ty-cta-btn">
+        <i class="fas fa-user-plus"></i> Register Another Contact
+      </a>
+      <div class="ty-cta-note">Know someone who<br>should be on the list?</div>
+    </div>
+  </div>
+
+  <div class="ty-footer">
+    <div class="ty-footer-brand">
+      <img src="{% static 'images/logo.png' %}" alt="" style="height:24px;border-radius:5px;">
+      S.K Contact Base
+    </div>
+    <div class="ty-footer-copy">&copy; 2026 S.K Contact Base. All rights reserved.</div>
+  </div>
+
 </div>
+
 {% endblock %}

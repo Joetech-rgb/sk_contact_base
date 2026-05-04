@@ -1,188 +1,198 @@
 from django.db import models
-from django.core.validators import RegexValidator
 from django.utils import timezone
 
 
-class Contact(models.Model):
-    """
-    Enhanced Contact Model for SK Contact Base
-    Manages influencer/content creator contacts with comprehensive tracking
-    """
-
-    # Category Choices
-    CATEGORY_CHOICES = [
-        ('face_card',   'Face Card'),
-        ('chubby',      'Chubby'),
-        ('brand_owner', 'Brand Owner'),
-        ('slim',        'Slim'),
-        ('curvy',       'Curvy'),
-        ('dark_skin',   'Dark Skin'),
-        ('half_cast',   'Half Cast'),
-    ]
-
-    # Age Category Choices — expanded to 60+
-    AGE_CATEGORY_CHOICES = [
-        ('18-24', '18 – 24'),
-        ('25-30', '25 – 30'),
-        ('31-35', '31 – 35'),
-        ('36-40', '36 – 40'),
-        ('41-45', '41 – 45'),
-        ('46-50', '46 – 50'),
-        ('51-55', '51 – 55'),
-        ('56-60', '56 – 60'),
-        ('60+',   '60+'),
-    ]
-
-    # Social Media Platform Choices
-    SOCIAL_MEDIA_CHOICES = [
-        ('linkedin',  'LinkedIn'),
-        ('instagram', 'Instagram'),
-        ('facebook',  'Facebook'),
-        ('snapchat',  'Snapchat'),
-        ('tiktok',    'TikTok'),
-        ('twitter',   'Twitter/X'),
-        ('youtube',   'YouTube'),
-    ]
-
-    # Phone number validator
-    phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
-    )
-
-    # ── Basic Information ──
-    first_name = models.CharField(max_length=100, verbose_name="First Name")
-    surname    = models.CharField(max_length=100, verbose_name="Surname")
-    email      = models.EmailField(blank=True, null=True, verbose_name="Email")
-    whatsapp_contact = models.CharField(
-        validators=[phone_regex],
-        max_length=17,
-        verbose_name="WhatsApp Contact",
-        help_text="Include country code, e.g., +233XXXXXXXXX"
-    )
-
-    # ── Categorisation ──
-    category = models.CharField(
-        max_length=50,
-        choices=CATEGORY_CHOICES,
-        verbose_name="Category"
-    )
-    age_category = models.CharField(
-        max_length=10,
-        choices=AGE_CATEGORY_CHOICES,
-        verbose_name="Age Category"
-    )
-    country = models.CharField(max_length=100, verbose_name="Country")
-    country_code = models.CharField(
-        max_length=10,
-        blank=True,
-        verbose_name="Country Code",
-        help_text="e.g., +233, +1, +44"
-    )
-
-    # ── Social Media Information ──
-    social_media_platform = models.CharField(
-        max_length=20,
-        choices=SOCIAL_MEDIA_CHOICES,
-        verbose_name="Social Media Platform"
-    )
-    social_media_handle = models.CharField(
-        max_length=100,
-        blank=True,
-        verbose_name="Social Media Handle"
-    )
-    followers_count = models.IntegerField(
-        default=0,
-        verbose_name="Followers Count",
-        help_text="Current follower count"
-    )
-
-    # ── Additional Information ──
-    school = models.CharField(max_length=200, blank=True, null=True, verbose_name="School")
-    level  = models.CharField(max_length=100, blank=True, null=True, verbose_name="Level/Grade")
-    notes  = models.TextField(blank=True, null=True, verbose_name="Notes")
-
-    # ── Tracking ──
-    date_added   = models.DateTimeField(auto_now_add=True, verbose_name="Date Added")
-    last_updated = models.DateTimeField(auto_now=True,     verbose_name="Last Updated")
-    whatsapp_message_sent = models.BooleanField(default=False, verbose_name="WhatsApp Message Sent")
-    whatsapp_message_date = models.DateTimeField(blank=True, null=True, verbose_name="WhatsApp Message Date")
-    synced_to_drive = models.BooleanField(default=False, verbose_name="Synced to Google Drive")
+class GoogleToken(models.Model):
+    email         = models.EmailField()
+    access_token  = models.TextField()
+    refresh_token = models.TextField(blank=True)
+    token_expiry  = models.DateTimeField(null=True, blank=True)
+    created_at    = models.DateTimeField(auto_now_add=True)
+    updated_at    = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-followers_count', '-date_added']
-        verbose_name = "Contact"
-        verbose_name_plural = "Contacts"
-        indexes = [
-            models.Index(fields=['category']),
-            models.Index(fields=['country']),
-            models.Index(fields=['social_media_platform']),
-            models.Index(fields=['-followers_count']),
-        ]
+        app_label = 'contacts'
 
     def __str__(self):
-        return f"{self.first_name} {self.surname} | {self.get_category_display()} | {self.country} | {self.get_social_media_platform_display()}"
+        return f"Google token — {self.email}"
 
+    def set_expiry(self, expiry):
+        """
+        Safely store token expiry — ensures datetime is always timezone-aware.
+        Call this instead of setting token_expiry directly.
+        """
+        if expiry is None:
+            self.token_expiry = None
+        elif expiry.tzinfo is None:
+            self.token_expiry = timezone.make_aware(expiry)
+        else:
+            self.token_expiry = expiry
+
+
+class Category(models.Model):
+    """
+    Admin-managed categories shown in the registration form.
+    Admin can add, edit, remove and toggle visibility of categories.
+    """
+    name       = models.CharField(max_length=100, unique=True)
+    is_active  = models.BooleanField(
+                     default=True,
+                     help_text="Uncheck to hide this category from the registration form "
+                               "without deleting it. It stays in downloaded contact data.")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class ReferralSource(models.Model):
+    """
+    Tracks which link/platform brought the registrant.
+    Used for conversion rate reporting in the admin dashboard.
+    """
+    slug        = models.SlugField(
+                      max_length=100, unique=True,
+                      help_text="Short identifier used in the URL parameter e.g. 'ig-bio'")
+    label       = models.CharField(
+                      max_length=200,
+                      help_text="Human-readable label e.g. 'Instagram Bio Link'")
+    is_active   = models.BooleanField(default=True)
+    click_count = models.PositiveIntegerField(
+                      default=0,
+                      help_text="Incremented each time someone visits the landing page via this link.")
+    created_at  = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name        = "Referral Source"
+        verbose_name_plural = "Referral Sources"
+        ordering            = ["label"]
+
+    def __str__(self):
+        return self.label
+
+
+class Contact(models.Model):
+
+    SCHOOL_CATEGORY_CHOICES = [
+        ("basic",       "Basic School"),
+        ("high_school", "High School"),
+        ("tertiary",    "Tertiary"),
+    ]
+
+    FOLLOWER_RANGE_CHOICES = [
+        ("under_5k",  "Under 5K"),
+        ("5k-10k",    "5K – 10K"),
+        ("10k-50k",   "10K – 50K"),
+        ("50k-100k",  "50K – 100K"),
+        ("100k-250k", "100K – 250K"),
+        ("250k-500k", "250K – 500K"),
+        ("500k-1M",   "500K – 1M"),
+        ("1M+",       "1M+"),
+    ]
+
+    # ── Basic details ──────────────────────────────────────
+    first_name      = models.CharField(max_length=100)
+    surname         = models.CharField(max_length=100)
+    email           = models.EmailField(
+                          unique=True,
+                          help_text="Used to prevent duplicate registrations.")
+    whatsapp_number = models.CharField(
+                          max_length=25, unique=True,
+                          help_text="Stored as full international number e.g. +233241234567")
+    country_code    = models.CharField(
+                          max_length=10, blank=True,
+                          help_text="Dial code e.g. +233. Auto-set from WhatsApp selector.")
+
+    # ── Profile ────────────────────────────────────────────
+    age_range       = models.CharField(max_length=20, blank=True)
+    country         = models.CharField(
+                          max_length=100, blank=True,
+                          help_text="Auto-filled from the WhatsApp country code selector.")
+    region          = models.CharField(
+                          max_length=150, blank=True,
+                          help_text="Broad regional area, not a specific town.")
+
+    # ── Optional ───────────────────────────────────────────
+    category        = models.ForeignKey(
+                          Category, on_delete=models.SET_NULL,
+                          null=True, blank=True,
+                          help_text="Selected in the optional pop-up during registration.")
+    school_category = models.CharField(
+                          max_length=20, choices=SCHOOL_CATEGORY_CHOICES, blank=True)
+    school_name     = models.CharField(max_length=255, blank=True)
+    level_year      = models.PositiveIntegerField(
+                          null=True, blank=True,
+                          help_text="Year or level as a number only.")
+
+    # ── Social media ───────────────────────────────────────
+    platform        = models.CharField(max_length=50, blank=True)
+    handle          = models.CharField(
+                          max_length=100, blank=True,
+                          help_text="Stored without @ prefix.")
+    follower_range  = models.CharField(
+                          max_length=50, choices=FOLLOWER_RANGE_CHOICES, blank=True)
+
+    # ── Referral / conversion tracking ────────────────────
+    referral_source = models.ForeignKey(
+                          ReferralSource, on_delete=models.SET_NULL,
+                          null=True, blank=True,
+                          help_text="Which link/platform brought this person here.")
+    referral_slug   = models.CharField(
+                          max_length=100, blank=True,
+                          help_text="Raw slug captured from ?ref= URL parameter at registration.")
+
+    # ── Meta ───────────────────────────────────────────────
+    date_added      = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-date_added"]
+
+    # ── Properties ─────────────────────────────────────────
     @property
     def full_name(self):
         return f"{self.first_name} {self.surname}"
 
     @property
+    def full_whatsapp(self):
+        """Always returns the number with country code prefix."""
+        num = self.whatsapp_number or ""
+        if num.startswith("+"):
+            return num
+        return f"{self.country_code}{num}"
+
+    @property
+    def whatsapp_chat_url(self):
+        clean = self.full_whatsapp.replace("+", "").replace(" ", "")
+        return f"https://wa.me/{clean}"
+
+    @property
+    def handle_clean(self):
+        """Handle without @ symbol."""
+        return (self.handle or "").lstrip("@")
+
+    @property
+    def platform_profile_url(self):
+        h = self.handle_clean
+        if not h:
+            return None
+        urls = {
+            "instagram": f"https://instagram.com/{h}",
+            "tiktok":    f"https://tiktok.com/@{h}",
+            "facebook":  f"https://facebook.com/{h}",
+            "twitter":   f"https://twitter.com/{h}",
+            "youtube":   f"https://youtube.com/@{h}",
+            "snapchat":  f"https://snapchat.com/add/{h}",
+            "linkedin":  f"https://linkedin.com/in/{h}",
+        }
+        return urls.get(self.platform)
+
+    @property
     def days_since_added(self):
-        return (timezone.now() - self.date_added).days
-
-    def get_whatsapp_link(self):
-        clean_number = ''.join(filter(str.isdigit, self.whatsapp_contact))
-        return f"https://wa.me/{clean_number}"
-
-    def save(self, *args, **kwargs):
-        """Auto-extract country code from WhatsApp number if not set."""
-        if self.whatsapp_contact and not self.country_code:
-            if self.whatsapp_contact.startswith('+'):
-                parts = self.whatsapp_contact[1:].split()
-                if parts:
-                    self.country_code = '+' + ''.join(filter(str.isdigit, parts[0][:4]))
-        super().save(*args, **kwargs)
-
-
-class ContactStats(models.Model):
-    """Track overall statistics for the contact base."""
-    date = models.DateField(unique=True, verbose_name="Date")
-    total_contacts       = models.IntegerField(default=0, verbose_name="Total Contacts")
-    contacts_added_today = models.IntegerField(default=0, verbose_name="Contacts Added Today")
-
-    class Meta:
-        ordering = ['-date']
-        verbose_name = "Contact Statistics"
-        verbose_name_plural = "Contact Statistics"
+        return (timezone.now().date() - self.date_added.date()).days
 
     def __str__(self):
-        return f"Stats for {self.date}: {self.total_contacts} total contacts"
-
-
-class AutomationLog(models.Model):
-    """Log automation activities (WhatsApp messages, Drive syncs, exports)."""
-    ACTION_CHOICES = [
-        ('whatsapp',   'WhatsApp Message'),
-        ('drive_sync', 'Google Drive Sync'),
-        ('export',     'Data Export'),
-    ]
-
-    contact = models.ForeignKey(
-        Contact,
-        on_delete=models.CASCADE,
-        related_name='automation_logs',
-        verbose_name="Contact"
-    )
-    action_type = models.CharField(max_length=20, choices=ACTION_CHOICES, verbose_name="Action Type")
-    timestamp   = models.DateTimeField(auto_now_add=True, verbose_name="Timestamp")
-    status      = models.CharField(max_length=20, verbose_name="Status")
-    details     = models.TextField(blank=True, verbose_name="Details")
-
-    class Meta:
-        ordering = ['-timestamp']
-        verbose_name = "Automation Log"
-        verbose_name_plural = "Automation Logs"
-
-    def __str__(self):
-        return f"{self.get_action_type_display()} - {self.contact.full_name} - {self.timestamp}"
+        return f"{self.full_name} ({self.country})"
