@@ -24,6 +24,9 @@ def landing_view(request):
                 contact.referral_source = referral_obj
             if ref_slug and not contact.referral_slug:
                 contact.referral_slug = ref_slug
+            from django.utils import timezone
+            if form.cleaned_data.get("agree_to_terms"):
+                contact.agreed_to_terms = timezone.now()
             contact.save()
             _send_welcome(contact)
             request.session["contact_number"] = contact.id

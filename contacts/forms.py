@@ -147,6 +147,12 @@ class ContactForm(forms.ModelForm):
         }),
     )
 
+    agree_to_terms = forms.BooleanField(
+        required=True,
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        error_messages={"required": "You must agree to the Rules and Privacy Policy to register."},
+    )
+
     class Meta:
         model  = Contact
         fields = [
@@ -285,6 +291,12 @@ class ContactForm(forms.ModelForm):
                 "One contact cannot register more than once."
             )
         return email
+
+    def clean_agree_to_terms(self):
+        val = self.cleaned_data.get("agree_to_terms")
+        if not val:
+            raise forms.ValidationError("You must agree to the Rules and Privacy Policy.")
+        return val
 
     def clean(self):
         cleaned = super().clean()
