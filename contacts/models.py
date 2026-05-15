@@ -147,6 +147,10 @@ class Contact(models.Model):
 
     # â”€â”€ Meta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     date_added      = models.DateTimeField(auto_now_add=True)
+    agreed_to_terms = models.DateTimeField(null=True, blank=True)
+    opted_out       = models.BooleanField(default=False)
+    agreed_to_terms = models.DateTimeField(null=True, blank=True)
+    opted_out       = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-date_added"]
