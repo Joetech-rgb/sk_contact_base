@@ -1,6 +1,6 @@
 # contacts/views/public.py
 from django.shortcuts import redirect, render
-from ..models import Contact, ReferralSource
+from ..models import Contact, Notification, ReferralSource
 from ..forms import ContactForm
 
 
@@ -25,7 +25,6 @@ def landing_view(request):
             if ref_slug and not contact.referral_slug:
                 contact.referral_slug = ref_slug
             contact.save()
-            # Send WhatsApp welcome message
             _send_welcome(contact)
             request.session["contact_number"] = contact.id
             request.session["contact_name"]   = contact.full_name
@@ -38,10 +37,13 @@ def landing_view(request):
             initial["referral_slug"] = ref_slug
         form = ContactForm(initial=initial)
 
+    notifications = Notification.objects.filter(is_active=True).order_by("-created_at")[:3]
+
     return render(request, "contacts/landing.html", {
         "form":           form,
         "total_contacts": Contact.objects.count(),
         "ref_slug":       ref_slug,
+        "notifications":  notifications,
     })
 
 
@@ -54,7 +56,6 @@ def thank_you_view(request):
 
 
 def _send_welcome(contact):
-    """Fire WhatsApp welcome message after successful registration."""
     try:
         from ..services.whatsapp import send_whatsapp
         send_whatsapp(
@@ -64,4 +65,4 @@ def _send_welcome(contact):
             contact=contact,
         )
     except Exception:
-        pass  # Logging handled inside send_whatsapp
+        pass

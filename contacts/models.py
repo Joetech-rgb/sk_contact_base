@@ -221,3 +221,26 @@ class WhatsAppLog(models.Model):
     def __str__(self):
         return f"{self.phone} — {self.template} — {self.status} ({self.timestamp:%Y-%m-%d %H:%M})"
 
+
+
+class Notification(models.Model):
+    TYPE_CHOICES = [
+        ("job",       "Job"),
+        ("giveaway",  "Giveaway"),
+        ("link",      "Link"),
+        ("other",     "Other"),
+    ]
+    title        = models.CharField(max_length=200)
+    body         = models.TextField()
+    type         = models.CharField(max_length=20, choices=TYPE_CHOICES, default="other")
+    is_active    = models.BooleanField(default=True)
+    scheduled_at = models.DateTimeField(null=True, blank=True)
+    created_at   = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name_plural = "Notifications"
+
+    def __str__(self):
+        return f"[{self.type.upper()}] {self.title}"
+

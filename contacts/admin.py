@@ -301,3 +301,22 @@ class WhatsAppLogAdmin(admin.ModelAdmin):
     readonly_fields = ("contact", "template", "phone", "status", "error", "timestamp")
     ordering      = ("-timestamp",)
 
+
+
+from contacts.models import Notification
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display  = ("title", "type", "is_active", "created_at")
+    list_filter   = ("type", "is_active")
+    search_fields = ("title", "body")
+    actions       = ["activate", "deactivate"]
+
+    @admin.action(description="Activate selected notifications")
+    def activate(self, request, queryset):
+        queryset.update(is_active=True)
+
+    @admin.action(description="Deactivate selected notifications")
+    def deactivate(self, request, queryset):
+        queryset.update(is_active=False)
+
