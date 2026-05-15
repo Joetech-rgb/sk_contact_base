@@ -1,0 +1,16 @@
+{% extends "contacts/base.html" %}
+{% block title %}Privacy Policy - SK Contact Base{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto py-10 px-4">
+  <h1 class="text-2xl font-bold mb-6">Privacy Policy</h1>
+  <p class="mb-4">SK Contact Base collects your name, WhatsApp number, country, and social platform details when you register. This information is used to connect you with brands, job opportunities, and giveaways.</p>
+  <h2 class="text-xl font-semibold mt-6 mb-2">What we collect</h2>
+  <p class="mb-4">Name, WhatsApp number, country, social media platform, follower range, and referral source.</p>
+  <h2 class="text-xl font-semibold mt-6 mb-2">How we use it</h2>
+  <p class="mb-4">We send you job alerts, giveaway announcements, and brand campaign invitations via WhatsApp. We do not sell your data to third parties.</p>
+  <h2 class="text-xl font-semibold mt-6 mb-2">Your rights</h2>
+  <p class="mb-4">You may request deletion of your data at any time via our <a href="{% url "delete-my-data" %}" class="underline text-blue-600">data deletion page</a>. To stop receiving messages, reply STOP to any WhatsApp message.</p>
+  <h2 class="text-xl font-semibold mt-6 mb-2">Contact</h2>
+  <p>For any privacy concerns, contact us on WhatsApp or through the deletion request form.</p>
+</div>
+{% endblock %}
