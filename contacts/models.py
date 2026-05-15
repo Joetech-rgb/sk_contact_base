@@ -1,4 +1,4 @@
-from django.db import models
+﻿from django.db import models
 from django.utils import timezone
 
 
@@ -14,11 +14,11 @@ class GoogleToken(models.Model):
         app_label = 'contacts'
 
     def __str__(self):
-        return f"Google token — {self.email}"
+        return f"Google token â€” {self.email}"
 
     def set_expiry(self, expiry):
         """
-        Safely store token expiry — ensures datetime is always timezone-aware.
+        Safely store token expiry â€” ensures datetime is always timezone-aware.
         Call this instead of setting token_expiry directly.
         """
         if expiry is None:
@@ -85,16 +85,16 @@ class Contact(models.Model):
 
     FOLLOWER_RANGE_CHOICES = [
         ("under_5k",  "Under 5K"),
-        ("5k-10k",    "5K – 10K"),
-        ("10k-50k",   "10K – 50K"),
-        ("50k-100k",  "50K – 100K"),
-        ("100k-250k", "100K – 250K"),
-        ("250k-500k", "250K – 500K"),
-        ("500k-1M",   "500K – 1M"),
+        ("5k-10k",    "5K â€“ 10K"),
+        ("10k-50k",   "10K â€“ 50K"),
+        ("50k-100k",  "50K â€“ 100K"),
+        ("100k-250k", "100K â€“ 250K"),
+        ("250k-500k", "250K â€“ 500K"),
+        ("500k-1M",   "500K â€“ 1M"),
         ("1M+",       "1M+"),
     ]
 
-    # ── Basic details ──────────────────────────────────────
+    # â”€â”€ Basic details â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     first_name      = models.CharField(max_length=100)
     surname         = models.CharField(max_length=100)
     email           = models.EmailField(
@@ -107,7 +107,7 @@ class Contact(models.Model):
                           max_length=10, blank=True,
                           help_text="Dial code e.g. +233. Auto-set from WhatsApp selector.")
 
-    # ── Profile ────────────────────────────────────────────
+    # â”€â”€ Profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     age_range       = models.CharField(max_length=20, blank=True)
     country         = models.CharField(
                           max_length=100, blank=True,
@@ -116,7 +116,7 @@ class Contact(models.Model):
                           max_length=150, blank=True,
                           help_text="Broad regional area, not a specific town.")
 
-    # ── Optional ───────────────────────────────────────────
+    # â”€â”€ Optional â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     category        = models.ForeignKey(
                           Category, on_delete=models.SET_NULL,
                           null=True, blank=True,
@@ -128,7 +128,7 @@ class Contact(models.Model):
                           null=True, blank=True,
                           help_text="Year or level as a number only.")
 
-    # ── Social media ───────────────────────────────────────
+    # â”€â”€ Social media â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     platform        = models.CharField(max_length=50, blank=True)
     handle          = models.CharField(
                           max_length=100, blank=True,
@@ -136,7 +136,7 @@ class Contact(models.Model):
     follower_range  = models.CharField(
                           max_length=50, choices=FOLLOWER_RANGE_CHOICES, blank=True)
 
-    # ── Referral / conversion tracking ────────────────────
+    # â”€â”€ Referral / conversion tracking â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     referral_source = models.ForeignKey(
                           ReferralSource, on_delete=models.SET_NULL,
                           null=True, blank=True,
@@ -145,13 +145,13 @@ class Contact(models.Model):
                           max_length=100, blank=True,
                           help_text="Raw slug captured from ?ref= URL parameter at registration.")
 
-    # ── Meta ───────────────────────────────────────────────
+    # â”€â”€ Meta â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     date_added      = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["-date_added"]
 
-    # ── Properties ─────────────────────────────────────────
+    # â”€â”€ Properties â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     @property
     def full_name(self):
         return f"{self.first_name} {self.surname}"
@@ -196,3 +196,28 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.full_name} ({self.country})"
+
+class WhatsAppLog(models.Model):
+    """Records every WhatsApp send attempt for delivery tracking."""
+
+    STATUS_CHOICES = [
+        ("sent",    "Sent"),
+        ("failed",  "Failed"),
+        ("fallback","SMS Fallback"),
+    ]
+
+    contact   = models.ForeignKey(Contact, on_delete=models.SET_NULL, null=True, blank=True)
+    template  = models.CharField(max_length=100)
+    phone     = models.CharField(max_length=25)
+    status    = models.CharField(max_length=20, choices=STATUS_CHOICES, default="sent")
+    error     = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-timestamp"]
+        verbose_name     = "WhatsApp Log"
+        verbose_name_plural = "WhatsApp Logs"
+
+    def __str__(self):
+        return f"{self.phone} — {self.template} — {self.status} ({self.timestamp:%Y-%m-%d %H:%M})"
+

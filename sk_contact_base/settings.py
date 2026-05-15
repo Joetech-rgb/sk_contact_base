@@ -126,3 +126,7 @@ if not DEBUG:
     SECURE_SSL_REDIRECT        = True
     SESSION_COOKIE_SECURE      = True
     CSRF_COOKIE_SECURE         = True
+# -- WhatsApp Business API (Phase 2) -----------------------------------------
+# Get these from Meta Business Manager -> WhatsApp -> API Setup
+WHATSAPP_PHONE_NUMBER_ID = os.getenv('WHATSAPP_PHONE_NUMBER_ID', '')
+WHATSAPP_ACCESS_TOKEN    = os.getenv('WHATSAPP_ACCESS_TOKEN', '')

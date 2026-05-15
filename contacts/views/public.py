@@ -25,6 +25,8 @@ def landing_view(request):
             if ref_slug and not contact.referral_slug:
                 contact.referral_slug = ref_slug
             contact.save()
+            # Send WhatsApp welcome message
+            _send_welcome(contact)
             request.session["contact_number"] = contact.id
             request.session["contact_name"]   = contact.full_name
             return redirect("thank-you")
@@ -49,3 +51,17 @@ def thank_you_view(request):
         "contact_name":   request.session.get("contact_name", ""),
         "total_contacts": Contact.objects.count(),
     })
+
+
+def _send_welcome(contact):
+    """Fire WhatsApp welcome message after successful registration."""
+    try:
+        from ..services.whatsapp import send_whatsapp
+        send_whatsapp(
+            to=contact.full_whatsapp,
+            template="welcome_registration",
+            params=[contact.first_name, str(contact.pk)],
+            contact=contact,
+        )
+    except Exception:
+        pass  # Logging handled inside send_whatsapp

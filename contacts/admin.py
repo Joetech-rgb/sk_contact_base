@@ -1,4 +1,4 @@
-from django.contrib import admin
+﻿from django.contrib import admin
 from django.http import HttpResponse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -11,9 +11,9 @@ from datetime import datetime
 from .models import Contact, Category
 from .models import Contact, Category, ReferralSource # Add ReferralSource here
 
-# ─────────────────────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # CATEGORY ADMIN
-# ─────────────────────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @admin.register(ReferralSource)
 class ReferralSourceAdmin(admin.ModelAdmin):
     list_display = ['label', 'slug', 'is_active']
@@ -33,13 +33,13 @@ class CategoryAdmin(admin.ModelAdmin):
     contact_count.short_description = 'Contacts'
 
 
-# ─────────────────────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # CONTACT ADMIN
-# ─────────────────────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
 
-    # ── List view ──────────────────────────────────────────
+    # â”€â”€ List view â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     list_display = [
         'formatted_name',
         'whatsapp_with_code',
@@ -81,7 +81,7 @@ class ContactAdmin(admin.ModelAdmin):
 
     date_hierarchy = 'date_added'
 
-    # ── Detail view layout ─────────────────────────────────
+    # â”€â”€ Detail view layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     fieldsets = (
         ('Basic Details', {
             'fields': ('first_name', 'surname', 'email')
@@ -108,13 +108,13 @@ class ContactAdmin(admin.ModelAdmin):
 
     readonly_fields = ['date_added']
 
-    # ── Bulk actions ───────────────────────────────────────
+    # â”€â”€ Bulk actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     actions = [
         'export_to_excel',
         'export_to_csv',
     ]
 
-    # ── Custom display columns ─────────────────────────────
+    # â”€â”€ Custom display columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     def formatted_name(self, obj):
         return format_html('<strong>{} {}</strong>', obj.first_name, obj.surname)
@@ -139,7 +139,7 @@ class ContactAdmin(admin.ModelAdmin):
         return format_html(
             '<a href="https://wa.me/{}" target="_blank" '
             'style="color:#25D366;text-decoration:none;white-space:nowrap;">'
-            '💬 {}</a>',
+            'ðŸ’¬ {}</a>',
             wa_num, full
         )
     whatsapp_with_code.short_description = 'WhatsApp'
@@ -147,27 +147,27 @@ class ContactAdmin(admin.ModelAdmin):
 
     def platform_badge(self, obj):
         icons = {
-            'instagram': '📸',
-            'tiktok':    '🎵',
-            'facebook':  '👥',
-            'twitter':   '🐦',
-            'youtube':   '▶️',
-            'snapchat':  '👻',
-            'linkedin':  '💼',
-            'other':     '🌐',
+            'instagram': 'ðŸ“¸',
+            'tiktok':    'ðŸŽµ',
+            'facebook':  'ðŸ‘¥',
+            'twitter':   'ðŸ¦',
+            'youtube':   'â–¶ï¸',
+            'snapchat':  'ðŸ‘»',
+            'linkedin':  'ðŸ’¼',
+            'other':     'ðŸŒ',
         }
-        icon = icons.get(obj.platform, '🌐')
-        return format_html('{} {}', icon, obj.platform.title() if obj.platform else '—')
+        icon = icons.get(obj.platform, 'ðŸŒ')
+        return format_html('{} {}', icon, obj.platform.title() if obj.platform else 'â€”')
     platform_badge.short_description = 'Platform'
     platform_badge.admin_order_field = 'platform'
 
     def handle_link(self, obj):
         """
-        Clickable handle — links directly to the profile on the platform.
+        Clickable handle â€” links directly to the profile on the platform.
         Admin can toggle to the person's actual profile.
         """
         if not obj.handle:
-            return '—'
+            return 'â€”'
 
         handle = obj.handle.lstrip('@')
 
@@ -192,7 +192,7 @@ class ContactAdmin(admin.ModelAdmin):
 
     def school_info(self, obj):
         if not obj.school_name:
-            return '—'
+            return 'â€”'
         parts = [obj.school_name]
         if obj.school_category:
             parts.append(f'({obj.get_school_category_display()})')
@@ -201,7 +201,7 @@ class ContactAdmin(admin.ModelAdmin):
         return ' '.join(parts)
     school_info.short_description = 'School'
 
-    # ── Export actions ─────────────────────────────────────
+    # â”€â”€ Export actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     def _get_headers(self):
         return [
@@ -274,7 +274,7 @@ class ContactAdmin(admin.ModelAdmin):
         self.message_user(request, f'{queryset.count()} contacts exported to Excel.')
         return response
 
-    export_to_excel.short_description = '📊 Export selected → Excel'
+    export_to_excel.short_description = 'ðŸ“Š Export selected â†’ Excel'
 
     def export_to_csv(self, request, queryset):
         response = HttpResponse(content_type='text/csv')
@@ -289,4 +289,15 @@ class ContactAdmin(admin.ModelAdmin):
         self.message_user(request, f'{queryset.count()} contacts exported to CSV.')
         return response
 
-    export_to_csv.short_description = '📄 Export selected → CSV'
+    export_to_csv.short_description = 'ðŸ“„ Export selected â†’ CSV'
+
+from contacts.models import WhatsAppLog
+
+@admin.register(WhatsAppLog)
+class WhatsAppLogAdmin(admin.ModelAdmin):
+    list_display  = ("phone", "template", "status", "timestamp", "contact")
+    list_filter   = ("status", "template")
+    search_fields = ("phone", "contact__first_name", "contact__surname")
+    readonly_fields = ("contact", "template", "phone", "status", "error", "timestamp")
+    ordering      = ("-timestamp",)
+
