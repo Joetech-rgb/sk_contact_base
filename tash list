@@ -1,0 +1,6 @@
+[33me1a2d7d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Initial commit - SK Contact Base
+[33m70a4af0[m Fix Railway database config
+[33ma68e339[m Add dj-database-url for Railway DB config
+[33maaaf30a[m Updated configuration files
+[33m54384e3[m Add gunicorn and Procfile for deployment
+[33m5e7f3bb[m Initial commit - SK Contact Base
