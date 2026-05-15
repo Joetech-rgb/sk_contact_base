@@ -244,3 +244,56 @@ class Notification(models.Model):
     def __str__(self):
         return f"[{self.type.upper()}] {self.title}"
 
+
+
+class BulkMessage(models.Model):
+    """Records every bulk WhatsApp send for audit trail."""
+    STATUS_CHOICES = [
+        ("pending",  "Pending"),
+        ("sending",  "Sending"),
+        ("done",     "Done"),
+        ("failed",   "Failed"),
+    ]
+    template      = models.CharField(max_length=100)
+    filter_params = models.JSONField(default=dict)
+    sent_count    = models.PositiveIntegerField(default=0)
+    failed_count  = models.PositiveIntegerField(default=0)
+    status        = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    created_by    = models.ForeignKey("auth.User", on_delete=models.SET_NULL, null=True)
+    created_at    = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Bulk Message"
+        verbose_name_plural = "Bulk Messages"
+
+    def __str__(self):
+        return f"Bulk {self.template} — {self.status} ({self.created_at:%Y-%m-%d})"
+
+
+class ServiceRequest(models.Model):
+    """Brand or individual requesting a filtered contact export."""
+    STATUS_CHOICES = [
+        ("pending",  "Pending"),
+        ("approved", "Approved"),
+        ("rejected", "Rejected"),
+        ("fulfilled","Fulfilled"),
+    ]
+    requester_name   = models.CharField(max_length=200)
+    email            = models.EmailField()
+    phone            = models.CharField(max_length=25)
+    filter_criteria  = models.JSONField(default=dict, help_text="e.g. country, category, follower range")
+    budget           = models.CharField(max_length=100, blank=True)
+    notes            = models.TextField(blank=True)
+    status           = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    submitted_at     = models.DateTimeField(auto_now_add=True)
+    updated_at       = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-submitted_at"]
+        verbose_name = "Service Request"
+        verbose_name_plural = "Service Requests"
+
+    def __str__(self):
+        return f"{self.requester_name} — {self.status} ({self.submitted_at:%Y-%m-%d})"
+

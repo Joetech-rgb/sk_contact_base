@@ -320,3 +320,22 @@ class NotificationAdmin(admin.ModelAdmin):
     def deactivate(self, request, queryset):
         queryset.update(is_active=False)
 
+
+
+from contacts.models import BulkMessage, ServiceRequest
+
+@admin.register(BulkMessage)
+class BulkMessageAdmin(admin.ModelAdmin):
+    list_display  = ("template", "status", "sent_count", "failed_count", "created_by", "created_at")
+    list_filter   = ("status", "template")
+    readonly_fields = ("template", "filter_params", "sent_count", "failed_count", "created_by", "created_at")
+    ordering      = ("-created_at",)
+
+@admin.register(ServiceRequest)
+class ServiceRequestAdmin(admin.ModelAdmin):
+    list_display  = ("requester_name", "email", "phone", "status", "submitted_at")
+    list_filter   = ("status",)
+    search_fields = ("requester_name", "email", "phone")
+    readonly_fields = ("requester_name", "email", "phone", "filter_criteria", "budget", "notes", "submitted_at")
+    ordering      = ("-submitted_at",)
+

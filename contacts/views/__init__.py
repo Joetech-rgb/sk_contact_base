@@ -7,3 +7,5 @@ from .contacts  import (contact_list_view, contact_add_view, contact_edit_view,
 from .exports   import export_csv_view, export_vcf_view
 from .dashboard import sk_dashboard_view
 from .google    import google_oauth_start, google_oauth_callback, google_disconnect, google_sync
+from .bulk      import (bulk_compose_view, bulk_history_view,
+                        bulk_preview_api, service_request_view, service_request_thanks_view)
