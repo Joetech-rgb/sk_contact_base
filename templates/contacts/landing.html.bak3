@@ -1,7 +1,8 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Join S.K Contact Base â€” Building Ghana's Biggest Contact Base{% endblock %}
+{% block title %}Join S.K Contact Base — Building Ghana's Biggest Contact Base
+        {% endblock %}
 
 {% block extra_css %}
 <style>
@@ -37,7 +38,7 @@
   @media(max-width:480px){.sk-nav-dashboard .db-label{display:none;}.sk-nav-dashboard{padding:8px 11px;}.sk-nav-pill{display:none;}}
   @media(max-width:768px){.sk-nav{padding:0 20px;}}
 
-  /* â•â•â• HERO â€” FULL WIDTH FORM â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ HERO — FULL WIDTH FORM ═══════════════════════════ */
   .sk-hero{min-height:100vh;padding-top:68px;display:flex;align-items:stretch;background:var(--blue-900);position:relative;overflow:hidden;}
   .sk-hero::before{content:'';position:absolute;inset:0;background:url("{% static 'images/landing-5.png' %}") center/cover no-repeat;opacity:0.13;z-index:0;}
   .sk-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(56,182,255,0.10) 0%,transparent 65%);z-index:0;}
@@ -135,7 +136,7 @@
   /* Opt saved */
   .opt-saved{display:none;margin-top:8px;padding:7px 12px;background:rgba(56,182,255,0.07);border:1px solid rgba(56,182,255,0.2);border-radius:8px;font-size:12px;color:var(--blue-300);align-items:center;gap:7px;}
 
-  /* â•â•â• TESTIMONIALS / COMMUNITY FEED â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ TESTIMONIALS / COMMUNITY FEED ═══════════════════ */
   .feed-section{background:var(--blue-900);padding-bottom:0;}
   .feed-section-label{padding:36px 64px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
   .feed-section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(56,182,255,0.10);border:1px solid rgba(56,182,255,0.20);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--blue-300);letter-spacing:0.08em;text-transform:uppercase;}
@@ -184,7 +185,7 @@
   .feed-empty-ico{font-size:40px;color:rgba(56,182,255,0.25);margin-bottom:14px;}
   .feed-empty-text{font-size:14px;color:rgba(255,255,255,0.30);}
 
-  /* â•â•â• FEATURES SLIDESHOW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ FEATURES SLIDESHOW ═══════════════════════════════ */
   .slideshow-section{background:var(--white);padding:72px 64px;overflow:hidden;}
   .slideshow-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;flex-wrap:wrap;gap:20px;}
   .ss-dots{display:flex;gap:8px;align-items:center;padding-bottom:4px;}
@@ -253,7 +254,7 @@
   .pg-footer-brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.5);}
   .pg-footer-copy{font-size:12px;color:rgba(255,255,255,0.28);}
 
-  /* â•â•â• MODAL SYSTEM â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ MODAL SYSTEM ═══════════════════════════════════════ */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(5px);}
   .modal-overlay.open{display:flex;}
   .modal-box{background:var(--blue-800);border:1px solid rgba(56,182,255,0.16);border-radius:16px;padding:36px 32px;width:min(500px,92vw);max-height:85vh;overflow-y:auto;position:relative;animation:mIn 0.28s ease both;}
@@ -273,7 +274,7 @@
   .policy-body ul{padding-left:18px;margin-bottom:12px;}
   .policy-body ul li{margin-bottom:6px;}
 
-  /* â•â•â• ABOUT MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ ABOUT MODAL ════════════════════════════════════════ */
   .about-modal-box{background:var(--blue-900);border:1px solid rgba(56,182,255,0.16);border-radius:16px;width:min(600px,94vw);max-height:88vh;overflow:hidden;position:relative;animation:mIn 0.28s ease both;display:flex;flex-direction:column;}
   .about-header{background:linear-gradient(135deg,var(--blue-700),var(--blue-900));padding:32px;border-bottom:1px solid rgba(56,182,255,0.12);flex-shrink:0;position:relative;overflow:hidden;}
   .about-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(56,182,255,0.10) 0%,transparent 65%);pointer-events:none;}
@@ -295,7 +296,7 @@
   .about-founder-role{font-size:12px;color:rgba(255,255,255,0.38);}
   @media(max-width:520px){.about-grid{grid-template-columns:1fr;}.about-header,.about-body{padding-left:20px;padding-right:20px;}}
 
-  /* â•â•â• WORK WITH US MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ WORK WITH US MODAL ════════════════════════════════ */
   .work-modal-box{background:var(--blue-900);border:1px solid rgba(56,182,255,0.16);border-radius:16px;width:min(580px,94vw);max-height:90vh;overflow:hidden;position:relative;animation:mIn 0.28s ease both;display:flex;flex-direction:column;}
   .wm-header{background:linear-gradient(135deg,var(--blue-400),var(--blue-500));padding:30px 32px 26px;position:relative;overflow:hidden;flex-shrink:0;}
   .wm-header::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,255,255,0.12) 0%,transparent 65%);pointer-events:none;}
@@ -321,7 +322,7 @@
   .wm-email-btn:hover{background:rgba(255,255,255,0.15);color:#fff;}
   @media(max-width:520px){.wm-grid{grid-template-columns:1fr;}.wm-cta-btns{flex-direction:column;}.wm-wa-btn,.wm-email-btn{justify-content:center;}.wm-header,.wm-body{padding-left:20px;padding-right:20px;}}
 
-  /* â•â•â• RESPONSIVE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+  /* ═══ RESPONSIVE ═══════════════════════════════════════ */
   @media(max-width:960px){
     .hero-card{grid-template-columns:1fr;gap:40px;padding:40px 32px 52px;}
     .hero-left{padding-top:0;}
@@ -353,6 +354,16 @@
     .pg-footer{padding:20px 20px;}
   }
 </style>
+
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}
 
 {% block content %}
@@ -367,12 +378,12 @@
 </div>
 {% endif %}
 
-<!-- â•â• OPTIONAL DETAILS MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ OPTIONAL DETAILS MODAL ══════════════════════════════════ -->
 <div class="modal-overlay" id="optModal">
   <div class="modal-box">
     <button class="modal-close" id="modalClose" type="button"><i class="fas fa-times"></i></button>
     <div class="modal-title">Optional Details</div>
-    <p class="modal-sub">These help us match you to the right campaigns â€” takes 30 seconds.</p>
+    <p class="modal-sub">These help us match you to the right campaigns — takes 30 seconds.</p>
     <p class="fsec" style="margin-top:0;">Category</p>
     <div class="fg">
       <div class="fw">
@@ -408,7 +419,7 @@
   </div>
 </div>
 
-<!-- â•â• COMMUNITY RULES MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ COMMUNITY RULES MODAL ═══════════════════════════════════ -->
 <div class="modal-overlay" id="rulesModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePolicy('rulesModal')" type="button"><i class="fas fa-times"></i></button>
@@ -428,12 +439,22 @@
       <p>You may not use contact information obtained through this network to spam, scam, or harass other individuals or brands.</p>
       <h3>6. Removal Policy</h3>
       <p>S.K Contact Base reserves the right to remove any contact from the database at any time without notice if these rules are violated.</p>
-      {% endblock %}
+      
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
     </div>
   </div>
 </div>
 
-<!-- â•â• PRIVACY POLICY MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ PRIVACY POLICY MODAL ════════════════════════════════════ -->
 <div class="modal-overlay" id="privacyModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePolicy('privacyModal')" type="button"><i class="fas fa-times"></i></button>
@@ -458,12 +479,22 @@
       <p>You have the right to access, correct, or delete your personal data at any time. Contact us to exercise these rights.</p>
       <h3>Security</h3>
       <p>We take reasonable steps to protect your information from unauthorised access or disclosure. Access to the database is password-protected and restricted to admins only.</p>
-      {% endblock %}
+      
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
     </div>
   </div>
 </div>
 
-<!-- â•â• ABOUT MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ ABOUT MODAL ══════════════════════════════════════════════ -->
 <div class="modal-overlay" id="aboutModal">
   <div class="about-modal-box">
     <button class="modal-close" onclick="closePolicy('aboutModal')" type="button"><i class="fas fa-times"></i></button>
@@ -475,7 +506,7 @@
     <div class="about-body">
       <div class="about-mission">
         <div class="about-mission-label">Our Mission</div>
-        <div class="about-mission-text">S.K Contact Base exists to bridge the gap between talent and opportunity. We believe every creator, influencer, brand owner, and skilled individual deserves to be found â€” and every brand or campaign deserves to reach exactly the right person. We make that connection fast, direct and real.</div>
+        <div class="about-mission-text">S.K Contact Base exists to bridge the gap between talent and opportunity. We believe every creator, influencer, brand owner, and skilled individual deserves to be found — and every brand or campaign deserves to reach exactly the right person. We make that connection fast, direct and real.</div>
       </div>
       <div class="about-grid">
         <div class="about-card">
@@ -486,12 +517,12 @@
         <div class="about-card">
           <div class="about-card-ico"><i class="fas fa-users"></i></div>
           <div class="about-card-title">Community-First</div>
-          <div class="about-card-desc">Every member is treated as part of a community â€” not just a record in a database.</div>
+          <div class="about-card-desc">Every member is treated as part of a community — not just a record in a database.</div>
         </div>
         <div class="about-card">
           <div class="about-card-ico"><i class="fab fa-whatsapp"></i></div>
           <div class="about-card-title">WhatsApp-Powered</div>
-          <div class="about-card-desc">We go where people already are â€” WhatsApp â€” for instant, personal outreach.</div>
+          <div class="about-card-desc">We go where people already are — WhatsApp — for instant, personal outreach.</div>
         </div>
         <div class="about-card">
           <div class="about-card-ico"><i class="fas fa-shield-alt"></i></div>
@@ -510,7 +541,7 @@
   </div>
 </div>
 
-<!-- â•â• WORK WITH US MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ WORK WITH US MODAL ═══════════════════════════════════════ -->
 <div class="modal-overlay" id="workModal">
   <div class="work-modal-box">
     <button class="modal-close" onclick="closePolicy('workModal')" type="button"><i class="fas fa-times"></i></button>
@@ -535,7 +566,7 @@
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fab fa-whatsapp"></i></div>
           <div class="wm-card-title">Direct WhatsApp Reach</div>
-          <div class="wm-card-desc">We contact people directly on WhatsApp â€” no cold emails, no middlemen, no guesswork.</div>
+          <div class="wm-card-desc">We contact people directly on WhatsApp — no cold emails, no middlemen, no guesswork.</div>
         </div>
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-globe"></i></div>
@@ -550,7 +581,7 @@
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-tags"></i></div>
           <div class="wm-card-title">Category Matching</div>
-          <div class="wm-card-desc">Dark, Fair, Curvy, Tall, Short, Hairy, Half Cast and many more â€” we match the right look to your campaign.</div>
+          <div class="wm-card-desc">Dark, Fair, Curvy, Tall, Short, Hairy, Half Cast and many more — we match the right look to your campaign.</div>
         </div>
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-chart-bar"></i></div>
@@ -560,9 +591,9 @@
       </div>
       <div class="wm-cta">
         <div class="wm-cta-title">Ready to connect?</div>
-        <div class="wm-cta-sub">Reach us on WhatsApp or Email to discuss your campaign â€” we respond fast.</div>
+        <div class="wm-cta-sub">Reach us on WhatsApp or Email to discuss your campaign — we respond fast.</div>
         <div class="wm-cta-btns">
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20work%20with%20S.K%20Contact%20Base" target="_blank" class="wm-wa-btn">
+          <a href="https://wa.me/233XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20work%20with%20S.K%20Contact%20Base" target="_blank" class="wm-wa-btn">
             <i class="fab fa-whatsapp"></i> WhatsApp Us
           </a>
           <a href="mailto:skcontactbase@gmail.com" class="wm-email-btn">
@@ -574,7 +605,7 @@
   </div>
 </div>
 
-<!-- â•â• NAV â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ NAV ══════════════════════════════════════════════════════ -->
 <nav class="sk-nav">
   <a class="sk-nav-brand" href="#">
     <img class="sk-nav-logo" src="{% static 'images/logo.png' %}" alt="S.K Contact Base">
@@ -600,7 +631,7 @@
   </div>
 </nav>
 
-<!-- â•â• HERO â€” FULL WIDTH â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ HERO — FULL WIDTH ════════════════════════════════════════ -->
 <section class="sk-hero">
   <div class="hero-card">
 
@@ -717,7 +748,7 @@
           <div class="opt-toggle-ico"><i class="fas fa-plus" id="optIcon"></i></div>
           <div class="opt-toggle-text">
             <strong>Add Optional Details</strong>
-            <small>Category, school info â€” takes 30 seconds</small>
+            <small>Category, school info — takes 30 seconds</small>
           </div>
           <i class="fas fa-chevron-right opt-chev" id="optChev"></i>
         </div>
@@ -741,18 +772,13 @@
           <span class="f-btn-label"><i class="fas fa-arrow-right"></i> Submit My Details</span>
         </button>
         <p class="f-note"><i class="fas fa-lock"></i> Your information is private and secure</p>
-      <!-- PATCHED: mirror optional modal fields into form submission -->
-      <input type="hidden" name="category"        id="mirror_category">
-      <input type="hidden" name="school_category" id="mirror_school_category">
-      <input type="hidden" name="school_name"     id="mirror_school_name">
-      <input type="hidden" name="level_year"      id="mirror_level_year">
       </form>
     </div>
 
   </div>
 </section>
 
-<!-- â•â• COMMUNITY FEED (Testimonials + Updates + Videos) â•â•â•â•â•â•â•â• -->
+<!-- ══ COMMUNITY FEED (Testimonials + Updates + Videos) ════════ -->
 <div class="feed-section">
   <div class="feed-section-label">
     <div>
@@ -855,7 +881,7 @@
       <div class="fc fc-testimonial">
         <div class="fc-body">
           <div class="fc-quote">&ldquo;</div>
-          <div class="fc-text">As a brand owner, S.K Contact Base helped me find the exact face for my product launch. The category filtering is incredibly useful â€” fast, direct and professional.</div>
+          <div class="fc-text">As a brand owner, S.K Contact Base helped me find the exact face for my product launch. The category filtering is incredibly useful — fast, direct and professional.</div>
           <div class="fc-author">
             <div class="fc-avatar">KO</div>
             <div>
@@ -874,8 +900,8 @@
       <div class="fc fc-update">
         <div class="fc-body" style="padding-top:22px;">
           <div class="fc-tag campaign">Campaign</div>
-          <div class="fc-title">New Skincare Campaign â€” Face Cards &amp; Curvy Category</div>
-          <div class="fc-desc">A major skincare brand is looking for registered members in the Face Card and Curvy categories. Check your WhatsApp â€” invitations go out this week.</div>
+          <div class="fc-title">New Skincare Campaign — Face Cards &amp; Curvy Category</div>
+          <div class="fc-desc">A major skincare brand is looking for registered members in the Face Card and Curvy categories. Check your WhatsApp — invitations go out this week.</div>
         </div>
         <div class="fc-footer">
           <span class="fc-footer-meta">S.K Admin</span>
@@ -918,7 +944,7 @@
   </div>
 </div>
 
-<!-- â•â• FEATURES SLIDESHOW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ FEATURES SLIDESHOW ════════════════════════════════════════ -->
 <section class="slideshow-section">
   <div class="slideshow-header">
     <div class="slideshow-header-left">
@@ -941,7 +967,7 @@
         <div class="ss-card-ico"><i class="fas fa-address-book"></i></div>
         <div class="ss-card-tag">Core Function</div>
         <div class="ss-card-title">Centralised Contact Management</div>
-        <p class="ss-card-desc">Every contact â€” creator, influencer or brand owner â€” is stored, organised and searchable in one professional system.</p>
+        <p class="ss-card-desc">Every contact — creator, influencer or brand owner — is stored, organised and searchable in one professional system.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Instant access to your entire network</div>
       </div>
 
@@ -965,7 +991,7 @@
         <div class="ss-card-ico"><i class="fas fa-cloud"></i></div>
         <div class="ss-card-tag">Data Export</div>
         <div class="ss-card-title">Google Contacts &amp; CSV Export</div>
-        <p class="ss-card-desc">All contacts are stored in the S.K Community cloud and Google Contacts. You're forever part of the community â€” your data is safe, saved and stored.</p>
+        <p class="ss-card-desc">All contacts are stored in the S.K Community cloud and Google Contacts. You're forever part of the community — your data is safe, saved and stored.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Your data, safe and always accessible</div>
       </div>
 
@@ -981,7 +1007,7 @@
         <div class="ss-card-ico"><i class="fas fa-chart-bar"></i></div>
         <div class="ss-card-tag">Analytics</div>
         <div class="ss-card-title">Conversion Rate Tracking</div>
-        <p class="ss-card-desc">We track exactly which social media links and platforms drive registrations. Conversion rates by source, date and category â€” decisions backed by real data.</p>
+        <p class="ss-card-desc">We track exactly which social media links and platforms drive registrations. Conversion rates by source, date and category — decisions backed by real data.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Decisions backed by real data</div>
       </div>
 
@@ -989,16 +1015,16 @@
         <div class="ss-card-ico"><i class="fas fa-shield-alt"></i></div>
         <div class="ss-card-tag">Trust &amp; Security</div>
         <div class="ss-card-title">Private &amp; Duplicate-Free</div>
-        <p class="ss-card-desc">One contact per number â€” duplicates are blocked at submission. Data is only accessible to authorised admins. Clean, trustworthy data always.</p>
+        <p class="ss-card-desc">One contact per number — duplicates are blocked at submission. Data is only accessible to authorised admins. Clean, trustworthy data always.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Clean, trustworthy data always</div>
-        <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20request%20a%20data%20update" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> Request a data update on WhatsApp</a>
+        <a href="https://wa.me/233XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20request%20a%20data%20update" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> Request a data update on WhatsApp</a>
       </div>
 
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-id-badge"></i></div>
         <div class="ss-card-tag">Client Benefit</div>
         <div class="ss-card-title">Your Unique Contact Number</div>
-        <p class="ss-card-desc">Every member who registers receives a unique community membership number â€” their permanent position in the S.K Community network. Personal, trackable identity.</p>
+        <p class="ss-card-desc">Every member who registers receives a unique community membership number — their permanent position in the S.K Community network. Personal, trackable identity.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Personal, trackable identity</div>
       </div>
 
@@ -1019,7 +1045,7 @@
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Reach out anytime</div>
         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
           <a href="mailto:skcontactbase@gmail.com" class="ss-card-link"><i class="fas fa-envelope"></i> Email us</a>
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20collaborate%20with%20S.K%20Community" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
+          <a href="https://wa.me/233XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20collaborate%20with%20S.K%20Community" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
         </div>
       </div>
 
@@ -1048,7 +1074,7 @@
 <section class="cats-section">
   <div class="stag">Who We Work With</div>
   <h2 class="stitle">Our Contact Categories</h2>
-  <p class="ssub">We work with a diverse range of talent â€” categories are managed and updated by the admin.</p>
+  <p class="ssub">We work with a diverse range of talent — categories are managed and updated by the admin.</p>
   <div class="cats">
     {% for cat in active_categories %}
     <div class="cat"><div class="cat-ico"><i class="fas fa-star"></i></div><span class="cat-name">{{ cat.name }}</span></div>
@@ -1079,28 +1105,13 @@
   <a href="#" class="cta-link" id="scrollToForm"><i class="fas fa-arrow-up"></i> Go to Registration Form</a>
 </section>
 
-<!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<!-- â•â• CATEGORY CHANGE REQUEST MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<div class="modal-overlay" id="catChangeModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closePolicy('catChangeModal')" type="button"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Change My Category</div>
-    <p class="modal-sub">Already registered? Ask the admin to update your category.</p>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">Your WhatsApp Number <span style="color:var(--blue-300);">*</span></label><input type="text" id="ccWhatsapp" placeholder="+233241234567"></div>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">Your Name</label><input type="text" id="ccName" placeholder="Helps the admin find you faster"></div>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">New Category <span style="color:var(--blue-300);">*</span></label><select id="ccCategory"><option value="">-- Select a category --</option>{% for cat in active_categories %}<option value="{{ cat.pk }}">{{ cat.name }}</option>{% endfor %}</select></div>
-    <div class="fw" style="margin-bottom:4px;"><label class="fl">Reason (optional)</label><textarea id="ccReason" rows="3" placeholder="Why do you want to change your category?" style="resize:vertical;"></textarea></div>
-    <div id="ccMsg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;"></div>
-    <button class="modal-save" onclick="submitCatChange()" type="button" id="ccSubmitBtn"><i class="fas fa-paper-plane"></i> Submit Request</button>
-  </div>
-</div>
+<!-- ══ FOOTER ════════════════════════════════════════════════════ -->
 <footer class="pg-footer">
   <div style="width:100%;text-align:center;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:12px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
     <button type="button" onclick="openPolicy('privacyModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Privacy Policy</button>
     <button type="button" onclick="openPolicy('rulesModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Community Rules</button>
     <button type="button" onclick="openPolicy('aboutModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">About</button>
     <button type="button" onclick="openPolicy('workModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Work With Us</button>
-    <button type="button" onclick="openPolicy('catChangeModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Change My Category</button>
   </div>
   <div class="pg-footer-brand">
     <img src="{% static 'images/logo.png' %}" alt="S.K Contact Base" style="height:26px;width:auto;border-radius:6px;">
@@ -1109,6 +1120,16 @@
   <div class="pg-footer-copy">&copy; 2026 S.K Contact Base. All rights reserved.</div>
 </footer>
 
+
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
@@ -1116,22 +1137,7 @@
 (function () {
   'use strict';
 
-  /* PATCHED: toggleLang was called but never defined */
-  var _currentLang = 'en';
-  window.toggleLang = function(){
-    _currentLang = _currentLang === 'en' ? 'fr' : 'en';
-    var flag  = document.getElementById('langFlag');
-    var label = document.getElementById('langLabel');
-    if(_currentLang === 'fr'){
-      if(flag)  flag.innerHTML  = '&#x1F1EB;&#x1F1F7;';
-      if(label) label.textContent = 'FR';
-    } else {
-      if(flag)  flag.innerHTML  = '&#x1F1EC;&#x1F1E7;';
-      if(label) label.textContent = 'EN';
-    }
-  };
-
-  /* â”€â”€ POLICY / GENERAL MODALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── POLICY / GENERAL MODALS ───────────────────────────── */
   window.openPolicy = function(id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -1145,7 +1151,7 @@
     document.body.style.overflow = '';
   };
 
-  ['rulesModal','privacyModal','workModal','aboutModal','catChangeModal'].forEach(function(id) {
+  ['rulesModal','privacyModal','workModal','aboutModal'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('click', function(e) {
       if (e.target === el) closePolicy(id);
@@ -1154,7 +1160,7 @@
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-      ['rulesModal','privacyModal','workModal','aboutModal','optModal','catChangeModal'].forEach(function(id) {
+      ['rulesModal','privacyModal','workModal','aboutModal','optModal'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el && el.classList.contains('open')) {
           el.classList.remove('open');
@@ -1164,7 +1170,7 @@
     }
   });
 
-  /* â”€â”€ NAME FIELD SPLIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── NAME FIELD SPLIT ──────────────────────────────────── */
   var fullNameInput = document.getElementById('id_full_name');
   var firstHidden   = document.getElementById('id_first_name_hidden');
   var surnameHidden = document.getElementById('id_surname_hidden');
@@ -1176,7 +1182,7 @@
     });
   }
 
-  /* â”€â”€ DIAL CODE â†’ COUNTRY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── DIAL CODE → COUNTRY ───────────────────────────────── */
   const CODE_TO_COUNTRY = {
     '+233':'Ghana','+234':'Nigeria','+1':'United States','+44':'United Kingdom',
     '+27':'South Africa','+254':'Kenya','+20':'Egypt','+212':'Morocco',
@@ -1219,20 +1225,11 @@
   }
   if (countryFld) countryFld.removeAttribute('readonly');
 
-  /* â”€â”€ FORM SUBMIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── FORM SUBMIT ───────────────────────────────────────── */
   const joinForm  = document.getElementById('joinForm');
   const submitBtn = document.getElementById('submitBtn');
   if (joinForm) {
     joinForm.addEventListener('submit', function(e) {
-      // PATCHED: sync modal fields into hidden mirror inputs
-      var catSel = document.getElementById('id_category');
-      var schCat = document.getElementById('id_school_category');
-      var schNam = document.getElementById('id_school_name');
-      var lvlYr  = document.getElementById('id_level_year');
-      if(catSel) document.getElementById('mirror_category').value        = catSel.value;
-      if(schCat) document.getElementById('mirror_school_category').value = schCat.value;
-      if(schNam) document.getElementById('mirror_school_name').value     = schNam.value;
-      if(lvlYr)  document.getElementById('mirror_level_year').value      = lvlYr.value;
       if (fullNameInput) {
         var parts = fullNameInput.value.trim().split(/\s+/);
         if (firstHidden)  firstHidden.value  = parts[0] || '';
@@ -1273,11 +1270,11 @@
     }
   }
 
-  /* â”€â”€ LEVEL YEAR: digits only â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── LEVEL YEAR: digits only ───────────────────────────── */
   const levelFld = document.getElementById('id_level_year');
   if (levelFld) levelFld.addEventListener('input', function() { this.value = this.value.replace(/\D/g, ''); });
 
-  /* â”€â”€ OPTIONAL MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── OPTIONAL MODAL ────────────────────────────────────── */
   const optToggle = document.getElementById('optToggle');
   const optModal  = document.getElementById('optModal');
   const modalClose= document.getElementById('modalClose');
@@ -1303,7 +1300,7 @@
     });
   }
 
-  /* â”€â”€ SCROLL TO FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── SCROLL TO FORM ────────────────────────────────────── */
   const scrollBtn = document.getElementById('scrollToForm');
   if (scrollBtn) {
     scrollBtn.addEventListener('click', function(e) {
@@ -1312,7 +1309,7 @@
     });
   }
 
-  /* â”€â”€ FEATURES SLIDESHOW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── FEATURES SLIDESHOW ────────────────────────────────── */
   (function() {
     const track = document.getElementById('ssTrack');
     const dw    = document.getElementById('ssDots');
@@ -1340,7 +1337,7 @@
     track.addEventListener('mouseleave', ra);
   })();
 
-  /* â”€â”€ SCROLL ANIMATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── SCROLL ANIMATIONS ─────────────────────────────────── */
   const obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
@@ -1356,58 +1353,39 @@
     obs.observe(el);
   });
 
-  /* â”€â”€ CATEGORY CHANGE REQUEST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  window.submitCatChange = function() {
-    var wa  = (document.getElementById('ccWhatsapp') || {}).value || '';
-    var nm  = (document.getElementById('ccName')     || {}).value || '';
-    var cat = (document.getElementById('ccCategory') || {}).value || '';
-    var rsn = (document.getElementById('ccReason')   || {}).value || '';
-    var msg = document.getElementById('ccMsg');
-    var btn = document.getElementById('ccSubmitBtn');
-    wa = wa.trim(); cat = cat.trim();
-    if (!wa || !cat) {
-      if (msg) {
-        msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
-        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number and select a category.';
-      }
-      return;
-    }
-    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...'; }
-    if (msg) { msg.style.display = 'none'; }
-    var form = new FormData();
-    form.append('whatsapp_number', wa);
-    form.append('full_name', nm);
-    form.append('requested_category', cat);
-    form.append('reason', rsn);
-    var csrf = '';
-    var ci = document.querySelector('[name=csrfmiddlewaretoken]');
-    if (ci) csrf = ci.value;
-    fetch('/request-category-change/', { method: 'POST', headers: { 'X-CSRFToken': csrf }, body: form })
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if (msg) {
-          if (d.ok) {
-            msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#DCFCE7;border:1px solid #BBF7D0;color:#15803D;';
-            msg.innerHTML = '<i class="fas fa-check-circle"></i> ' + d.message;
-            ['ccWhatsapp','ccName','ccReason'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
-            var sel = document.getElementById('ccCategory'); if (sel) sel.value = '';
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Submitted!'; }
-          } else {
-            msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
-            msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (d.error || 'Something went wrong.');
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request'; }
-          }
-        }
-      })
-      .catch(function() {
-        if (msg) {
-          msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
-          msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please try again.';
-        }
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request'; }
-      });
-  };
-
 })();
 </script>
+
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+{% if community_posts %}
+<section style="background:#F8FAFC;padding:60px 20px;">
+  <div style="max-width:860px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#1E6FD9;margin-bottom:8px;">Community</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#0C1F3F;margin:0;">Latest Updates</h2>
+    </div>
+    <div style="display:grid;gap:14px;">
+      {% for post in community_posts %}
+      <div style="background:#fff;border:1px solid #DBEAFE;border-radius:12px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start;">
+        <div style="flex:1;">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#94A3B8;margin-bottom:4px;">{{ post.type|title }} &middot; {{ post.created_at|date:"d M Y" }}</div>
+          <div style="font-size:15px;font-weight:700;color:#0C1F3F;margin-bottom:6px;">{{ post.title }}</div>
+          <div style="font-size:13px;color:#475569;line-height:1.6;">{{ post.content }}</div>
+          {% if post.author %}<div style="font-size:12px;color:#94A3B8;margin-top:8px;font-style:italic;">— {{ post.author }}</div>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 {% endblock %}

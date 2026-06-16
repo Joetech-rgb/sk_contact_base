@@ -1,11 +1,10 @@
-import os
+﻿import os
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
-
-# Load .env file
-load_dotenv()
+# Load .env file explicitly from project root
+load_dotenv(Path(__file__).resolve().parent.parent / '.env', override=True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,6 +31,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,6 +84,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
@@ -102,31 +103,24 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
 ]
 
-# ── Google OAuth (for Contacts sync) ───────────────────────────────────────────
-# Get these from https://console.cloud.google.com/
-# → APIs & Services → Credentials → OAuth 2.0 Client IDs
-# Add these three lines to your .env file instead of hardcoding them:
-#   GOOGLE_OAUTH_CLIENT_ID=your-id.apps.googleusercontent.com
-#   GOOGLE_OAUTH_CLIENT_SECRET=your-secret
-#   GOOGLE_OAUTH_REDIRECT_URI=http://127.0.0.1:8000/dashboard/google/callback/
+# Google OAuth
 GOOGLE_OAUTH_CLIENT_ID     = os.getenv('GOOGLE_OAUTH_CLIENT_ID', '')
 GOOGLE_OAUTH_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET', '')
 GOOGLE_OAUTH_REDIRECT_URI  = os.getenv(
     'GOOGLE_OAUTH_REDIRECT_URI',
     'http://127.0.0.1:8000/dashboard/google/callback/'
 )
-# ── Production security settings ──────────────────────────────────────────────
 
-
-# Only apply strict security settings in production (not during local dev)
+# Production security settings
 if not DEBUG:
-    SECURE_HSTS_SECONDS        = 31536000  # 1 year
+    SECURE_HSTS_SECONDS            = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD        = True
-    SECURE_SSL_REDIRECT        = True
-    SESSION_COOKIE_SECURE      = True
-    CSRF_COOKIE_SECURE         = True
-# -- WhatsApp Business API (Phase 2) -----------------------------------------
-# Get these from Meta Business Manager -> WhatsApp -> API Setup
+    SECURE_HSTS_PRELOAD            = True
+    SECURE_SSL_REDIRECT            = True
+    SESSION_COOKIE_SECURE          = True
+    CSRF_COOKIE_SECURE             = True
+
+# WhatsApp Business API
 WHATSAPP_PHONE_NUMBER_ID = os.getenv('WHATSAPP_PHONE_NUMBER_ID', '')
 WHATSAPP_ACCESS_TOKEN    = os.getenv('WHATSAPP_ACCESS_TOKEN', '')
+WHATSAPP_WABA_ID         = os.getenv('WHATSAPP_WABA_ID', '')

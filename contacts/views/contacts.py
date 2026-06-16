@@ -1,7 +1,8 @@
-# contacts/views/contacts.py
+﻿# contacts/views/contacts.py
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from ..api_auth import require_api_key
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -46,8 +47,19 @@ def contact_add_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Contact added successfully!")
+            contact = form.save()
+            # Send welcome WhatsApp message
+            try:
+                from ..services.whatsapp import send_whatsapp
+                send_whatsapp(
+                    to=contact.full_whatsapp,
+                    template='sk_welcome',
+                    params=[],          # sk_welcome template has no parameters
+                    contact=contact,
+                )
+            except Exception:
+                pass
+            messages.success(request, "Contact added and welcome message sent!")
             return redirect("contact-list")
     else:
         form = ContactForm()
@@ -80,6 +92,7 @@ def contact_delete_view(request, pk):
 
 
 @login_required(login_url="login")
+@require_api_key
 def contact_detail_api(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
     return JsonResponse({

@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-{% load static %}
 
 
 <html lang="en">
@@ -15,7 +14,6 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
 
 
 <title>Admin Dashboard - S.K Contact Base</title>
@@ -1506,7 +1504,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
           <div>
 
 
-            <div class="tsb-label">Total Link Shares -   -  All Accounts</div>
+            <div class="tsb-label">Total Link Shares -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  All Accounts</div>
 
 
             <div class="tsb-val">{{ total_shares }}</div>
@@ -1536,7 +1534,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 
 
 
-      {# Clean direct render -   -  replaces the messy block above #}
+      {# Clean direct render -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  replaces the messy block above #}
 
 
       <script>
@@ -1614,7 +1612,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
                   <div class="acct-name">${m.label}</div>
 
 
-                  <div class="acct-handle">${a.handle||' -   - </div>
+                  <div class="acct-handle">${a.handle||' -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div>
 
 
                 </div>
@@ -1626,7 +1624,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
               <div class="acct-stats">
 
 
-                <div class="acct-stat"><i class="fas fa-users"></i> ${a.followers||' -   - </div>
+                <div class="acct-stat"><i class="fas fa-users"></i> ${a.followers||' -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div>
 
 
                 <div class="acct-stat"><i class="fas fa-share-alt"></i> ${a.shares||0} shares</div>
@@ -1761,13 +1759,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
               <td><div class="handle-cell">{% if contact.platform_profile_url %}<button class="handle-toggle" onclick="event.stopPropagation();window.open('{{ contact.platform_profile_url }}','_blank')" title="Open profile"><i class="fas fa-external-link-alt"></i></button>{% endif %}<span style="font-size:13px;color:var(--gray-700);">@{{ contact.handle_clean }}</span></div></td>
 
 
-              <td style="font-size:12px;color:var(--gray-600);">{{ contact.get_follower_range_display|default:" -   - " }}</td>
+              <td style="font-size:12px;color:var(--gray-600);">{{ contact.get_follower_range_display|default:" -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - " }}</td>
 
 
-              <td><span class="sbadge sbadge-gray">{{ contact.category.name|default:" -   - " }}</span></td>
+              <td><span class="sbadge sbadge-gray">{{ contact.category.name|default:" -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - " }}</span></td>
 
 
-              <td style="font-size:12px;color:var(--gray-600);">{{ contact.age_range|default:" -   - " }}</td>
+              <td style="font-size:12px;color:var(--gray-600);">{{ contact.age_range|default:" -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - " }}</td>
 
 
               <td style="font-size:11px;color:var(--gray-400);">{{ contact.date_added|date:"M d, Y" }}</td>
@@ -1914,50 +1912,78 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <div class="wa-thread-list">
 
 
-                    {% for log in wa_logs %}
-          <div class="wa-thread" style="{% if log.direction == 'in' %}background:var(--green-50);border-left:3px solid var(--green);{% endif %}">
-            <div class="wa-thread-avatar" style="{% if log.direction == 'in' %}background:linear-gradient(135deg,var(--green),#128C7E);{% endif %}">
+          {% for log in wa_logs %}
+
+
+          <div class="wa-thread">
+
+
+            <div class="wa-thread-avatar">
+
+
               {% if log.contact %}{{ log.contact.full_name|slice:":2"|upper }}{% else %}??{% endif %}
+
+
             </div>
+
+
             <div class="wa-thread-info">
-              <div class="wa-thread-name">
-                {% if log.contact %}{{ log.contact.full_name }}{% else %}{{ log.phone }}{% endif %}
-                {% if log.direction == 'in' %}
-                  <span style="font-size:10px;font-weight:700;background:var(--green);color:#fff;padding:2px 8px;border-radius:100px;margin-left:6px;">&larr; REPLY</span>
-                {% endif %}
-              </div>
-              <div class="wa-thread-preview">
-                {% if log.direction == 'in' %}
-                  <strong style="color:var(--green-700);">They said:</strong> {{ log.message_text|default:"(no text)" }}
-                {% else %}
-                  Template: <strong>{{ log.template }}</strong>{% if log.error %} &mdash; {{ log.error|truncatechars:60 }}{% endif %}
-                {% endif %}
-              </div>
+
+
+              <div class="wa-thread-name">{% if log.contact %}{{ log.contact.full_name }}{% else %}{{ log.phone }}{% endif %}</div>
+
+
+              <div class="wa-thread-preview">Template: <strong>{{ log.template }}</strong>{% if log.error %} -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  {{ log.error|truncatechars:60 }}{% endif %}</div>
+
+
             </div>
+
+
             <div class="wa-thread-meta">
+
+
               <div class="wa-thread-time">{{ log.timestamp|date:"d M H:i" }}</div>
-              <div class="wa-status-pill {% if log.direction == 'in' %}wa-status-sent{% elif log.status == 'sent' %}wa-status-sent{% else %}wa-status-failed{% endif %}">
-                <i class="fas fa-{% if log.direction == 'in' %}reply{% elif log.status == 'sent' %}check{% else %}times{% endif %}-circle"></i>
-                {% if log.direction == 'in' %}Received{% else %}{{ log.status|title }}{% endif %}
+
+
+              <div class="wa-status-pill {% if log.status == 'sent' %}wa-status-sent{% else %}wa-status-failed{% endif %}">
+
+
+                <i class="fas fa-{% if log.status == 'sent' %}check{% else %}times{% endif %}-circle"></i> {{ log.status|title }}
+
+
               </div>
+
+
             </div>
-            {% if log.direction == 'in' %}
-              {% if log.contact %}
-                <a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Reply</a>
-              {% elif log.phone %}
-                <a href="https://wa.me/{{ log.phone }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Reply</a>
-              {% endif %}
-            {% else %}
-              {% if log.contact %}
-                <a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Chat</a>
-              {% endif %}
+
+
+            {% if log.contact %}
+
+
+            <a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Chat</a>
+
+
             {% endif %}
+
+
           </div>
+
+
           {% empty %}
+
+
           <div style="padding:40px;text-align:center;color:var(--gray-400);">
+
+
             <i class="fab fa-whatsapp" style="font-size:32px;margin-bottom:12px;display:block;color:var(--gray-200);"></i>
-            No messages yet. Use Bulk Messaging to send your first message.
+
+
+            No messages sent yet. Use Bulk Messaging to send your first message.
+
+
           </div>
+
+
           {% endfor %}
 
 
@@ -2024,7 +2050,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
             <div class="fw" style="margin:0;"><label class="fl">Category</label><select class="fi fi-select" id="bsCategory" onchange="bsUpdatePreview()"><option value="">All Categories</option>{% for cat in categories %}<option value="{{ cat.name }}">{{ cat.name }}</option>{% endfor %}</select></div>
 
 
-            <div class="fw" style="margin:0;"><label class="fl">Age Range</label><select class="fi fi-select" id="bsAge" onchange="bsUpdatePreview()"><option value="">All Ages</option><option>18 -   - "24</option><option>25 -   - "34</option><option>35 -   - "44</option><option>45 -   - "54</option><option>55+</option></select></div>
+            <div class="fw" style="margin:0;"><label class="fl">Age Range</label><select class="fi fi-select" id="bsAge" onchange="bsUpdatePreview()"><option value="">All Ages</option><option>18 -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - "24</option><option>25 -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - "34</option><option>35 -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - "44</option><option>45 -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - "54</option><option>55+</option></select></div>
 
 
             <div class="fw" style="margin:0;"><label class="fl">Country</label><select class="fi fi-select" id="bsCountry" onchange="bsUpdatePreview()"><option value="">All Countries</option>{% for c in country_list %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select></div>
@@ -2105,10 +2131,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <div class="bhi-info">
 
 
-          <div class="bhi-title">{{ bm.template }}{% if bm.filter_params.category %} -   -  {{ bm.filter_params.category }}{% endif %}{% if bm.filter_params.country %}, {{ bm.filter_params.country }}{% endif %}</div>
+          <div class="bhi-title">{{ bm.template }}{% if bm.filter_params.category %} -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  {{ bm.filter_params.category }}{% endif %}{% if bm.filter_params.country %}, {{ bm.filter_params.country }}{% endif %}</div>
 
 
-          <div class="bhi-meta">{{ bm.created_at|date:"d M Y -  H:i" }} -  By {{ bm.created_by.username|default:"Admin" }}</div>
+          <div class="bhi-meta">{{ bm.created_at|date:"d M Y -  â‚¬â„¢ -  -  â‚¬â„¢ -  H:i" }} -  â‚¬â„¢ -  -  â‚¬â„¢ -  By {{ bm.created_by.username|default:"Admin" }}</div>
 
 
         </div>
@@ -2126,7 +2152,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
           {% if bm.status == 'sending' %}<span class="bhi-stat" style="background:var(--amber-50);color:var(--amber-700);"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
 
 
-          {% else %}<span class="bhi-stat bhi-rate-s">{% if bm.sent_count and bm.failed_count %}{% widthratio bm.sent_count bm.sent_count|add:bm.failed_count 100 %}%{% elif bm.sent_count %}100%{% else %}0%{% endif %}</span>{% endif %}
+          {% else %}<span class="bhi-stat bhi-rate-s">{% if bm.sent_count %}{% widthratio bm.sent_count bm.sent_count|add:bm.failed_count 100 %}%{% else %}0%{% endif %}</span>{% endif %}
 
 
         </div>
@@ -2249,7 +2275,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
             <div class="pli-body">{{ post.content|truncatechars:120 }}</div>
 
 
-            <div class="pli-meta"><span class="pli-tag {{ post.type }}">{{ post.type|title }}</span><span class="pli-date">{{ post.created_at|date:"d M Y" }}</span>{% if post.author %}<span class="pli-date"> -   -  {{ post.author }}</span>{% endif %}</div>
+            <div class="pli-meta"><span class="pli-tag {{ post.type }}">{{ post.type|title }}</span><span class="pli-date">{{ post.created_at|date:"d M Y" }}</span>{% if post.author %}<span class="pli-date"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  {{ post.author }}</span>{% endif %}</div>
 
 
           </div>
@@ -2324,7 +2350,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
                 <i class="fas fa-calendar" style="margin-right:4px;"></i> {{ camp.created_at|date:"d M Y" }}
 
 
-                {% if camp.target_country %}&nbsp; - <i class="fas fa-globe" style="margin-right:4px;"></i>{{ camp.target_country }}{% endif %}
+                {% if camp.target_country %}&nbsp; -  â‚¬â„¢ -  -  â‚¬â„¢ - <i class="fas fa-globe" style="margin-right:4px;"></i>{{ camp.target_country }}{% endif %}
 
 
                 {% for cat in camp.target_categories.all %}<span class="sbadge sbadge-gray" style="margin-left:4px;">{{ cat.name }}</span>{% endfor %}
@@ -2429,7 +2455,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
               <button class="camp-btn camp-btn-primary" onclick="saveCampaignCounts({{ camp.pk }})"><i class="fas fa-save"></i> Save</button>
 
 
-              <button class="camp-btn camp-btn-green" onclick="openCampContacts({{ camp.pk }})"><i class="fab fa-whatsapp"></i> Send to Contacts</button>
+              <button class="camp-btn camp-btn-green" onclick="setTab('bulk')"><i class="fab fa-whatsapp"></i> Bulk Message</button>
 
 
               <button class="camp-btn camp-btn-red" onclick="deleteCampaign({{ camp.pk }})"><i class="fas fa-trash"></i> Delete</button>
@@ -2517,32 +2543,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 
 
       <button class="add-cat-btn" onclick="openModal('addCatModal')"><i class="fas fa-plus-circle"></i> Add New Category</button>
-
-      <div class="sh" style="margin-top:28px;"><div class="sh-title">Category Change Requests</div><div class="sh-tag"><i class="fas fa-exchange-alt"></i> From registered users</div><div class="sh-line"></div></div>
-      <div id="catRequestsList">
-        {% for req in category_change_requests %}
-        <div class="bulk-history-item" id="catreq-{{ req.pk }}">
-          <div class="bhi-ico {% if req.status == "pending" %}sending{% elif req.status == "done" %}sent{% else %}failed{% endif %}">
-            <i class="fas fa-{% if req.status == "pending" %}clock{% elif req.status == "done" %}check{% else %}times{% endif %}"></i>
-          </div>
-          <div class="bhi-info">
-            <div class="bhi-title"><a href="https://wa.me/{{ req.whatsapp_number|cut:"+" }}" target="_blank" style="color:var(--blue-500);text-decoration:none;">{{ req.whatsapp_number }}</a>{% if req.full_name %} &mdash; {{ req.full_name }}{% endif %}</div>
-            <div class="bhi-meta">{% if req.current_category %}<span style="background:var(--gray-100);padding:1px 7px;border-radius:100px;font-size:10px;">{{ req.current_category }}</span> &rarr; {% endif %}<span style="background:var(--blue-50);color:var(--blue-500);padding:1px 7px;border-radius:100px;font-size:10px;font-weight:700;">{{ req.requested_category }}</span>{% if req.reason %} &mdash; &ldquo;{{ req.reason|truncatechars:60 }}&rdquo;{% endif %}</div>
-            <div class="bhi-meta" style="margin-top:4px;">{{ req.submitted_at|date:"d M Y H:i" }}</div>
-          </div>
-          <div style="display:flex;gap:6px;flex-shrink:0;">
-            {% if req.status == "pending" %}
-            <button onclick="applyCatRequest({{ req.pk }}, this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--green-50);color:var(--green-700);border:1px solid #BBF7D0;cursor:pointer;font-family:inherit;"><i class="fas fa-check"></i> Apply</button>
-            <button onclick="rejectCatRequest({{ req.pk }}, this)" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--red-50);color:var(--red-700);border:1px solid #FECACA;cursor:pointer;font-family:inherit;"><i class="fas fa-times"></i> Reject</button>
-            {% else %}
-            <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;{% if req.status == "done" %}background:var(--green-50);color:var(--green-700);{% else %}background:var(--red-50);color:var(--red-700);{% endif %}">{{ req.get_status_display }}</span>
-            {% endif %}
-          </div>
-        </div>
-        {% empty %}
-        <div style="padding:20px;text-align:center;color:var(--gray-400);background:var(--white);border:1px solid var(--blue-100);border-radius:10px;">No category change requests yet.</div>
-        {% endfor %}
-      </div>
 
 
     </div>
@@ -2704,7 +2704,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
   <footer style="background:var(--blue-900);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
 
 
-    <div style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.45);">S.K Contact Base -   -  Admin</div>
+    <div style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.45);">S.K Contact Base -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  Admin</div>
 
 
     <div style="font-size:12px;color:rgba(255,255,255,0.25);">&copy; 2026 S.K Contact Base. All rights reserved.</div>
@@ -2821,7 +2821,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
     <form method="post" action="{% url 'campaign-create' %}">{% csrf_token %}
 
 
-      <div class="fw"><label class="fl">Campaign Name *</label><input type="text" class="fi" name="name" placeholder="e.g. Skincare Launch -   -  June 2026" required></div>
+      <div class="fw"><label class="fl">Campaign Name *</label><input type="text" class="fi" name="name" placeholder="e.g. Skincare Launch -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  June 2026" required></div>
 
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
@@ -2851,7 +2851,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
       </div>
 
 
-      <div class="fw"><label class="fl">Campaign Message *</label><textarea class="fi" rows="4" name="campaign_message" placeholder="Hi {name}! We have an exciting skincare deal for influencers. Are you interested? Reply YES for details. - SK Brand Links"></textarea></div>
       <div class="fw"><label class="fl">Notes</label><textarea class="fi" rows="3" name="notes" placeholder="Campaign brief, client, deliverables..."></textarea></div>
 
 
@@ -2888,40 +2887,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
 
 
-      <div class="fw"><label class="fl">Full Name</label><div id="detail-fullname" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Full Name</label><div id="detail-fullname" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Email</label><div id="detail-email" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Email</label><div id="detail-email" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">WhatsApp</label><div id="detail-whatsapp" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">WhatsApp</label><div id="detail-whatsapp" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Country</label><div id="detail-country" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Country</label><div id="detail-country" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Platform</label><div id="detail-platform" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Platform</label><div id="detail-platform" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Handle</label><div id="detail-handle" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Handle</label><div id="detail-handle" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Category</label><div id="detail-category" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Category</label><div id="detail-category" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Followers</label><div id="detail-followers" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Followers</label><div id="detail-followers" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Age Range</label><div id="detail-age" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Age Range</label><div id="detail-age" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Region</label><div id="detail-region" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Region</label><div id="detail-region" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Referral Source</label><div id="detail-referral" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Referral Source</label><div id="detail-referral" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
-      <div class="fw"><label class="fl">Date Registered</label><div id="detail-date" class="fi" style="background:var(--gray-50);"> -   - </div></div>
+      <div class="fw"><label class="fl">Date Registered</label><div id="detail-date" class="fi" style="background:var(--gray-50);"> -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ - </div></div>
 
 
     </div>
@@ -2961,23 +2960,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 
 
 
-<div class="modal-overlay" id="campContactsModal">
-  <div class="modal-box" style="width:min(720px,95vw);">
-    <button class="modal-close" onclick="closeModal('campContactsModal')"><i class="fas fa-times"></i></button>
-    <div class="modal-title" id="campContactsTitle">Campaign Contacts</div>
-    <p class="modal-sub" id="campContactsSub">Click Send on each contact to open WhatsApp with the message pre-filled</p>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-      <span id="campContactsCount" style="font-size:13px;font-weight:700;color:var(--blue-900);"></span>
-      <div style="display:flex;gap:8px;">
-        <button onclick="copyAllCampNumbers()" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--gray-100);color:var(--gray-600);border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;"><i class="fas fa-copy"></i> Copy All Numbers</button>
-        <button onclick="openAllWaLinks()" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;"><i class="fab fa-whatsapp"></i> Open All Chats</button>
-      </div>
-    </div>
-    <div style="background:var(--blue-50);border:1px solid var(--blue-100);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--blue-700);" id="campMsgPreview"></div>
-    <div id="campContactsList" style="max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
-  </div>
-</div>
-
 <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Done!</span></div>
 
 
@@ -2994,12 +2976,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 
 
 var CSRF = '{{ csrf_token }}';
-
-// PATCHED 2-J: HTML escape helper (prevents XSS in dynamic innerHTML)
-function _esc(s){
-  if(!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-}
 
 
 
@@ -3416,7 +3392,7 @@ window.bulkSendSubmit = function(){
     headers:{'Content-Type':'application/json','X-CSRFToken':CSRF},
 
 
-    body:JSON.stringify({template:template, category:category, country:country, platform:platform, params:[], language: template==='sk_welcome' ? 'en_US' : 'en'})
+    body:JSON.stringify({template:template, category:category, country:country, platform:platform, params:[]})
 
 
   })
@@ -3437,7 +3413,7 @@ window.bulkSendSubmit = function(){
       result.style.cssText='display:block;margin:12px 0;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:'+(d.success?'var(--green-50)':'var(--red-50)')+';border:1px solid '+(d.success?'#BBF7D0':'#FECACA')+';color:'+(d.success?'var(--green-700)':'var(--red-700)')+';';
 
 
-      result.innerHTML='<i class="fas fa-'+(d.success?'check':'exclamation')+'-circle"></i> '+(d.success?'Started -   -  '+d.message:(d.error||'Send failed'));
+      result.innerHTML='<i class="fas fa-'+(d.success?'check':'exclamation')+'-circle"></i> '+(d.success?'Started -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  '+d.message:(d.error||'Send failed'));
 
 
     }
@@ -3482,13 +3458,13 @@ function pollBulkStatus(bulkId){
         if(row){
 
 
-          var titleEl=row.querySelector('.bhi-title'); if(titleEl) titleEl.textContent = 'Sending... '+d.sent+' sent, '+d.failed+' failed';
+          row.querySelector('.bhi-title').textContent = 'Sending... '+d.sent+' sent, '+d.failed+' failed';
 
 
         }
 
 
-        if(d.status==='done'){ clearInterval(interval); toast('Bulk send complete -   -  '+d.sent+' sent!'); }
+        if(d.status==='done'){ clearInterval(interval); toast('Bulk send complete -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  '+d.sent+' sent!'); }
 
 
       })
@@ -4035,7 +4011,7 @@ window.updateExportLinks = function(){
   var txt = document.getElementById('dlPreviewText');
 
 
-  if(txt) txt.textContent = filters.length===0 ? 'All {{ total_contacts }} contacts will be exported' : 'Filtered export -   -  '+filters.join(', ');
+  if(txt) txt.textContent = filters.length===0 ? 'All {{ total_contacts }} contacts will be exported' : 'Filtered export -  â‚¬â„¢ -  -  â‚¬â„¢ -  â‚¬â„¢ -  '+filters.join(', ');
 
 
 };
@@ -4083,7 +4059,7 @@ window.setPreset = function(btn, preset){
     var from = new Date(now);
 
 
-    if(preset==='today'){ if(dfEl) dfEl.value=toDate; if(dtEl) dtEl.value=toDate; }
+    if(preset==='today' && dfEl){ dfEl.value=toDate; }
 
 
     else {
@@ -4133,185 +4109,6 @@ window.triggerGoogleSync = function(){
 
 
 
-
-// -- Category Change Requests ----------------------------
-window.applyCatRequest = function(id, btn) {
-  if(!confirm('Apply this category change to the contact?')) return;
-  var row = document.getElementById('catreq-'+id);
-  fetch('/dashboard/catrequest/'+id+'/apply/', {method:'POST', headers:{'X-CSRFToken':CSRF}})
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if(d.ok){
-        toast('Category updated!');
-        if(row){
-          var actions = row.querySelector('div[style*="flex-shrink"]:last-child');
-          if(actions) actions.innerHTML = '<span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;background:var(--green-50);color:var(--green-700);">Done</span>';
-          var ico = row.querySelector('.bhi-ico');
-          if(ico){ ico.className='bhi-ico sent'; ico.innerHTML='<i class="fas fa-check"></i>'; }
-        }
-      } else { toast(d.error||'Failed','error'); }
-    })
-    .catch(function(){ toast('Network error','error'); });
-};
-
-window.rejectCatRequest = function(id, btn) {
-  if(!confirm('Reject this request?')) return;
-  var row = document.getElementById('catreq-'+id);
-  fetch('/dashboard/catrequest/'+id+'/reject/', {method:'POST', headers:{'X-CSRFToken':CSRF}})
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if(d.ok){
-        toast('Request rejected.');
-        if(row){
-          var actions = row.querySelector('div[style*="flex-shrink"]:last-child');
-          if(actions) actions.innerHTML = '<span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;background:var(--red-50);color:var(--red-700);">Rejected</span>';
-          var ico = row.querySelector('.bhi-ico');
-          if(ico){ ico.className='bhi-ico failed'; ico.innerHTML='<i class="fas fa-times"></i>'; }
-        }
-      } else { toast(d.error||'Failed','error'); }
-    })
-    .catch(function(){ toast('Network error','error'); });
-};
-
-// -- Open Bulk from Campaign --
-window.openBulkFromCampaign = function(id, country, template, category){
-  setTab('bulk');
-  var catSel = document.getElementById('bsCategory');
-  var couSel = document.getElementById('bsCountry');
-  var tplInp = document.getElementById('bsTemplate');
-  var tplSel = document.getElementById('bsTemplateSelect');
-  if(catSel && category){ catSel.value = category; }
-  if(couSel && country){ couSel.value = country; }
-  if(tplInp && template){ tplInp.value = template; }
-  if(tplSel && template){ tplSel.value = template; }
-  bsUpdatePreview();
-  toast('Bulk composer ready for campaign!');
-};
-
-// -- Campaign Contacts Modal --
-var campWaLinks = [];
-var campNumbers = [];
-
-var STATUS_LABELS = {pending:"Pending",interested:"Interested",not_interested:"Not Interested",confirmed:"Confirmed"};
-var STATUS_COLORS = {pending:"var(--gray-100),var(--gray-600)",interested:"var(--green-50),var(--green-700)",not_interested:"var(--red-50),var(--red-700)",confirmed:"var(--blue-50),var(--blue-500)"};
-
-window.setCampContactStatus = function(campPk, contactPk, status, btn){
-  fetch('/api/campaign/'+campPk+'/contact/'+contactPk+'/status/',{
-    method:'POST',
-    headers:{'X-CSRFToken':CSRF},
-    body:new URLSearchParams({status:status})
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d){
-    if(d.ok){
-      var row = btn.closest('.cc-row');
-      if(row){
-        var sel = row.querySelector('.cc-status-sel');
-        if(sel) sel.value = status;
-        var lbl = row.querySelector('.cc-status-lbl');
-        if(lbl){
-          var cols = STATUS_COLORS[status].split(',');
-          lbl.style.background = cols[0];
-          lbl.style.color = cols[1];
-          lbl.textContent = STATUS_LABELS[status];
-        }
-      }
-      var rc = document.getElementById('camp-responded-'+campPk);
-      var cc = document.getElementById('camp-confirmed-'+campPk);
-      if(rc) rc.textContent = d.responded_count;
-      if(cc) cc.textContent = d.confirmed_count;
-      toast('Status updated!');
-    }
-  });
-};
-
-window.openCampContacts = function(pk){
-  document.getElementById('campContactsTitle').textContent = 'Loading contacts...';
-  document.getElementById('campContactsList').innerHTML = '<div style="text-align:center;padding:30px;color:var(--gray-400);"><i class="fas fa-spinner fa-spin" style="font-size:24px;"></i></div>';
-  document.getElementById('campContactsCount').textContent = '';
-  document.getElementById('campMsgPreview').textContent = '';
-  campWaLinks = []; campNumbers = []; var currentCampPk = pk;
-  openModal('campContactsModal');
-  fetch('/api/campaign/'+pk+'/contacts/')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if(!d.ok){ toast('Failed to load contacts','error'); return; }
-      document.getElementById('campContactsTitle').textContent = d.campaign;
-      document.getElementById('campContactsCount').textContent = d.total+' contacts found';
-      if(d.contacts.length > 0){
-        document.getElementById('campMsgPreview').innerHTML = '<i class="fas fa-comment-dots" style="margin-right:6px;color:var(--blue-400);"></i><strong>Message preview:</strong> '+d.contacts[0].message;
-      }
-      var list = document.getElementById('campContactsList');
-      list.innerHTML = '';
-      if(d.contacts.length === 0){
-        list.innerHTML = '<div style="text-align:center;padding:30px;color:var(--gray-400);">No contacts found for this campaign\u2019s filters.</div>';
-        return;
-      }
-      d.contacts.forEach(function(c){
-        campWaLinks.push(c.wa_link);
-        campNumbers.push(c.number);
-        var row = document.createElement('div');
-        row.className = 'cc-row';
-        row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--white);border:1px solid var(--blue-100);border-radius:8px;';
-        row.innerHTML =
-          '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0;">'+((c.name||'??').substring(0,2).toUpperCase())+'</div>'
-          +'<div style="flex:1;min-width:0;">'
-          +'<div style="font-size:13px;font-weight:700;color:var(--blue-900);">'+c.name+'</div>'
-          +'<div style="font-size:11px;color:var(--gray-400);">'+c.number+' &bull; '+c.category+'</div>'
-          +'</div>'
-          +'<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0;">'
-          +'<a href="'+c.wa_link+'" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border-radius:7px;font-size:11px;font-weight:600;text-decoration:none;"><i class="fab fa-whatsapp"></i> Send</a>'
-          +'<select class="cc-status-sel" style="padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;font-size:11px;font-family:inherit;cursor:pointer;">'
-          +'<option value="pending"'+(c.status==="pending"?" selected":"")+'>Pending</option>'
-          +'<option value="interested"'+(c.status==="interested"?" selected":"")+'>Interested</option>'
-          +'<option value="not_interested"'+(c.status==="not_interested"?" selected":"")+'>Not Interested</option>'
-          +'<option value="confirmed"'+(c.status==="confirmed"?" selected":"")+'>Confirmed</option>'
-          +'</select>'
-          +'</div>';
-        var sel = row.querySelector('.cc-status-sel');
-        (function(contactPk, campPk, selectEl){
-          selectEl.addEventListener('change', function(){
-            setCampContactStatus(campPk, contactPk, this.value, this);
-          });
-        })(c.pk, pk, sel);
-        var sendLink = row.querySelector('a');
-        sendLink.addEventListener('click', function(){
-          row.style.opacity = '0.45';
-          this.innerHTML = '<i class="fas fa-check"></i> Sent';
-          this.style.background = 'var(--green-50)';
-          this.style.color = 'var(--green-700)';
-        });
-        list.appendChild(row);
-      });
-    })
-    .catch(function(){ toast('Network error','error'); });
-};
-
-window.markSent = function(el, campPk){
-  var row = el.closest('div[style*="border:1px solid"');
-  if(row) row.style.opacity = '0.45';
-  el.innerHTML = '<i class="fas fa-check"></i> Sent';
-  el.style.background = 'var(--green-50)';
-  el.style.color = 'var(--green-700)';
-};
-
-window.copyAllCampNumbers = function(){
-  if(!campNumbers.length){ toast('No numbers loaded','error'); return; }
-  navigator.clipboard.writeText(campNumbers.join('\n')).then(function(){
-    toast(campNumbers.length+' numbers copied!');
-  }).catch(function(){
-    var ta = document.createElement('textarea');
-    ta.value = campNumbers.join('\n');
-    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    toast(campNumbers.length+' numbers copied!');
-  });
-};
-
-window.openAllWaLinks = function(){
-  if(!campWaLinks.length){ toast('No contacts loaded','error'); return; }
-  if(!confirm('This will open '+campWaLinks.length+' WhatsApp tabs. Continue?')) return;
-  campWaLinks.forEach(function(link){ window.open(link,'_blank'); });
-};
 
 // -- Init --------------------------------------------------
 
@@ -4430,65 +4227,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
 
-
-<!-- PATCHED 2-I: filterModal -->
-<div class="modal-overlay" id="filterModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('filterModal')"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Filter Contacts</div>
-    <p class="modal-sub">Narrow the contacts list by category, country, or platform.</p>
-    <form method="get" id="filterModalForm">
-      <input type="hidden" name="tab" value="contacts">
-      <div class="fw"><label class="fl">Category</label>
-        <select class="fi fi-select" name="f_cat">
-          <option value="">All Categories</option>
-          {% for cat in categories %}<option value="{{ cat.name }}" {% if f_cat == cat.name %}selected{% endif %}>{{ cat.name }}</option>{% endfor %}
-        </select>
-      </div>
-      <div class="fw"><label class="fl">Country</label>
-        <select class="fi fi-select" name="f_country">
-          <option value="">All Countries</option>
-          {% for c in country_list %}<option value="{{ c }}" {% if f_country == c %}selected{% endif %}>{{ c }}</option>{% endfor %}
-        </select>
-      </div>
-      <div class="fw"><label class="fl">Platform</label>
-        <select class="fi fi-select" name="f_platform">
-          <option value="">All Platforms</option>
-          {% for plat in platform_stats %}<option value="{{ plat.platform }}" {% if f_platform == plat.platform %}selected{% endif %}>{{ plat.platform|title }}</option>{% endfor %}
-        </select>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:4px;">
-        <button type="submit" class="modal-save" style="flex:1;"><i class="fas fa-filter"></i> Apply Filter</button>
-        <a href="?tab=contacts" class="modal-save" style="flex:0 0 auto;background:var(--gray-200);color:var(--gray-700);box-shadow:none;"><i class="fas fa-times"></i> Clear</a>
-      </div>
-    </form>
-  </div>
-</div></body>
+</body>
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load i18n %}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk Send — S.K Contact Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --blue-900:#0C1F3F;--blue-800:#0F2D5A;--blue-700:#1A4080;
+  --blue-500:#1E6FD9;--blue-400:#38B6FF;--blue-300:#7DD3FC;
+  --blue-100:#DBEAFE;--blue-50:#EFF6FF;--white:#FFFFFF;
+  --gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;
+  --gray-400:#94A3B8;--gray-500:#64748B;--gray-600:#475569;--gray-700:#334155;
+  --green:#22C55E;--green-50:#DCFCE7;--green-700:#15803D;
+  --amber:#F59E0B;--amber-50:#FEF3C7;
+  --red:#EF4444;--red-50:#FEE2E2;
+  --shadow-sm:0 1px 3px rgba(12,31,63,0.08);
+  --shadow-md:0 4px 16px rgba(12,31,63,0.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue-900);}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:230px;background:var(--blue-900);display:flex;flex-direction:column;z-index:200;}
+.sb-brand{padding:22px 20px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.sb-logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.sb-name{font-size:13px;font-weight:600;color:#fff;line-height:1.2;}
+.sb-name small{display:block;font-size:10px;color:rgba(255,255,255,0.35);font-weight:400;}
+.sb-nav{flex:1;padding:14px 10px;overflow-y:auto;}
+.sb-link{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;cursor:pointer;transition:all 0.18s;margin-bottom:2px;}
+.sb-link i{width:16px;text-align:center;font-size:12px;}
+.sb-link:hover{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.85);}
+.sb-link.active{background:rgba(56,182,255,0.14);color:var(--blue-300);}
+.page-wrap{margin-left:230px;min-height:100vh;}
+.topbar{background:var(--white);border-bottom:1px solid var(--blue-100);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);position:sticky;top:0;z-index:100;}
+.page-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--blue-900);}
+.main{padding:32px;}
+.card{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);border:1px solid var(--blue-100);padding:28px;margin-bottom:24px;}
+.card-title{font-size:15px;font-weight:700;color:var(--blue-900);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.form-group{margin-bottom:18px;}
+label{display:block;font-size:12px;font-weight:600;color:var(--gray-600);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;}
+input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--blue-900);background:var(--white);transition:border 0.2s;outline:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--blue-400);}
+textarea{resize:vertical;min-height:120px;}
+.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.preview-box{background:var(--blue-50);border:1.5px solid var(--blue-100);border-radius:10px;padding:16px;margin-bottom:18px;}
+.preview-count{font-size:28px;font-weight:800;color:var(--blue-500);}
+.preview-label{font-size:12px;color:var(--gray-500);margin-top:2px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-primary{background:var(--blue-500);color:#fff;}
+.btn-primary:hover{background:var(--blue-700);}
+.btn-ghost{background:var(--gray-100);color:var(--gray-600);}
+.btn-ghost:hover{background:var(--gray-200);}
+.alert{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:18px;}
+.alert-success{background:var(--green-50);color:var(--green-700);border:1px solid #BBF7D0;}
+.alert-error{background:var(--red-50);color:#B91C1C;border:1px solid #FECACA;}
+.hint{font-size:11px;color:var(--gray-400);margin-top:5px;}
+.template-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.tab-btn{padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--gray-200);background:var(--white);color:var(--gray-600);transition:all 0.2s;}
+.tab-btn.active{background:var(--blue-500);color:#fff;border-color:var(--blue-500);}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo"><i class="fa fa-database"></i></div>
+    <div class="sb-name">SK Contact Base<small>Admin Panel</small></div>
+  </div>
+  <nav class="sb-nav">
+    <a href="/sk-dashboard/" class="sb-link"><i class="fa fa-home"></i> Dashboard</a>
+    <a href="/contacts/" class="sb-link"><i class="fa fa-users"></i> Contacts</a>
+    <a href="/dashboard/bulk/" class="sb-link active"><i class="fa fa-paper-plane"></i> Bulk Send</a>
+    <a href="/dashboard/bulk/history/" class="sb-link"><i class="fa fa-history"></i> Send History</a>
+    <a href="/logout/" class="sb-link"><i class="fa fa-sign-out-alt"></i> Logout</a>
+  </nav>
+</div>
+
+<div class="page-wrap">
+  <div class="topbar">
+    <div class="page-title">📤 Bulk WhatsApp Send</div>
+    <a href="/dashboard/bulk/history/" class="btn btn-ghost"><i class="fa fa-history"></i> View History</a>
+  </div>
+
+  <div class="main">
+
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert {% if msg.tags == 'error' %}alert-error{% else %}alert-success{% endif %}">
+          {{ msg }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <!-- Preview Count -->
+    <div class="card">
+      <div class="card-title"><i class="fa fa-users" style="color:var(--blue-400)"></i> Recipients Preview</div>
+      <div class="preview-box">
+        <div class="preview-count" id="previewCount">{{ preview_count }}</div>
+        <div class="preview-label">contacts will receive this message</div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <div class="form-group">
+          <label>Category</label>
+          <input type="text" id="filterCategory" value="{{ filters.category }}" placeholder="e.g. Influencer">
+        </div>
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" id="filterCountry" value="{{ filters.country }}" placeholder="e.g. Ghana">
+        </div>
+        <div class="form-group">
+          <label>Platform</label>
+          <input type="text" id="filterPlatform" value="{{ filters.platform }}" placeholder="e.g. Instagram">
+        </div>
+      </div>
+      <button class="btn btn-ghost" onclick="updatePreview()"><i class="fa fa-refresh"></i> Update Preview</button>
+    </div>
+
+    <!-- Message Composer -->
+    <div class="card">
+      <div class="card-title"><i class="fa fa-edit" style="color:var(--blue-400)"></i> Compose Message</div>
+
+      <div class="template-tabs">
+        <button class="tab-btn active" onclick="switchTab('template', this)">Use Template</button>
+        <button class="tab-btn" onclick="switchTab('custom', this)">Write Message</button>
+      </div>
+
+      <form method="POST" id="bulkForm">
+        {% csrf_token %}
+        <input type="hidden" name="category" id="hiddenCategory" value="{{ filters.category }}">
+        <input type="hidden" name="country" id="hiddenCountry" value="{{ filters.country }}">
+        <input type="hidden" name="platform" id="hiddenPlatform" value="{{ filters.platform }}">
+
+        <!-- Template Mode -->
+        <div id="templateMode">
+          <div class="form-group">
+            <label>Template Name</label>
+            <input type="text" name="template" id="templateInput" placeholder="e.g. sk_welcome" value="sk_welcome">
+            <div class="hint">Must match an approved template name in your Meta WhatsApp account.</div>
+          </div>
+        </div>
+
+        <!-- Custom Message Mode -->
+        <div id="customMode" style="display:none;">
+          <div class="alert" style="background:var(--amber-50);border:1px solid #FDE68A;color:#92400E;margin-bottom:16px;">
+            <i class="fa fa-info-circle"></i> <strong>Note:</strong> WhatsApp only allows free-form messages within 24hrs of customer contact. For broadcasts, use approved templates.
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="custom_message" id="customMessage" placeholder="Type your message here...&#10;&#10;You can use {name} to personalize with contact's first name."></textarea>
+            <div class="hint">Use {name} to insert the contact's first name automatically.</div>
+          </div>
+          <input type="hidden" name="template" value="custom">
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:8px;">
+          <button type="submit" class="btn btn-primary" onclick="prepareSubmit()">
+            <i class="fa fa-paper-plane"></i> Send to <span id="sendCount">{{ preview_count }}</span> Contacts
+          </button>
+          <a href="/sk-dashboard/" class="btn btn-ghost">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function switchTab(mode, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (mode === 'template') {
+    document.getElementById('templateMode').style.display = 'block';
+    document.getElementById('customMode').style.display = 'none';
+  } else {
+    document.getElementById('templateMode').style.display = 'none';
+    document.getElementById('customMode').style.display = 'block';
+  }
+}
+
+function updatePreview() {
+  const category = document.getElementById('filterCategory').value;
+  const country  = document.getElementById('filterCountry').value;
+  const platform = document.getElementById('filterPlatform').value;
+
+  document.getElementById('hiddenCategory').value = category;
+  document.getElementById('hiddenCountry').value  = country;
+  document.getElementById('hiddenPlatform').value = platform;
+
+  fetch(`/api/bulk/preview/?category=${category}&country=${country}&platform=${platform}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('previewCount').textContent = data.count;
+      document.getElementById('sendCount').textContent = data.count;
+    });
+}
+
+function prepareSubmit() {
+  document.getElementById('hiddenCategory').value = document.getElementById('filterCategory').value;
+  document.getElementById('hiddenCountry').value  = document.getElementById('filterCountry').value;
+  document.getElementById('hiddenPlatform').value = document.getElementById('filterPlatform').value;
+}
+</script>
+
+</body>
+</html>

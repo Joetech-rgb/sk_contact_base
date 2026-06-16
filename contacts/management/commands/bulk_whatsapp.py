@@ -1,4 +1,4 @@
-# contacts/management/commands/bulk_whatsapp.py
+﻿# contacts/management/commands/bulk_whatsapp.py
 # Usage: python manage.py bulk_whatsapp --template welcome_registration
 # Filters: --category influencer --country Ghana --platform instagram
 
@@ -6,6 +6,8 @@ import time
 from django.core.management.base import BaseCommand
 from contacts.models import Contact
 from contacts.services.whatsapp import send_whatsapp
+
+STOP_FOOTER = "\n\nReply STOP to unsubscribe from SK Brand messages."
 
 
 class Command(BaseCommand):
@@ -31,7 +33,7 @@ class Command(BaseCommand):
         self.stdout.write(f"Matched {total} contacts.")
 
         if options["dry_run"]:
-            self.stdout.write(self.style.WARNING("Dry run � no messages sent."))
+            self.stdout.write(self.style.WARNING("Dry run — no messages sent."))
             return
 
         if total == 0:
@@ -44,13 +46,13 @@ class Command(BaseCommand):
                 to=contact.full_whatsapp,
                 template=options["template"],
                 params=[contact.first_name, str(contact.pk)],
+                footer=STOP_FOOTER,
                 contact=contact,
             )
             if success:
                 sent += 1
             else:
                 failed += 1
-            # Throttle: 80 messages/minute max (Meta rate limit)
             time.sleep(0.75)
 
         self.stdout.write(self.style.SUCCESS(f"Done. Sent: {sent}  Failed: {failed}"))

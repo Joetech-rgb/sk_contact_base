@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load i18n %}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bulk Send History — S.K Contact Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --blue-900:#0C1F3F;--blue-500:#1E6FD9;--blue-400:#38B6FF;--blue-300:#7DD3FC;
+  --blue-100:#DBEAFE;--blue-50:#EFF6FF;--white:#FFFFFF;
+  --gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;
+  --gray-400:#94A3B8;--gray-500:#64748B;--gray-600:#475569;
+  --green:#22C55E;--green-50:#DCFCE7;--green-700:#15803D;
+  --amber:#F59E0B;--amber-50:#FEF3C7;--amber-700:#B45309;
+  --red:#EF4444;--red-50:#FEE2E2;
+  --shadow-sm:0 1px 3px rgba(12,31,63,0.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue-900);}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:230px;background:var(--blue-900);display:flex;flex-direction:column;z-index:200;}
+.sb-brand{padding:22px 20px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.sb-logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;}
+.sb-name{font-size:13px;font-weight:600;color:#fff;line-height:1.2;}
+.sb-name small{display:block;font-size:10px;color:rgba(255,255,255,0.35);font-weight:400;}
+.sb-nav{flex:1;padding:14px 10px;overflow-y:auto;}
+.sb-link{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;transition:all 0.18s;margin-bottom:2px;}
+.sb-link i{width:16px;text-align:center;font-size:12px;}
+.sb-link:hover{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.85);}
+.sb-link.active{background:rgba(56,182,255,0.14);color:var(--blue-300);}
+.page-wrap{margin-left:230px;min-height:100vh;}
+.topbar{background:var(--white);border-bottom:1px solid var(--blue-100);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);position:sticky;top:0;z-index:100;}
+.page-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--blue-900);}
+.main{padding:32px;}
+.card{background:var(--white);border-radius:14px;box-shadow:var(--shadow-sm);border:1px solid var(--blue-100);overflow:hidden;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all 0.2s;text-decoration:none;}
+.btn-primary{background:var(--blue-500);color:#fff;}
+.btn-primary:hover{background:#1A4080;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--gray-50);padding:11px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-500);border-bottom:1px solid var(--gray-200);}
+td{padding:13px 16px;font-size:13px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--blue-50);}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600;}
+.badge-sending{background:var(--amber-50);color:var(--amber-700);}
+.badge-done{background:var(--green-50);color:var(--green-700);}
+.badge-failed{background:var(--red-50);color:#B91C1C;}
+.empty{text-align:center;padding:60px 20px;color:var(--gray-400);}
+.empty i{font-size:40px;margin-bottom:12px;display:block;}
+.progress-bar{background:var(--gray-100);border-radius:100px;height:6px;margin-top:4px;}
+.progress-fill{background:var(--blue-400);border-radius:100px;height:6px;transition:width 0.3s;}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo"><i class="fa fa-database"></i></div>
+    <div class="sb-name">SK Contact Base<small>Admin Panel</small></div>
+  </div>
+  <nav class="sb-nav">
+    <a href="/sk-dashboard/" class="sb-link"><i class="fa fa-home"></i> Dashboard</a>
+    <a href="/contacts/" class="sb-link"><i class="fa fa-users"></i> Contacts</a>
+    <a href="/dashboard/bulk/" class="sb-link"><i class="fa fa-paper-plane"></i> Bulk Send</a>
+    <a href="/dashboard/bulk/history/" class="sb-link active"><i class="fa fa-history"></i> Send History</a>
+    <a href="/logout/" class="sb-link"><i class="fa fa-sign-out-alt"></i> Logout</a>
+  </nav>
+</div>
+
+<div class="page-wrap">
+  <div class="topbar">
+    <div class="page-title">📋 Bulk Send History</div>
+    <a href="/dashboard/bulk/" class="btn btn-primary"><i class="fa fa-plus"></i> New Bulk Send</a>
+  </div>
+
+  <div class="main">
+    <div class="card">
+      {% if history %}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Template</th>
+            <th>Filters</th>
+            <th>Sent</th>
+            <th>Failed</th>
+            <th>Status</th>
+            <th>By</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for h in history %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><strong>{{ h.template }}</strong></td>
+            <td>
+              {% if h.filter_params %}
+                {% for k,v in h.filter_params.items %}
+                  {% if v %}<span style="font-size:11px;background:var(--blue-50);padding:2px 7px;border-radius:4px;margin-right:3px;">{{ k }}: {{ v }}</span>{% endif %}
+                {% endfor %}
+              {% else %}
+                <span style="color:var(--gray-400);font-size:12px;">All contacts</span>
+              {% endif %}
+            </td>
+            <td><span style="color:var(--green-700);font-weight:700;">{{ h.sent_count }}</span></td>
+            <td><span style="color:{% if h.failed_count > 0 %}#B91C1C{% else %}var(--gray-400){% endif %};font-weight:600;">{{ h.failed_count }}</span></td>
+            <td>
+              {% if h.status == 'done' %}
+                <span class="badge badge-done"><i class="fa fa-check"></i> Done</span>
+              {% elif h.status == 'sending' %}
+                <span class="badge badge-sending"><i class="fa fa-spinner fa-spin"></i> Sending...</span>
+                {% with total=h.sent_count|add:h.failed_count %}
+                {% endwith %}
+              {% else %}
+                <span class="badge badge-failed">{{ h.status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ h.created_by.username|default:"—" }}</td>
+            <td style="color:var(--gray-500);font-size:12px;">{{ h.created_at|date:"d M Y H:i" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty">
+        <i class="fa fa-paper-plane"></i>
+        <p>No bulk sends yet.</p>
+        <a href="/dashboard/bulk/" class="btn btn-primary" style="margin-top:16px;">Send your first message</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

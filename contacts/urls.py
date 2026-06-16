@@ -1,6 +1,7 @@
-# contacts/urls.py
+﻿# contacts/urls.py
 from django.urls import path
 from . import views
+from contacts.views.whatsapp_webhook import whatsapp_webhook
 
 urlpatterns = [
     path("",             views.landing_view,   name="landing"),
@@ -26,11 +27,43 @@ urlpatterns = [
     path("dashboard/bulk/",         views.bulk_compose_view, name="bulk-compose"),
     path("dashboard/bulk/history/", views.bulk_history_view, name="bulk-history"),
     path("api/bulk/preview/",       views.bulk_preview_api,  name="bulk-preview-api"),
+    path("api/bulk/send/",          views.bulk_send_api,     name="bulk-send-api"),
+    path("api/bulk/status/<int:bulk_id>/", views.bulk_status_api, name="bulk-status-api"),
     path("request-contacts/",        views.service_request_view,        name="service-request"),
     path("request-contacts/thanks/", views.service_request_thanks_view, name="service-request-thanks"),
     path("privacy/",        views.privacy_view,     name="privacy"),
     path("about/",          views.about_view,       name="about"),
     path("rules/",          views.rules_view,       name="rules"),
     path("delete-my-data/", views.delete_data_view, name="delete-my-data"),
+
+    # Campaign URLs
+    path("dashboard/campaign/create/",              views.campaign_create_view,  name="campaign-create"),
+    path("dashboard/campaign/<int:pk>/update/",     views.campaign_update_view,  name="campaign-update"),
+    path("api/campaign/<int:pk>/increment-contacted/", views.campaign_increment_contacted, name="campaign-increment-contacted"),
+    path("api/campaign/<int:camp_pk>/contact/<int:contact_pk>/status/", views.campaign_contact_status_api, name="campaign-contact-status"),
+    path("api/campaign/<int:pk>/contacts/", views.campaign_contacts_api, name="campaign-contacts-api"),
+    path("dashboard/campaign/<int:pk>/delete/",     views.campaign_delete_view,  name="campaign-delete"),
+
+    # Post / Updates URLs
+    path("dashboard/post/create/",                  views.post_create_view,      name="post-create"),
+    path("dashboard/post/<int:pk>/toggle/",         views.post_toggle_view,      name="post-toggle"),
+    path("dashboard/post/<int:pk>/delete/",         views.post_delete_view,      name="post-delete"),
+
+    # Account link URL
+    path("dashboard/account-link/save/",            views.account_link_save_view, name="account-link-save"),
+
+    # Template URL
+    path("dashboard/template/save/",                views.template_save_view,     name="template-save"),
+
+    # Category change request actions (dashboard)
+    path("dashboard/catrequest/<int:pk>/apply/", views.catrequest_apply_view, name="catrequest-apply"),
+    path("dashboard/catrequest/<int:pk>/reject/", views.catrequest_reject_view, name="catrequest-reject"),
+
+    # Category change request (public AJAX)
+    path("request-category-change/", views.category_change_request_view, name="category-change-request"),
+    path("whatsapp/webhook/", whatsapp_webhook, name="whatsapp-webhook"),
 ]
+
+
+
 

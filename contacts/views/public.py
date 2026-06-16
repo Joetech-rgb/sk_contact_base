@@ -1,6 +1,6 @@
-# contacts/views/public.py
+﻿# contacts/views/public.py
 from django.shortcuts import redirect, render
-from ..models import Contact, Notification, ReferralSource
+from ..models import Contact, Notification, ReferralSource, CommunityPost, Category, CategoryChangeRequest
 from ..forms import ContactForm
 
 
@@ -47,6 +47,8 @@ def landing_view(request):
         "total_contacts": Contact.objects.count(),
         "ref_slug":       ref_slug,
         "notifications":  notifications,
+        "community_posts":    CommunityPost.objects.filter(is_visible=True).order_by("-created_at"),
+        "active_categories":  Category.objects.filter(is_active=True).order_by("name"),
     })
 
 
@@ -63,9 +65,69 @@ def _send_welcome(contact):
         from ..services.whatsapp import send_whatsapp
         send_whatsapp(
             to=contact.full_whatsapp,
-            template="welcome_registration",
-            params=[contact.first_name, str(contact.pk)],
+            template="sk_welcome",
+            params=[],
             contact=contact,
+            language="en_US",
         )
     except Exception:
         pass
+
+def category_change_request_view(request):
+    """
+    AJAX endpoint â€” user submits a category change request from the landing page.
+    Returns JSON so it works without a page reload.
+    """
+    from django.http import JsonResponse
+    from django.views.decorators.http import require_POST
+
+    if request.method != "POST":
+        return JsonResponse({"ok": False, "error": "Method not allowed."}, status=405)
+
+    whatsapp      = request.POST.get("whatsapp_number", "").strip()
+    full_name     = request.POST.get("full_name", "").strip()
+    requested_id  = request.POST.get("requested_category", "").strip()
+    reason        = request.POST.get("reason", "").strip()
+
+    if not whatsapp or not requested_id:
+        return JsonResponse({"ok": False, "error": "WhatsApp number and category are required."})
+
+    try:
+        category = Category.objects.get(pk=requested_id, is_active=True)
+    except Category.DoesNotExist:
+        return JsonResponse({"ok": False, "error": "Invalid category selected."})
+
+    # Block duplicate pending requests for the same number + category
+    already = CategoryChangeRequest.objects.filter(
+        whatsapp_number=whatsapp,
+        requested_category=category,
+        status="pending",
+    ).exists()
+    if already:
+        return JsonResponse({
+            "ok": False,
+            "error": "You already have a pending request for this category.",
+        })
+
+    # Pull current category from the contact record if it exists
+    current = ""
+    try:
+        contact = Contact.objects.get(whatsapp_number=whatsapp)
+        current = contact.category.name if contact.category else ""
+    except Contact.DoesNotExist:
+        pass
+
+    CategoryChangeRequest.objects.create(
+        whatsapp_number=whatsapp,
+        full_name=full_name,
+        current_category=current,
+        requested_category=category,
+        reason=reason,
+    )
+
+    return JsonResponse({
+        "ok": True,
+        "message": "Request submitted! The admin will update your category shortly.",
+    })
+
+

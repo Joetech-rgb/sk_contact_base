@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 {% load i18n %}
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard — S.K Contact Base</title>
+<title>Admin Dashboard â€” S.K Contact Base</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -406,7 +406,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
       </div>
     </div>
 
-    <!-- CONTACTS — FIXED: category.name, Actions column, delete button, colspan=11 -->
+    <!-- CONTACTS â€” FIXED: category.name, Actions column, delete button, colspan=11 -->
     <div class="tab-panel" id="panel-contacts">
       <div class="sh" style="margin-top:0;">
         <div class="sh-title">All Contacts</div>
@@ -414,6 +414,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <div class="sh-line"></div>
         <button class="sh-action sh-action-ghost"><i class="fas fa-filter"></i> Filter</button>
         <button class="sh-action sh-action-primary" onclick="setTab('download')"><i class="fas fa-download"></i> Export</button>
+        <button class="sh-action sh-action-primary" style="background:linear-gradient(135deg,#22C55E,#16A34A);" onclick="openModal('bulkSendModal')"><i class="fab fa-whatsapp"></i> Bulk Send</button>
       </div>
       <p style="font-size:12px;color:var(--gray-400);margin-bottom:14px;">Click <i class="fas fa-external-link-alt" style="color:var(--blue-400);"></i> next to any handle to open their profile directly.</p>
       <div class="tbl-wrap">
@@ -473,7 +474,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <div class="sh-line"></div>
         <button class="sh-action sh-action-primary" onclick="openModal('addCatModal')"><i class="fas fa-plus"></i> Add Category</button>
       </div>
-      <p style="font-size:12px;color:var(--gray-400);margin-bottom:18px;">Toggle a category <strong>off</strong> to hide it from the registration form. Delete removes it from the form only — contacts keep their category value in all downloads.</p>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:18px;">Toggle a category <strong>off</strong> to hide it from the registration form. Delete removes it from the form only â€” contacts keep their category value in all downloads.</p>
       <div class="cat-grid">
         {% for cat in categories %}
         <div class="cat-item {% if not cat.is_active %}disabled{% endif %}">
@@ -498,14 +499,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <button class="sh-action sh-action-ghost" onclick="openModal('addSectionModal')"><i class="fas fa-layer-group"></i> Add Section</button>
         <button class="sh-action sh-action-primary" onclick="openModal('addFieldModal')"><i class="fas fa-plus"></i> Add Field</button>
       </div>
-      <p style="font-size:12px;color:var(--gray-400);margin-bottom:18px;">Form is organized into <strong>sections</strong>. <strong>Core fields</strong> are always required and cannot be deleted. Toggling or deleting fields only affects the visible form — all collected data is always retained in exports.</p>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:18px;">Form is organized into <strong>sections</strong>. <strong>Core fields</strong> are always required and cannot be deleted. Toggling or deleting fields only affects the visible form â€” all collected data is always retained in exports.</p>
       <div id="sectionList"></div>
     </div>
 
     <!-- DOWNLOAD -->
     <div class="tab-panel" id="panel-download">
       <div class="sh" style="margin-top:0;"><div class="sh-title">Download &amp; Export</div><div class="sh-tag"><i class="fas fa-download"></i> Contact data</div><div class="sh-line"></div></div>
-      <p style="font-size:12px;color:var(--gray-400);margin-bottom:20px;">Filter by date range, category, country or platform — then export.</p>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:20px;">Filter by date range, category, country or platform â€” then export.</p>
       <div class="dl-card">
         <div class="dl-card-head"><div><div class="dl-card-title"><i class="fab fa-google" style="color:#4285F4;margin-right:6px;"></i>Google Contacts Sync</div><div class="dl-card-sub">Connect your Google account to push contacts directly</div></div></div>
         {% if google_connected %}
@@ -681,7 +682,7 @@ function renderSections(){
     if(!sec.fields.length){fieldsEl.innerHTML='<p style="font-size:12px;color:var(--gray-400);padding:10px 0;text-align:center;">No fields yet.</p>';return;}
     sec.fields.forEach(f=>{
       const fEl=document.createElement('div');fEl.className='form-field-item'+(f.core?' core':'');
-      fEl.innerHTML=`<span class="ffi-drag"><i class="fas fa-grip-vertical"></i></span><div class="ffi-ico"><i class="fas fa-${TYPE_ICONS[f.type]||'font'}"></i></div><div class="ffi-info"><div class="ffi-label">${f.label}${f.core?' <span style="font-size:9px;color:var(--blue-400);background:rgba(30,111,217,0.08);padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px;">CORE</span>':''}</div><div class="ffi-type">${f.type}${f.required?' · required':' · optional'}</div></div><div class="ffi-actions">${f.required?'<span class="ffi-req">Required</span>':''}<button class="ffi-toggle ${f.active?'':'off'}" onclick="toggleField('${f.id}','${sec.id}')"></button><button class="ffi-del ${f.core?'locked':''}" onclick="deleteField('${f.id}','${sec.id}')"><i class="fas fa-trash"></i></button></div>`;
+      fEl.innerHTML=`<span class="ffi-drag"><i class="fas fa-grip-vertical"></i></span><div class="ffi-ico"><i class="fas fa-${TYPE_ICONS[f.type]||'font'}"></i></div><div class="ffi-info"><div class="ffi-label">${f.label}${f.core?' <span style="font-size:9px;color:var(--blue-400);background:rgba(30,111,217,0.08);padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px;">CORE</span>':''}</div><div class="ffi-type">${f.type}${f.required?' Â· required':' Â· optional'}</div></div><div class="ffi-actions">${f.required?'<span class="ffi-req">Required</span>':''}<button class="ffi-toggle ${f.active?'':'off'}" onclick="toggleField('${f.id}','${sec.id}')"></button><button class="ffi-del ${f.core?'locked':''}" onclick="deleteField('${f.id}','${sec.id}')"><i class="fas fa-trash"></i></button></div>`;
       fieldsEl.appendChild(fEl);
     });
   });
@@ -697,15 +698,125 @@ window.addSection=function(){const name=document.getElementById('newSectionName'
 window.deleteSection=function(secId){const sec=FORM_SECTIONS.find(s=>s.id===secId);if(!sec||sec.core)return;if(!confirm(`Delete section "${sec.name}"?`))return;FORM_SECTIONS=FORM_SECTIONS.filter(s=>s.id!==secId);renderSections();toast(`Section "${sec.name}" deleted.`);};
 renderSections();
 function buildExportUrl(base){const params=new URLSearchParams();const cat=document.getElementById('dlFilterCat').value;const country=document.getElementById('dlFilterCountry').value;const platform=document.getElementById('dlFilterPlatform').value;const from=document.getElementById('dateFrom').value;const to=document.getElementById('dateTo').value;if(cat)params.set('category',cat);if(country)params.set('country',country);if(platform)params.set('platform',platform);if(from)params.set('date_from',from);if(to)params.set('date_to',to);return base+(params.toString()?'?'+params.toString():'');}
-function updateExportLinks(){['btnVcf','btnCsv'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const base=el.getAttribute('data-base')||(el.href||'').split('?')[0];el.setAttribute('data-base',base);el.href=buildExportUrl(base);});const gs=document.getElementById('btnGoogleSync');if(gs){const base=gs.getAttribute('data-sync-base')||"{% url 'google-sync' %}";gs.setAttribute('data-sync-base',base);gs.setAttribute('data-sync-url',buildExportUrl(base));}const filters=[document.getElementById('dlFilterCat').value,document.getElementById('dlFilterCountry').value,document.getElementById('dlFilterPlatform').value].filter(Boolean);const txt=document.getElementById('dlPreviewText');if(txt)txt.textContent=filters.length===0?'All {{ total_contacts }} contacts will be exported':'Filtered export — '+filters.join(', ');}
+function updateExportLinks(){['btnVcf','btnCsv'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const base=el.getAttribute('data-base')||(el.href||'').split('?')[0];el.setAttribute('data-base',base);el.href=buildExportUrl(base);});const gs=document.getElementById('btnGoogleSync');if(gs){const base=gs.getAttribute('data-sync-base')||"{% url 'google-sync' %}";gs.setAttribute('data-sync-base',base);gs.setAttribute('data-sync-url',buildExportUrl(base));}const filters=[document.getElementById('dlFilterCat').value,document.getElementById('dlFilterCountry').value,document.getElementById('dlFilterPlatform').value].filter(Boolean);const txt=document.getElementById('dlPreviewText');if(txt)txt.textContent=filters.length===0?'All {{ total_contacts }} contacts will be exported':'Filtered export â€” '+filters.join(', ');}
 ['dlFilterCat','dlFilterCountry','dlFilterPlatform','dateFrom','dateTo'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('change',updateExportLinks);});
 window.setPreset=function(btn,preset){document.querySelectorAll('.filter-chip').forEach(c=>{c.classList.remove('selected');c.setAttribute('aria-pressed','false');});btn.classList.add('selected');btn.setAttribute('aria-pressed','true');const cr=document.getElementById('customRangeRow');if(preset==='custom'){cr.style.display='flex';}else{cr.style.display='none';document.getElementById('dateFrom').value='';document.getElementById('dateTo').value='';if(preset!=='all'){const now=new Date();const toDate=now.toISOString().split('T')[0];const fromDate=new Date(now);if(preset==='7d')fromDate.setDate(fromDate.getDate()-7);else if(preset==='30d')fromDate.setDate(fromDate.getDate()-30);else if(preset==='90d')fromDate.setDate(fromDate.getDate()-90);document.getElementById('dateFrom').value=fromDate.toISOString().split('T')[0];document.getElementById('dateTo').value=toDate;}updateExportLinks();}};
 window.clearFilters=function(){['dlFilterCat','dlFilterCountry','dlFilterPlatform'].forEach(id=>{const s=document.getElementById(id);if(s)s.selectedIndex=0;});document.getElementById('dateFrom').value='';document.getElementById('dateTo').value='';document.querySelectorAll('.filter-chip').forEach(c=>{c.classList.remove('selected');c.setAttribute('aria-pressed','false');});const first=document.querySelector('.filter-chip');if(first){first.classList.add('selected');first.setAttribute('aria-pressed','true');}updateExportLinks();toast('Filters cleared');};
 window.triggerGoogleSync=function(){const btn=document.getElementById('btnSyncNow')||document.getElementById('btnGoogleSync');const url=btn&&btn.getAttribute('data-sync-url')?btn.getAttribute('data-sync-url'):buildExportUrl("{% url 'google-sync' %}");if(btn){btn.innerHTML='<i class="fas fa-sync-alt fa-spin"></i> Syncing...';btn.disabled=true;}fetch(url,{method:'POST',headers:{'X-CSRFToken':getCookie('csrftoken'),'Content-Type':'application/json'}}).then(r=>r.json()).then(data=>{if(data.success)toast(`${data.synced_count} contacts pushed to Google Contacts!`);else toast('Sync failed: '+(data.error||'Unknown error'),'error');}).catch(()=>toast('Network error','error')).finally(()=>{if(btn){btn.innerHTML='<i class="fab fa-google"></i> Push to Google Contacts';btn.disabled=false;}});};
 function getCookie(name){let v=null;document.cookie.split(';').forEach(c=>{const [k,val]=c.trim().split('=');if(k===name)v=decodeURIComponent(val);});return v;}
 setTab('analytics');
+
+// ── Bulk Send Modal ──────────────────────────────────────────
+function bsUpdatePreview(){
+  const cat=document.getElementById('bsCategory').value;
+  const country=document.getElementById('bsCountry').value;
+  const platform=document.getElementById('bsPlatform').value;
+  const params=new URLSearchParams();
+  if(cat)params.set('category',cat);
+  if(country)params.set('country',country);
+  if(platform)params.set('platform',platform);
+  fetch('/api/bulk/preview/?'+params.toString())
+    .then(r=>r.json())
+    .then(d=>{document.getElementById('bsPreviewText').textContent=d.count+' contacts will receive this message';})
+    .catch(()=>{document.getElementById('bsPreviewText').textContent='Could not load preview';});
+}
+['bsCategory','bsCountry','bsPlatform'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('change',bsUpdatePreview);
+});
+document.getElementById('bulkSendModal').addEventListener('click',function(e){
+  if(e.target===this){closeModal('bulkSendModal');}
+});
+const _origOpen=window.openModal;
+window.openModal=function(id){
+  _origOpen(id);
+  if(id==='bulkSendModal'){
+    document.getElementById('bsResult').style.display='none';
+    bsUpdatePreview();
+  }
+};
+window.bulkSendSubmit=function(){
+  const btn=document.getElementById('bsSendBtn');
+  const result=document.getElementById('bsResult');
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending...';
+  result.style.display='none';
+  fetch('/api/bulk/send/',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-CSRFToken':getCookie('csrftoken')},
+    body:JSON.stringify({
+      template:document.getElementById('bsTemplate').value,
+      category:document.getElementById('bsCategory').value,
+      country:document.getElementById('bsCountry').value,
+      platform:document.getElementById('bsPlatform').value,
+    })
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.success){
+      result.style.cssText='display:block;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:var(--green-50);border:1px solid #BBF7D0;color:var(--green-700);';
+      result.innerHTML='<i class="fas fa-check-circle"></i> Done \u2014 '+d.sent+' sent, '+d.failed+' failed.';
+      toast('Bulk send complete: '+d.sent+' sent.');
+    } else {
+      result.style.cssText='display:block;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:var(--red-50);border:1px solid #FECACA;color:var(--red-700);';
+      result.innerHTML='<i class="fas fa-exclamation-circle"></i> '+(d.error||'Send failed');
+    }
+  })
+  .catch(()=>{
+    result.style.cssText='display:block;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:var(--red-50);border:1px solid #FECACA;color:var(--red-700);';
+    result.innerHTML='<i class="fas fa-exclamation-circle"></i> Network error. Please try again.';
+  })
+  .finally(()=>{
+    btn.disabled=false;
+    btn.innerHTML='<i class="fab fa-whatsapp"></i> Send Now';
+  });
+};
 animateBars();
 })();
 </script>
+<div class="modal-overlay" id="bulkSendModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('bulkSendModal')"><i class="fas fa-times"></i></button>
+    <div class="modal-title"><i class="fab fa-whatsapp" style="color:#22C55E;margin-right:8px;"></i>Bulk WhatsApp Send</div>
+    <p class="modal-sub">Sends the <strong>welcome_registration</strong> template to all matching contacts. Filter to narrow the audience.</p>
+    <div class="fw"><label class="fl">Template</label>
+      <select class="fi fi-select" id="bsTemplate">
+        <option value="welcome_registration">welcome_registration (name + reg number)</option>
+        <option value="hello_world">hello_world (Meta test)</option>
+      </select>
+    </div>
+    <div class="fw"><label class="fl">Category (optional)</label>
+      <select class="fi fi-select" id="bsCategory">
+        <option value="">All Categories</option>
+        {% for cat in categories %}<option value="{{ cat.name }}">{{ cat.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="fw"><label class="fl">Country (optional)</label>
+      <select class="fi fi-select" id="bsCountry">
+        <option value="">All Countries</option>
+        {% for c in country_list %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="fw"><label class="fl">Platform (optional)</label>
+      <select class="fi fi-select" id="bsPlatform">
+        <option value="">All Platforms</option>
+        {% for plat in platform_stats %}<option value="{{ plat.platform }}">{{ plat.platform|title }}</option>{% endfor %}
+      </select>
+    </div>
+    <div id="bsPreview" style="margin-bottom:14px;padding:10px 14px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:8px;font-size:13px;color:var(--blue-700);font-weight:500;display:flex;align-items:center;gap:8px;">
+      <i class="fas fa-info-circle" style="color:var(--blue-400);"></i>
+      <span id="bsPreviewText">Loading preview...</span>
+    </div>
+    <div id="bsResult" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;"></div>
+    <button class="modal-save" id="bsSendBtn" style="background:linear-gradient(135deg,#22C55E,#16A34A);" onclick="bulkSendSubmit()">
+      <i class="fab fa-whatsapp"></i> Send Now
+    </button>
+  </div>
+</div>
 </body>
 </html>
+
+
+
+
+

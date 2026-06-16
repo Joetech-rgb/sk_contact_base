@@ -562,7 +562,7 @@
         <div class="wm-cta-title">Ready to connect?</div>
         <div class="wm-cta-sub">Reach us on WhatsApp or Email to discuss your campaign â€” we respond fast.</div>
         <div class="wm-cta-btns">
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20work%20with%20S.K%20Contact%20Base" target="_blank" class="wm-wa-btn">
+          <a href="https://wa.me/233XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20work%20with%20S.K%20Contact%20Base" target="_blank" class="wm-wa-btn">
             <i class="fab fa-whatsapp"></i> WhatsApp Us
           </a>
           <a href="mailto:skcontactbase@gmail.com" class="wm-email-btn">
@@ -741,11 +741,6 @@
           <span class="f-btn-label"><i class="fas fa-arrow-right"></i> Submit My Details</span>
         </button>
         <p class="f-note"><i class="fas fa-lock"></i> Your information is private and secure</p>
-      <!-- PATCHED: mirror optional modal fields into form submission -->
-      <input type="hidden" name="category"        id="mirror_category">
-      <input type="hidden" name="school_category" id="mirror_school_category">
-      <input type="hidden" name="school_name"     id="mirror_school_name">
-      <input type="hidden" name="level_year"      id="mirror_level_year">
       </form>
     </div>
 
@@ -991,7 +986,7 @@
         <div class="ss-card-title">Private &amp; Duplicate-Free</div>
         <p class="ss-card-desc">One contact per number â€” duplicates are blocked at submission. Data is only accessible to authorised admins. Clean, trustworthy data always.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Clean, trustworthy data always</div>
-        <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20request%20a%20data%20update" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> Request a data update on WhatsApp</a>
+        <a href="https://wa.me/233XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20request%20a%20data%20update" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> Request a data update on WhatsApp</a>
       </div>
 
       <div class="ss-card">
@@ -1019,7 +1014,7 @@
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Reach out anytime</div>
         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
           <a href="mailto:skcontactbase@gmail.com" class="ss-card-link"><i class="fas fa-envelope"></i> Email us</a>
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20collaborate%20with%20S.K%20Community" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
+          <a href="https://wa.me/233XXXXXXXXX?text=Hi%2C%20I%27d%20like%20to%20collaborate%20with%20S.K%20Community" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
         </div>
       </div>
 
@@ -1080,27 +1075,12 @@
 </section>
 
 <!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<!-- â•â• CATEGORY CHANGE REQUEST MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-<div class="modal-overlay" id="catChangeModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closePolicy('catChangeModal')" type="button"><i class="fas fa-times"></i></button>
-    <div class="modal-title">Change My Category</div>
-    <p class="modal-sub">Already registered? Ask the admin to update your category.</p>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">Your WhatsApp Number <span style="color:var(--blue-300);">*</span></label><input type="text" id="ccWhatsapp" placeholder="+233241234567"></div>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">Your Name</label><input type="text" id="ccName" placeholder="Helps the admin find you faster"></div>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">New Category <span style="color:var(--blue-300);">*</span></label><select id="ccCategory"><option value="">-- Select a category --</option>{% for cat in active_categories %}<option value="{{ cat.pk }}">{{ cat.name }}</option>{% endfor %}</select></div>
-    <div class="fw" style="margin-bottom:4px;"><label class="fl">Reason (optional)</label><textarea id="ccReason" rows="3" placeholder="Why do you want to change your category?" style="resize:vertical;"></textarea></div>
-    <div id="ccMsg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;"></div>
-    <button class="modal-save" onclick="submitCatChange()" type="button" id="ccSubmitBtn"><i class="fas fa-paper-plane"></i> Submit Request</button>
-  </div>
-</div>
 <footer class="pg-footer">
   <div style="width:100%;text-align:center;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:12px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
     <button type="button" onclick="openPolicy('privacyModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Privacy Policy</button>
     <button type="button" onclick="openPolicy('rulesModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Community Rules</button>
     <button type="button" onclick="openPolicy('aboutModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">About</button>
     <button type="button" onclick="openPolicy('workModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Work With Us</button>
-    <button type="button" onclick="openPolicy('catChangeModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Change My Category</button>
   </div>
   <div class="pg-footer-brand">
     <img src="{% static 'images/logo.png' %}" alt="S.K Contact Base" style="height:26px;width:auto;border-radius:6px;">
@@ -1116,21 +1096,6 @@
 (function () {
   'use strict';
 
-  /* PATCHED: toggleLang was called but never defined */
-  var _currentLang = 'en';
-  window.toggleLang = function(){
-    _currentLang = _currentLang === 'en' ? 'fr' : 'en';
-    var flag  = document.getElementById('langFlag');
-    var label = document.getElementById('langLabel');
-    if(_currentLang === 'fr'){
-      if(flag)  flag.innerHTML  = '&#x1F1EB;&#x1F1F7;';
-      if(label) label.textContent = 'FR';
-    } else {
-      if(flag)  flag.innerHTML  = '&#x1F1EC;&#x1F1E7;';
-      if(label) label.textContent = 'EN';
-    }
-  };
-
   /* â”€â”€ POLICY / GENERAL MODALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   window.openPolicy = function(id) {
     var el = document.getElementById(id);
@@ -1145,7 +1110,7 @@
     document.body.style.overflow = '';
   };
 
-  ['rulesModal','privacyModal','workModal','aboutModal','catChangeModal'].forEach(function(id) {
+  ['rulesModal','privacyModal','workModal','aboutModal'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('click', function(e) {
       if (e.target === el) closePolicy(id);
@@ -1154,7 +1119,7 @@
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-      ['rulesModal','privacyModal','workModal','aboutModal','optModal','catChangeModal'].forEach(function(id) {
+      ['rulesModal','privacyModal','workModal','aboutModal','optModal'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el && el.classList.contains('open')) {
           el.classList.remove('open');
@@ -1224,15 +1189,6 @@
   const submitBtn = document.getElementById('submitBtn');
   if (joinForm) {
     joinForm.addEventListener('submit', function(e) {
-      // PATCHED: sync modal fields into hidden mirror inputs
-      var catSel = document.getElementById('id_category');
-      var schCat = document.getElementById('id_school_category');
-      var schNam = document.getElementById('id_school_name');
-      var lvlYr  = document.getElementById('id_level_year');
-      if(catSel) document.getElementById('mirror_category').value        = catSel.value;
-      if(schCat) document.getElementById('mirror_school_category').value = schCat.value;
-      if(schNam) document.getElementById('mirror_school_name').value     = schNam.value;
-      if(lvlYr)  document.getElementById('mirror_level_year').value      = lvlYr.value;
       if (fullNameInput) {
         var parts = fullNameInput.value.trim().split(/\s+/);
         if (firstHidden)  firstHidden.value  = parts[0] || '';
@@ -1356,58 +1312,9 @@
     obs.observe(el);
   });
 
-  /* â”€â”€ CATEGORY CHANGE REQUEST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-  window.submitCatChange = function() {
-    var wa  = (document.getElementById('ccWhatsapp') || {}).value || '';
-    var nm  = (document.getElementById('ccName')     || {}).value || '';
-    var cat = (document.getElementById('ccCategory') || {}).value || '';
-    var rsn = (document.getElementById('ccReason')   || {}).value || '';
-    var msg = document.getElementById('ccMsg');
-    var btn = document.getElementById('ccSubmitBtn');
-    wa = wa.trim(); cat = cat.trim();
-    if (!wa || !cat) {
-      if (msg) {
-        msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
-        msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number and select a category.';
-      }
-      return;
-    }
-    if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...'; }
-    if (msg) { msg.style.display = 'none'; }
-    var form = new FormData();
-    form.append('whatsapp_number', wa);
-    form.append('full_name', nm);
-    form.append('requested_category', cat);
-    form.append('reason', rsn);
-    var csrf = '';
-    var ci = document.querySelector('[name=csrfmiddlewaretoken]');
-    if (ci) csrf = ci.value;
-    fetch('/request-category-change/', { method: 'POST', headers: { 'X-CSRFToken': csrf }, body: form })
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if (msg) {
-          if (d.ok) {
-            msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#DCFCE7;border:1px solid #BBF7D0;color:#15803D;';
-            msg.innerHTML = '<i class="fas fa-check-circle"></i> ' + d.message;
-            ['ccWhatsapp','ccName','ccReason'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
-            var sel = document.getElementById('ccCategory'); if (sel) sel.value = '';
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Submitted!'; }
-          } else {
-            msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
-            msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (d.error || 'Something went wrong.');
-            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request'; }
-          }
-        }
-      })
-      .catch(function() {
-        if (msg) {
-          msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
-          msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please try again.';
-        }
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request'; }
-      });
-  };
-
 })();
 </script>
+{% if community_posts %}
+<section style="background:#F8FAFC;padding:60px 20px;"><div style="max-width:860px;margin:0 auto;"><h2 style="font-family:serif;font-size:28px;font-weight:700;color:#0C1F3F;text-align:center;padding:36px 0 24px;">Latest Updates</h2><div style="display:grid;gap:14px;">{% for post in community_posts %}<div style="background:#fff;border:1px solid #DBEAFE;border-radius:12px;padding:20px 24px;"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#94A3B8;">{{ post.type|title }} - {{ post.created_at|date:'d M Y' }}</div><div style="font-size:15px;font-weight:700;color:#0C1F3F;margin:6px 0;">{{ post.title }}</div><div style="font-size:13px;color:#475569;line-height:1.6;">{{ post.content }}</div></div>{% endfor %}</div></div></section>
+{% endif %}
 {% endblock %}

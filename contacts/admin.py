@@ -8,7 +8,7 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
 from datetime import datetime
 
-from .models import Contact, Category
+from .models import APIKey, Contact, Category
 from .models import Contact, Category, ReferralSource # Add ReferralSource here
 
 # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -339,3 +339,122 @@ class ServiceRequestAdmin(admin.ModelAdmin):
     readonly_fields = ("requester_name", "email", "phone", "filter_criteria", "budget", "notes", "submitted_at")
     ordering      = ("-submitted_at",)
 
+
+
+@admin.register(APIKey)
+class APIKeyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'is_active', 'use_count', 'last_used', 'created_at')
+    list_filter  = ('is_active',)
+    readonly_fields = ('key_hash', 'use_count', 'last_used', 'created_at')
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj_saved, raw = APIKey.create(obj.name)
+            from django.contrib import messages as _msg
+            _msg.warning(request, f'Copy this key now, it will not be shown again: {raw}')
+            return
+        super().save_model(request, obj, form, change)
+
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# CATEGORY CHANGE REQUEST ADMIN
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+from contacts.models import CategoryChangeRequest
+from django.utils import timezone as _tz
+
+@admin.register(CategoryChangeRequest)
+class CategoryChangeRequestAdmin(admin.ModelAdmin):
+
+    list_display = [
+        'whatsapp_link',
+        'full_name',
+        'current_category',
+        'requested_category',
+        'reason_short',
+        'status_badge',
+        'submitted_at',
+    ]
+
+    list_filter  = ['status', 'requested_category']
+
+    search_fields = ['whatsapp_number', 'full_name', 'current_category']
+
+    ordering = ['-submitted_at']
+
+    readonly_fields = ['whatsapp_number', 'full_name', 'current_category',
+                       'requested_category', 'reason', 'submitted_at', 'resolved_at']
+
+    actions = ['mark_done', 'mark_rejected', 'apply_category_change']
+
+    fieldsets = (
+        ('Request Details', {
+            'fields': ('whatsapp_number', 'full_name', 'current_category',
+                       'requested_category', 'reason'),
+        }),
+        ('Status', {
+            'fields': ('status', 'submitted_at', 'resolved_at'),
+        }),
+    )
+
+    # â”€â”€ Custom columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+    def whatsapp_link(self, obj):
+        clean = obj.whatsapp_number.replace('+', '').replace(' ', '')
+        return format_html(
+            '<a href="https://wa.me/{}" target="_blank" '
+            'style="color:#25D366;font-weight:600;white-space:nowrap;">'
+            'ðŸ’¬ {}</a>',
+            clean, obj.whatsapp_number
+        )
+    whatsapp_link.short_description = 'WhatsApp'
+
+    def reason_short(self, obj):
+        if not obj.reason:
+            return 'â€”'
+        return obj.reason[:60] + ('â€¦' if len(obj.reason) > 60 else '')
+    reason_short.short_description = 'Reason'
+
+    def status_badge(self, obj):
+        colours = {
+            'pending':  ('#FEF3C7', '#B45309'),
+            'done':     ('#DCFCE7', '#15803D'),
+            'rejected': ('#FEE2E2', '#B91C1C'),
+        }
+        bg, fg = colours.get(obj.status, ('#F1F5F9', '#334155'))
+        return format_html(
+            '<span style="background:{};color:{};padding:2px 10px;border-radius:100px;'
+            'font-size:11px;font-weight:700;">{}</span>',
+            bg, fg, obj.get_status_display()
+        )
+    status_badge.short_description = 'Status'
+
+    # â”€â”€ Bulk actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+    @admin.action(description='âœ… Mark selected as Done')
+    def mark_done(self, request, queryset):
+        updated = queryset.update(status='done', resolved_at=_tz.now())
+        self.message_user(request, f'{updated} request(s) marked as Done.')
+
+    @admin.action(description='âŒ Mark selected as Rejected')
+    def mark_rejected(self, request, queryset):
+        updated = queryset.update(status='rejected', resolved_at=_tz.now())
+        self.message_user(request, f'{updated} request(s) marked as Rejected.')
+
+    @admin.action(description='ðŸ”„ Apply category change to Contact record')
+    def apply_category_change(self, request, queryset):
+        applied = 0
+        skipped = 0
+        for req in queryset.filter(status='pending'):
+            try:
+                contact = Contact.objects.get(whatsapp_number=req.whatsapp_number)
+                contact.category = req.requested_category
+                contact.save(update_fields=['category'])
+                req.status      = 'done'
+                req.resolved_at = _tz.now()
+                req.save(update_fields=['status', 'resolved_at'])
+                applied += 1
+            except Contact.DoesNotExist:
+                skipped += 1
+        msg = f'{applied} category change(s) applied.'
+        if skipped:
+            msg += f' {skipped} skipped (contact not found by WhatsApp number).'
+        self.message_user(request, msg)

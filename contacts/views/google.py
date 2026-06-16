@@ -65,11 +65,19 @@ def google_disconnect(request):
 @login_required(login_url="login")
 def google_sync(request):
     if request.method != "POST":
-        return redirect("dashboard")
+        from django.http import JsonResponse
+        return JsonResponse({"success": False, "error": "Method not allowed"}, status=405)
     try:
-        from ..services.google_drive import upload_contacts_backup
-        result = upload_contacts_backup()
-        messages.success(request, f"Sync complete: {result}")
+        from ..services.google_contacts import sync_contacts_to_google
+        from ..models import Contact, GoogleToken
+        token = GoogleToken.objects.first()
+        if not token:
+            from django.http import JsonResponse
+            return JsonResponse({"success": False, "error": "Not connected to Google"})
+        contacts = Contact.objects.all()
+        synced = sync_contacts_to_google(token, contacts)
+        from django.http import JsonResponse
+        return JsonResponse({"success": True, "synced_count": synced})
     except Exception as exc:
-        messages.error(request, f"Sync failed: {exc}")
-    return redirect("dashboard")
+        from django.http import JsonResponse
+        return JsonResponse({"success": False, "error": str(exc)})

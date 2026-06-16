@@ -1914,50 +1914,78 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         <div class="wa-thread-list">
 
 
-                    {% for log in wa_logs %}
-          <div class="wa-thread" style="{% if log.direction == 'in' %}background:var(--green-50);border-left:3px solid var(--green);{% endif %}">
-            <div class="wa-thread-avatar" style="{% if log.direction == 'in' %}background:linear-gradient(135deg,var(--green),#128C7E);{% endif %}">
+          {% for log in wa_logs %}
+
+
+          <div class="wa-thread">
+
+
+            <div class="wa-thread-avatar">
+
+
               {% if log.contact %}{{ log.contact.full_name|slice:":2"|upper }}{% else %}??{% endif %}
+
+
             </div>
+
+
             <div class="wa-thread-info">
-              <div class="wa-thread-name">
-                {% if log.contact %}{{ log.contact.full_name }}{% else %}{{ log.phone }}{% endif %}
-                {% if log.direction == 'in' %}
-                  <span style="font-size:10px;font-weight:700;background:var(--green);color:#fff;padding:2px 8px;border-radius:100px;margin-left:6px;">&larr; REPLY</span>
-                {% endif %}
-              </div>
-              <div class="wa-thread-preview">
-                {% if log.direction == 'in' %}
-                  <strong style="color:var(--green-700);">They said:</strong> {{ log.message_text|default:"(no text)" }}
-                {% else %}
-                  Template: <strong>{{ log.template }}</strong>{% if log.error %} &mdash; {{ log.error|truncatechars:60 }}{% endif %}
-                {% endif %}
-              </div>
+
+
+              <div class="wa-thread-name">{% if log.contact %}{{ log.contact.full_name }}{% else %}{{ log.phone }}{% endif %}</div>
+
+
+              <div class="wa-thread-preview">Template: <strong>{{ log.template }}</strong>{% if log.error %} -   -  {{ log.error|truncatechars:60 }}{% endif %}</div>
+
+
             </div>
+
+
             <div class="wa-thread-meta">
+
+
               <div class="wa-thread-time">{{ log.timestamp|date:"d M H:i" }}</div>
-              <div class="wa-status-pill {% if log.direction == 'in' %}wa-status-sent{% elif log.status == 'sent' %}wa-status-sent{% else %}wa-status-failed{% endif %}">
-                <i class="fas fa-{% if log.direction == 'in' %}reply{% elif log.status == 'sent' %}check{% else %}times{% endif %}-circle"></i>
-                {% if log.direction == 'in' %}Received{% else %}{{ log.status|title }}{% endif %}
+
+
+              <div class="wa-status-pill {% if log.status == 'sent' %}wa-status-sent{% else %}wa-status-failed{% endif %}">
+
+
+                <i class="fas fa-{% if log.status == 'sent' %}check{% else %}times{% endif %}-circle"></i> {{ log.status|title }}
+
+
               </div>
+
+
             </div>
-            {% if log.direction == 'in' %}
-              {% if log.contact %}
-                <a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Reply</a>
-              {% elif log.phone %}
-                <a href="https://wa.me/{{ log.phone }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Reply</a>
-              {% endif %}
-            {% else %}
-              {% if log.contact %}
-                <a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Chat</a>
-              {% endif %}
+
+
+            {% if log.contact %}
+
+
+            <a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Chat</a>
+
+
             {% endif %}
+
+
           </div>
+
+
           {% empty %}
+
+
           <div style="padding:40px;text-align:center;color:var(--gray-400);">
+
+
             <i class="fab fa-whatsapp" style="font-size:32px;margin-bottom:12px;display:block;color:var(--gray-200);"></i>
-            No messages yet. Use Bulk Messaging to send your first message.
+
+
+            No messages sent yet. Use Bulk Messaging to send your first message.
+
+
           </div>
+
+
           {% endfor %}
 
 
