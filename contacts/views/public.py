@@ -75,7 +75,7 @@ def _send_welcome(contact):
 
 def category_change_request_view(request):
     """
-    AJAX endpoint â€” user submits a category change request from the landing page.
+    AJAX endpoint ” user submits a category change request from the landing page.
     Returns JSON so it works without a page reload.
     """
     from django.http import JsonResponse
@@ -129,5 +129,6 @@ def category_change_request_view(request):
         "ok": True,
         "message": "Request submitted! The admin will update your category shortly.",
     })
+
 
 

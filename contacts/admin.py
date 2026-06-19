@@ -11,9 +11,9 @@ from datetime import datetime
 from .models import APIKey, Contact, Category
 from .models import Contact, Category, ReferralSource # Add ReferralSource here
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 # CATEGORY ADMIN
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 @admin.register(ReferralSource)
 class ReferralSourceAdmin(admin.ModelAdmin):
     list_display = ['label', 'slug', 'is_active']
@@ -33,13 +33,13 @@ class CategoryAdmin(admin.ModelAdmin):
     contact_count.short_description = 'Contacts'
 
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 # CONTACT ADMIN
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
 
-    # â”€â”€ List view â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ List view ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
     list_display = [
         'formatted_name',
         'whatsapp_with_code',
@@ -81,7 +81,7 @@ class ContactAdmin(admin.ModelAdmin):
 
     date_hierarchy = 'date_added'
 
-    # â”€â”€ Detail view layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ Detail view layout ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
     fieldsets = (
         ('Basic Details', {
             'fields': ('first_name', 'surname', 'email')
@@ -108,13 +108,13 @@ class ContactAdmin(admin.ModelAdmin):
 
     readonly_fields = ['date_added']
 
-    # â”€â”€ Bulk actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ Bulk actions ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
     actions = [
         'export_to_excel',
         'export_to_csv',
     ]
 
-    # â”€â”€ Custom display columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ Custom display columns ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 
     def formatted_name(self, obj):
         return format_html('<strong>{} {}</strong>', obj.first_name, obj.surname)
@@ -151,23 +151,23 @@ class ContactAdmin(admin.ModelAdmin):
             'tiktok':    'ðŸŽµ',
             'facebook':  'ðŸ‘¥',
             'twitter':   'ðŸ¦',
-            'youtube':   'â–¶ï¸',
+            'youtube':   '–¶ï¸',
             'snapchat':  'ðŸ‘»',
             'linkedin':  'ðŸ’¼',
             'other':     'ðŸŒ',
         }
         icon = icons.get(obj.platform, 'ðŸŒ')
-        return format_html('{} {}', icon, obj.platform.title() if obj.platform else 'â€”')
+        return format_html('{} {}', icon, obj.platform.title() if obj.platform else '”')
     platform_badge.short_description = 'Platform'
     platform_badge.admin_order_field = 'platform'
 
     def handle_link(self, obj):
         """
-        Clickable handle â€” links directly to the profile on the platform.
+        Clickable handle ” links directly to the profile on the platform.
         Admin can toggle to the person's actual profile.
         """
         if not obj.handle:
-            return 'â€”'
+            return '”'
 
         handle = obj.handle.lstrip('@')
 
@@ -192,7 +192,7 @@ class ContactAdmin(admin.ModelAdmin):
 
     def school_info(self, obj):
         if not obj.school_name:
-            return 'â€”'
+            return '”'
         parts = [obj.school_name]
         if obj.school_category:
             parts.append(f'({obj.get_school_category_display()})')
@@ -201,7 +201,7 @@ class ContactAdmin(admin.ModelAdmin):
         return ' '.join(parts)
     school_info.short_description = 'School'
 
-    # â”€â”€ Export actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ Export actions ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 
     def _get_headers(self):
         return [
@@ -274,7 +274,7 @@ class ContactAdmin(admin.ModelAdmin):
         self.message_user(request, f'{queryset.count()} contacts exported to Excel.')
         return response
 
-    export_to_excel.short_description = 'ðŸ“Š Export selected â†’ Excel'
+    export_to_excel.short_description = 'ðŸ“Š Export selected †’ Excel'
 
     def export_to_csv(self, request, queryset):
         response = HttpResponse(content_type='text/csv')
@@ -289,7 +289,7 @@ class ContactAdmin(admin.ModelAdmin):
         self.message_user(request, f'{queryset.count()} contacts exported to CSV.')
         return response
 
-    export_to_csv.short_description = 'ðŸ“„ Export selected â†’ CSV'
+    export_to_csv.short_description = 'ðŸ“„ Export selected †’ CSV'
 
 from contacts.models import WhatsAppLog
 
@@ -355,9 +355,9 @@ class APIKeyAdmin(admin.ModelAdmin):
             return
         super().save_model(request, obj, form, change)
 
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 # CATEGORY CHANGE REQUEST ADMIN
-# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 from contacts.models import CategoryChangeRequest
 from django.utils import timezone as _tz
 
@@ -395,7 +395,7 @@ class CategoryChangeRequestAdmin(admin.ModelAdmin):
         }),
     )
 
-    # â”€â”€ Custom columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ Custom columns ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 
     def whatsapp_link(self, obj):
         clean = obj.whatsapp_number.replace('+', '').replace(' ', '')
@@ -409,8 +409,8 @@ class CategoryChangeRequestAdmin(admin.ModelAdmin):
 
     def reason_short(self, obj):
         if not obj.reason:
-            return 'â€”'
-        return obj.reason[:60] + ('â€¦' if len(obj.reason) > 60 else '')
+            return '”'
+        return obj.reason[:60] + ('¦' if len(obj.reason) > 60 else '')
     reason_short.short_description = 'Reason'
 
     def status_badge(self, obj):
@@ -427,14 +427,14 @@ class CategoryChangeRequestAdmin(admin.ModelAdmin):
         )
     status_badge.short_description = 'Status'
 
-    # â”€â”€ Bulk actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    # ”€”€ Bulk actions ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€
 
-    @admin.action(description='âœ… Mark selected as Done')
+    @admin.action(description='œ… Mark selected as Done')
     def mark_done(self, request, queryset):
         updated = queryset.update(status='done', resolved_at=_tz.now())
         self.message_user(request, f'{updated} request(s) marked as Done.')
 
-    @admin.action(description='âŒ Mark selected as Rejected')
+    @admin.action(description='Œ Mark selected as Rejected')
     def mark_rejected(self, request, queryset):
         updated = queryset.update(status='rejected', resolved_at=_tz.now())
         self.message_user(request, f'{updated} request(s) marked as Rejected.')
@@ -458,3 +458,4 @@ class CategoryChangeRequestAdmin(admin.ModelAdmin):
         if skipped:
             msg += f' {skipped} skipped (contact not found by WhatsApp number).'
         self.message_user(request, msg)
+
