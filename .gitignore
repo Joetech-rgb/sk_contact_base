@@ -11,3 +11,14 @@ staticfiles/
 
 fix_*.py
 tmp_*.py
+
+fix*.py
+patch_*.py
+check_*.py
+test_*.py
+register_test.py
+show_broken.py
+direct_test.py
+get_appid.py
+*.ps1
+wa_templates.json
