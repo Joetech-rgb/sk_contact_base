@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SK Contact Base{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root{
+      --blue-900:#0C1F3F;--blue-800:#0F2D5A;--blue-700:#1A4080;
+      --blue-500:#1E6FD9;--blue-400:#38B6FF;--blue-300:#7DD3FC;
+      --blue-100:#DBEAFE;--blue-50:#EFF6FF;--white:#FFFFFF;
+      --gray-50:#F8FAFC;--gray-100:#F1F5F9;--gray-200:#E2E8F0;
+      --gray-400:#94A3B8;--gray-500:#64748B;--gray-600:#475569;
+      --shadow-sm:0 1px 3px rgba(12,31,63,0.08);
+      --shadow-md:0 4px 16px rgba(12,31,63,0.10);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Times New Roman',Times,serif;background:var(--gray-50);color:var(--blue-900);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+
+    /* NAV */
+    .sk-nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--blue-100);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);}
+    .sk-nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .sk-nav-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--blue-900);}
+    .sk-nav-links{display:flex;align-items:center;gap:8px;}
+    .sk-nav-link{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--gray-600);text-decoration:none;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+    .sk-nav-link:hover{background:var(--blue-50);color:var(--blue-700);}
+    .sk-nav-link.active{background:var(--blue-900);color:#fff;}
+
+    /* MAIN */
+    main{flex:1;max-width:780px;margin:0 auto;width:100%;padding:56px 32px 80px;}
+
+    /* PAGE HEADER */
+    .page-header{margin-bottom:40px;padding-bottom:28px;border-bottom:2px solid var(--blue-100);}
+    .page-header-tag{display:inline-flex;align-items:center;gap:7px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:4px 12px;font-size:10px;font-weight:600;color:var(--blue-500);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:14px;font-family:'DM Sans',sans-serif;}
+    .page-header h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,40px);font-weight:700;color:var(--blue-900);line-height:1.1;margin-bottom:10px;}
+    .page-header-sub{font-size:14px;color:var(--gray-500);font-family:'DM Sans',sans-serif;font-weight:300;}
+
+    /* CONTENT */
+    .page-content h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--blue-900);margin:36px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--blue-100);}
+    .page-content p{font-family:'Times New Roman',Times,serif;font-size:15px;line-height:1.85;color:var(--gray-600);margin-bottom:16px;}
+    .page-content a{color:var(--blue-500);text-decoration:none;}
+    .page-content a:hover{text-decoration:underline;}
+    .page-content ul{margin:0 0 16px 20px;}
+    .page-content ul li{font-family:'Times New Roman',Times,serif;font-size:15px;line-height:1.85;color:var(--gray-600);margin-bottom:6px;}
+
+    /* FOOTER */
+    footer{background:var(--blue-900);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+    .footer-brand{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.45);display:flex;align-items:center;gap:8px;}
+    .footer-copy{font-size:12px;color:rgba(255,255,255,0.25);font-family:'DM Sans',sans-serif;}
+    .footer-links{display:flex;gap:18px;}
+    .footer-links a{font-size:12px;color:rgba(255,255,255,0.4);text-decoration:none;font-family:'DM Sans',sans-serif;transition:color 0.2s;}
+    .footer-links a:hover{color:rgba(255,255,255,0.8);}
+
+    @media(max-width:600px){
+      .sk-nav{padding:0 20px;}
+      main{padding:36px 20px 60px;}
+      footer{padding:18px 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="sk-nav">
+  <a class="sk-nav-brand" href="{% url 'landing' %}">
+    <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#38B6FF,#1E6FD9);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;"><i class="fas fa-address-book"></i></div>
+    <span class="sk-nav-name">S.K Contact Base</span>
+  </a>
+  <div class="sk-nav-links">
+    <a href="{% url 'landing' %}" class="sk-nav-link"><i class="fas fa-home"></i> Home</a>
+    <a href="{% url 'privacy' %}" class="sk-nav-link {% block nav_privacy %}{% endblock %}"><i class="fas fa-shield-alt"></i> Privacy</a>
+    <a href="{% url 'rules' %}" class="sk-nav-link {% block nav_rules %}{% endblock %}"><i class="fas fa-scroll"></i> Rules</a>
+  </div>
+</nav>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="footer-brand"><i class="fas fa-address-book"></i> S.K Contact Base</div>
+  <div class="footer-links">
+    <a href="{% url 'privacy' %}">Privacy</a>
+    <a href="{% url 'rules' %}">Rules</a>
+    <a href="{% url 'landing' %}">Home</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 S.K Contact Base.</div>
+</footer>
+
+</body>
+</html>

@@ -101,6 +101,9 @@ AFRICASTALKING_API_KEY  = os.getenv('AFRICASTALKING_API_KEY')
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:8000',
+    'https://skcommunitybase.com',
+    'https://www.skcommunitybase.com',
+    'https://sk-contact-base.onrender.com',
 ]
 
 # Google OAuth
@@ -108,7 +111,7 @@ GOOGLE_OAUTH_CLIENT_ID     = os.getenv('GOOGLE_OAUTH_CLIENT_ID', '')
 GOOGLE_OAUTH_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET', '')
 GOOGLE_OAUTH_REDIRECT_URI  = os.getenv(
     'GOOGLE_OAUTH_REDIRECT_URI',
-    'http://127.0.0.1:8000/dashboard/google/callback/'
+    'https://skcommunitybase.com/dashboard/google/callback/'
 )
 
 # Production security settings
