@@ -1,5 +1,6 @@
 ﻿# contacts/views/public.py
 from django.shortcuts import redirect, render
+from django.http import JsonResponse
 from ..models import Contact, Notification, ReferralSource, CommunityPost, Category, CategoryChangeRequest
 from ..forms import ContactForm
 
@@ -73,14 +74,12 @@ def _send_welcome(contact):
     except Exception:
         pass
 
+
 def category_change_request_view(request):
     """
-    AJAX endpoint ” user submits a category change request from the landing page.
+    AJAX endpoint — user submits a category change request from the landing page.
     Returns JSON so it works without a page reload.
     """
-    from django.http import JsonResponse
-    from django.views.decorators.http import require_POST
-
     if request.method != "POST":
         return JsonResponse({"ok": False, "error": "Method not allowed."}, status=405)
 
@@ -129,6 +128,3 @@ def category_change_request_view(request):
         "ok": True,
         "message": "Request submitted! The admin will update your category shortly.",
     })
-
-
-
