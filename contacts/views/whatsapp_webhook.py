@@ -24,12 +24,19 @@ def whatsapp_webhook(request):
 
     # ── Incoming message POST ───────────────────────────────────
     if request.method == "POST":
+        data = json.loads(request.body)
+        print(f"WEBHOOK PAYLOAD: {json.dumps(data)[:1000]}")
+
         try:
-            data     = json.loads(request.body)
             entry    = data.get("entry",   [{}])[0]
             changes  = entry.get("changes",[{}])[0]
             value    = changes.get("value", {})
             messages = value.get("messages", [])
+            statuses = value.get("statuses", [])
+
+            if statuses:
+                for st in statuses:
+                    print(f"WEBHOOK STATUS UPDATE: {json.dumps(st)}")
 
             for msg in messages:
                 phone        = msg.get("from", "")
@@ -63,7 +70,9 @@ def whatsapp_webhook(request):
                     message_text = message_text,
                 )
 
-        except Exception:
-            pass  # always return 200 to Meta or they'll keep retrying
+        except Exception as exc:
+            import traceback
+            print(f"WEBHOOK ERROR: {exc}")
+            traceback.print_exc()
 
         return JsonResponse({"status": "ok"})
