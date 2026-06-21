@@ -62,8 +62,7 @@ urlpatterns = [
     # Category change request (public AJAX)
     path("request-category-change/", views.category_change_request_view, name="category-change-request"),
     path("whatsapp/webhook/", whatsapp_webhook, name="whatsapp-webhook"),
+
+    # Site settings (dashboard toggles)
+    path("dashboard/settings/toggle-education/", views.settings_toggle_education_view, name="settings-toggle-education"),
 ]
-
-
-
-

@@ -1,7 +1,7 @@
 ﻿# contacts/views/public.py
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
-from ..models import Contact, Notification, ReferralSource, CommunityPost, Category, CategoryChangeRequest
+from ..models import Contact, Notification, ReferralSource, CommunityPost, Category, CategoryChangeRequest, SiteSettings
 from ..forms import ContactForm
 
 
@@ -50,6 +50,7 @@ def landing_view(request):
         "notifications":  notifications,
         "community_posts":    CommunityPost.objects.filter(is_visible=True).order_by("-created_at"),
         "active_categories":  Category.objects.filter(is_active=True).order_by("name"),
+        "education_enabled":  SiteSettings.load().education_section_enabled,
     })
 
 

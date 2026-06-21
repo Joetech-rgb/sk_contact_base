@@ -15,6 +15,7 @@ from contacts.models import (
     CategoryChangeRequest,
     AccountLink, BulkMessage, Campaign, Category,
     CommunityPost, Contact, GoogleToken, ReferralSource, WhatsAppLog,
+    SiteSettings,
 )
 from contacts.views.permissions import admin_required
 
@@ -104,6 +105,9 @@ def sk_dashboard_view(request):
     # ── Categories ────────────────────────────────────────────────
     categories = Category.objects.order_by("name")
 
+    # ── Site settings (global toggles) ──────────────────────────────
+    site_settings = SiteSettings.load()
+
     # ── Bulk send history ─────────────────────────────────────────
     bulk_history = BulkMessage.objects.select_related("created_by").order_by("-created_at")[:20]
 
@@ -184,6 +188,7 @@ def sk_dashboard_view(request):
         "platform_stats":            platform_stats,
         "country_list":              country_list,
         "categories":                categories,
+        "site_settings":              site_settings,
         "contacts":                  contacts,
         "search":                    search,
         "f_cat":                     f_cat,
@@ -467,3 +472,20 @@ def catrequest_reject_view(request, pk):
     req.resolved_at = _tz.now()
     req.save(update_fields=["status", "resolved_at"])
     return JsonResponse({"ok": True})
+
+
+# ──────────────────────────────────────────────────────────────────
+#  SITE SETTINGS — GLOBAL EDUCATION SECTION TOGGLE
+# ──────────────────────────────────────────────────────────────────
+
+@login_required
+@admin_required
+@require_POST
+def settings_toggle_education_view(request):
+    settings_obj = SiteSettings.load()
+    settings_obj.education_section_enabled = not settings_obj.education_section_enabled
+    settings_obj.save(update_fields=["education_section_enabled"])
+    return JsonResponse({
+        "ok": True,
+        "education_section_enabled": settings_obj.education_section_enabled,
+    })

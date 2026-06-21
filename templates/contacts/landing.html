@@ -402,6 +402,7 @@
         {% if form.category.errors %}<p class="fw-error">{{ form.category.errors.0 }}</p>{% endif %}
       </div>
     </div>
+    {% if education_enabled %}
     <p class="fsec">Education</p>
     <div class="fg" style="gap:10px;">
       <div class="fw">
@@ -423,6 +424,7 @@
         {% if form.level_year.errors %}<p class="fw-error">{{ form.level_year.errors.0 }}</p>{% endif %}
       </div>
     </div>
+    {% endif %}
     <button class="modal-save" id="modalSave" type="button"><i class="fas fa-check"></i> Save & Close</button>
   </div>
 </div>

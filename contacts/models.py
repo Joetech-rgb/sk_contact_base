@@ -553,3 +553,34 @@ class CategoryChangeRequest(models.Model):
         )
 
 
+class SiteSettings(models.Model):
+    """
+    Singleton row for site-wide toggles controlled from the admin dashboard.
+    Always use SiteSettings.load() to get the single instance — never
+    create additional rows directly.
+    """
+    education_section_enabled = models.BooleanField(
+        default=True,
+        help_text="When off, the Education section is hidden from the "
+                   "registration form's optional details pop-up for everyone.",
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Site Settings"
+        verbose_name_plural = "Site Settings"
+
+    def __str__(self):
+        return "Site Settings"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1  # enforce singleton
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass  # prevent deletion of the singleton row
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
