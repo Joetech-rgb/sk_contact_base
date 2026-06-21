@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 {% load static %}
 
 
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
 
 
-<title>Admin Dashboard — SK Community Base</title>
+<title>Admin Dashboard � SK Community Base</title>
 
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -2518,6 +2518,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 
       <button class="add-cat-btn" onclick="openModal('addCatModal')"><i class="fas fa-plus-circle"></i> Add New Category</button>
 
+      <div class="sh" style="margin-top:28px;"><div class="sh-title">Site Settings</div><div class="sh-tag"><i class="fas fa-cog"></i> Global toggles</div><div class="sh-line"></div></div>
+      <div style="background:var(--white);border:1px solid var(--blue-100);border-radius:12px;padding:20px;margin-bottom:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--blue-900);">Education Section</div>
+            <div style="font-size:12px;color:var(--gray-400);margin-top:2px;">Show or hide the education section on the landing page</div>
+          </div>
+          <button id="eduToggleBtn" onclick="toggleEducationSection()" class="cat-toggle {% if site_settings.education_section_enabled %}{% else %}off{% endif %}" title="Toggle education section"></button>
+        </div>
+      </div>
+
       <div class="sh" style="margin-top:28px;"><div class="sh-title">Category Change Requests</div><div class="sh-tag"><i class="fas fa-exchange-alt"></i> From registered users</div><div class="sh-line"></div></div>
       <div id="catRequestsList">
         {% for req in category_change_requests %}
@@ -4311,6 +4322,20 @@ window.openAllWaLinks = function(){
   if(!campWaLinks.length){ toast('No contacts loaded','error'); return; }
   if(!confirm('This will open '+campWaLinks.length+' WhatsApp tabs. Continue?')) return;
   campWaLinks.forEach(function(link){ window.open(link,'_blank'); });
+};
+
+// -- Education Toggle ------------------------------------
+window.toggleEducationSection = function(){
+  fetch("{% url 'settings-toggle-education' %}", {method:"POST", headers:{"X-CSRFToken":CSRF}})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.ok){
+        var btn = document.getElementById("eduToggleBtn");
+        if(btn) btn.classList.toggle("off", !d.education_section_enabled);
+        toast("Education section " + (d.education_section_enabled ? "enabled" : "disabled") + "!");
+      } else { toast("Failed","error"); }
+    })
+    .catch(function(){ toast("Network error","error"); });
 };
 
 // -- Init --------------------------------------------------
