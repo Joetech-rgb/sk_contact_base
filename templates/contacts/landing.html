@@ -55,8 +55,8 @@
   .hstat-label{font-size:10px;font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 
-  /* FORM PANEL */
-  .hero-form{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;animation:fadeUp 0.6s 0.2s ease both;}
+  /* FORM PANEL — solid background matching the "Our Categories" section (--blue-900) for readability */
+  .hero-form{background:var(--blue-900);border:1px solid rgba(56,182,255,0.18);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;animation:fadeUp 0.6s 0.2s ease both;box-shadow:0 24px 60px rgba(0,0,0,0.40),0 2px 0 rgba(56,182,255,0.06) inset;}
   .form-head{margin-bottom:18px;}
   .form-head-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#fff;margin-bottom:4px;}
   .form-head-sub{font-size:12px;color:rgba(255,255,255,0.35);font-weight:300;}
@@ -176,25 +176,27 @@
   .fc:hover .fc-play-btn{background:var(--blue-500);border-color:var(--blue-500);transform:scale(1.1);}
   .fc-video .fc-body{padding:14px 16px 12px;}
 
-  /* FEATURES SLIDESHOW */
+  /* FEATURES SLIDESHOW — "What We Offer" cards: compact sizing + responsive grid/stack */
   .slideshow-section{background:var(--white);padding:60px 48px;overflow:hidden;}
   .slideshow-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
   .ss-dots{display:flex;gap:7px;align-items:center;padding-bottom:3px;}
   .ss-dot{width:7px;height:7px;border-radius:50%;background:var(--blue-100);cursor:pointer;transition:all 0.3s;border:none;padding:0;}
   .ss-dot.active{background:var(--blue-500);width:20px;border-radius:4px;}
   .slideshow-track-wrap{overflow:hidden;}
-  .slideshow-track{display:flex;gap:16px;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
-  .ss-card{flex:0 0 calc(33.333% - 11px);background:var(--gray-50);border:1px solid var(--blue-100);border-radius:14px;padding:26px 24px;position:relative;overflow:hidden;transition:all 0.3s;}
+  .slideshow-track{display:flex;gap:14px;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
+
+  /* Compact card scale (was 26px 24px padding / larger type — now tighter & smaller) */
+  .ss-card{flex:0 0 calc(33.333% - 10px);background:var(--gray-50);border:1px solid var(--blue-100);border-radius:12px;padding:18px 16px;position:relative;overflow:hidden;transition:all 0.3s;}
   .ss-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-400),var(--blue-500));opacity:0;transition:opacity 0.3s;}
   .ss-card:hover{border-color:var(--blue-300);box-shadow:var(--shadow-md);transform:translateY(-3px);background:var(--white);}
   .ss-card:hover::before{opacity:1;}
-  .ss-card-ico{width:44px;height:44px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--blue-500);margin-bottom:16px;transition:all 0.3s;}
+  .ss-card-ico{width:36px;height:36px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--blue-500);margin-bottom:12px;transition:all 0.3s;}
   .ss-card:hover .ss-card-ico{background:var(--blue-500);color:#fff;border-color:var(--blue-500);box-shadow:0 5px 15px rgba(30,111,217,0.28);}
-  .ss-card-tag{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-400);margin-bottom:6px;}
-  .ss-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--blue-900);margin-bottom:10px;line-height:1.2;}
-  .ss-card-desc{font-size:13px;color:var(--gray-600);line-height:1.65;font-weight:300;}
-  .ss-card-benefit{margin-top:16px;padding-top:13px;border-top:1px solid var(--blue-100);display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:var(--blue-500);}
-  .ss-card-link{margin-top:8px;font-size:11px;color:var(--blue-400);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+  .ss-card-tag{font-size:8.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-400);margin-bottom:5px;}
+  .ss-card-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--blue-900);margin-bottom:8px;line-height:1.2;}
+  .ss-card-desc{font-size:12px;color:var(--gray-600);line-height:1.6;font-weight:300;}
+  .ss-card-benefit{margin-top:12px;padding-top:10px;border-top:1px solid var(--blue-100);display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--blue-500);}
+  .ss-card-link{margin-top:7px;font-size:10.5px;color:var(--blue-400);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
   .ss-card-link:hover{text-decoration:underline;}
   .ss-nav-btns{display:flex;gap:7px;}
   .ss-btn{width:34px;height:34px;background:var(--white);border:1px solid var(--blue-100);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--blue-500);cursor:pointer;transition:all 0.2s;}
@@ -308,7 +310,7 @@
   .wm-cta-btns{display:flex;gap:9px;flex-wrap:wrap;}
   .wm-wa-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;text-decoration:none;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;white-space:nowrap;box-shadow:0 4px 14px rgba(34,197,94,0.3);transition:all 0.2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
   .wm-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(34,197,94,0.4);color:#fff;}
-  .wm-email-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:#fff;text-decoration:none;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,0.15);transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+  .wm-email-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:#fff;text-decoration:none;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,0.15);transition:all 0.2s;font-family:'DM Sans',sans-serif;cursor:pointer;}
   .wm-email-btn:hover{background:rgba(255,255,255,0.15);color:#fff;}
 
   /* RESPONSIVE */
@@ -319,7 +321,7 @@
     .cats{grid-template-columns:1fr 1fr;}
     .how-section,.cats-section,.fcta{padding:56px 28px;}
     .slideshow-section{padding:48px 28px;}
-    .ss-card{flex:0 0 calc(50% - 8px);}
+    .ss-card{flex:0 0 calc(50% - 7px);}
     .trust-strip{padding:16px 28px;gap:20px;}
     .pg-footer{padding:18px 28px;}
     .fg3{grid-template-columns:1fr 1fr;}
@@ -334,7 +336,16 @@
     .phone-row{flex-direction:column;}
     .phone-code-wrap{width:100%;}
     .cats{grid-template-columns:1fr 1fr;}
-    .ss-card{flex:0 0 calc(100% - 0px);}
+
+    /* "What We Offer" cards: drop the sliding carousel and stack to a single, compact column */
+    .slideshow-header{flex-direction:column;align-items:flex-start;gap:10px;}
+    .ss-nav-btns,.ss-dots{display:none;}
+    .slideshow-track-wrap{overflow:visible;}
+    .slideshow-track{flex-direction:column;gap:10px;transform:none!important;transition:none;}
+    .ss-card{flex:1 1 100%;width:100%;padding:16px 15px;}
+    .ss-card-title{font-size:14px;}
+    .ss-card-desc{font-size:11.5px;}
+
     .hero-stats{grid-template-columns:1fr 1fr;}
     .hstat:nth-child(2){border-right:none;}
     .hstat:nth-child(1),.hstat:nth-child(2){border-bottom:1px solid rgba(255,255,255,0.12);}
@@ -570,12 +581,12 @@
         <div class="wm-cta-title">Ready to connect?</div>
         <div class="wm-cta-sub">Reach us on WhatsApp or Email to discuss your campaign — we respond fast.</div>
         <div class="wm-cta-btns">
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20work%20with%20SK%20Community" target="_blank" class="wm-wa-btn">
+          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20work%20with%20SK%20Community" target="_blank" rel="noopener" class="wm-wa-btn">
             <i class="fab fa-whatsapp"></i> WhatsApp Us
           </a>
-          <a href="mailto:skcommunitybase@gmail.com" class="wm-email-btn">
+          <button type="button" class="wm-email-btn" onclick="window.location.href='mailto:skcommunitybase@gmail.com?subject=Working%20With%20SK%20Community';">
             <i class="fas fa-envelope"></i> Email Us
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -651,7 +662,7 @@
           </div>
         </div>
 
-        <!-- Email — optional -->
+        <!-- Email — fully optional, no required validation on either side -->
         <div class="fg" style="margin-top:9px;">
           <div class="fw">
             <label class="fl" for="{{ form.email.id_for_label }}">Email <span style="color:rgba(255,255,255,0.28);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
@@ -1162,6 +1173,13 @@
     });
   }
 
+  /* EMAIL FIELD: enforce optional client-side regardless of how the widget is rendered */
+  var emailFld = document.getElementById('{{ form.email.id_for_label }}') || document.querySelector('input[name="email"]');
+  if (emailFld) {
+    emailFld.removeAttribute('required');
+    emailFld.required = false;
+  }
+
   /* DIAL CODE → COUNTRY */
   const CODE_TO_COUNTRY = {
     '+233':'Ghana','+234':'Nigeria','+1':'United States','+44':'United Kingdom',
@@ -1298,41 +1316,76 @@
     });
   }
 
-  /* FEATURES SLIDESHOW */
+  /* FEATURES SLIDESHOW — disabled on mobile, where cards stack vertically via CSS */
   (function() {
     const track = document.getElementById('ssTrack');
     const dw    = document.getElementById('ssDots');
     const p     = document.getElementById('ssPrev');
     const n     = document.getElementById('ssNext');
     if(!track) return;
+
+    function isMobile(){ return window.innerWidth <= 640; }
+
     const cards = track.querySelectorAll('.ss-card');
-    const vw = window.innerWidth;
-    const vc = vw<640?1:vw<960?2:3;
-    const total = Math.ceil(cards.length/vc);
-    let cur=0, at;
-    for(let i=0;i<total;i++){
-      const dot = document.createElement('button');
-      dot.className = 'ss-dot'+(i===0?' active':'');
-      dot.addEventListener('click', function(){ goF(i); });
-      dw.appendChild(dot);
+    let total, cur = 0, at;
+
+    function buildDots(){
+      dw.innerHTML = '';
+      const vw = window.innerWidth;
+      const vc = vw<640?1:vw<960?2:3;
+      total = Math.ceil(cards.length/vc);
+      for(let i=0;i<total;i++){
+        const dot = document.createElement('button');
+        dot.className = 'ss-dot'+(i===0?' active':'');
+        dot.addEventListener('click', function(){ goF(i); ra(); });
+        dw.appendChild(dot);
+      }
     }
-    function cw(){ const gap=16,w=track.parentElement.offsetWidth,v=window.innerWidth<640?1:window.innerWidth<960?2:3; return(w-gap*(v-1))/v+gap; }
-    function goF(i){ cur=(i+total)%total; track.style.transform='translateX(-'+(cur*vc*cw())+'px)'; dw.querySelectorAll('.ss-dot').forEach(function(d,j){ d.classList.toggle('active',j===cur); }); }
-    function ra(){ clearInterval(at); at=setInterval(function(){ goF(cur+1); }, 4500); }
+    function cw(){ const gap=14,w=track.parentElement.offsetWidth,v=window.innerWidth<640?1:window.innerWidth<960?2:3; return(w-gap*(v-1))/v+gap; }
+    function vc(){ const vw=window.innerWidth; return vw<640?1:vw<960?2:3; }
+    function goF(i){
+      if (isMobile()) return; // mobile: cards are stacked via CSS, no sliding
+      cur=(i+total)%total;
+      track.style.transform='translateX(-'+(cur*vc()*cw())+'px)';
+      dw.querySelectorAll('.ss-dot').forEach(function(d,j){ d.classList.toggle('active',j===cur); });
+    }
+    function ra(){
+      clearInterval(at);
+      if (isMobile()) return;
+      at=setInterval(function(){ goF(cur+1); }, 4500);
+    }
+
+    buildDots();
     if(p) p.addEventListener('click', function(){ goF(cur-1); ra(); });
     if(n) n.addEventListener('click', function(){ goF(cur+1); ra(); });
     ra();
     track.addEventListener('mouseenter', function(){ clearInterval(at); });
     track.addEventListener('mouseleave', ra);
 
-    /* Touch/swipe support for mobile slideshow */
+    /* Touch/swipe support for mobile slideshow (desktop/tablet sizes only — mobile stacks instead) */
     var touchStartX = 0;
-    track.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].screenX; clearInterval(at); }, {passive:true});
+    track.addEventListener('touchstart', function(e){ if(isMobile()) return; touchStartX = e.changedTouches[0].screenX; clearInterval(at); }, {passive:true});
     track.addEventListener('touchend', function(e){
+      if(isMobile()) return;
       var diff = touchStartX - e.changedTouches[0].screenX;
       if(Math.abs(diff) > 40){ goF(diff > 0 ? cur+1 : cur-1); }
       ra();
     }, {passive:true});
+
+    let resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){
+        if (isMobile()) {
+          clearInterval(at);
+          track.style.transform = '';
+        } else {
+          buildDots();
+          goF(0);
+          ra();
+        }
+      }, 200);
+    });
   })();
 
   /* SCROLL ANIMATIONS */
