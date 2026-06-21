@@ -1,7 +1,7 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Join SK Community Base ” Building Ghana's Biggest Contact Base{% endblock %}
+{% block title %}Join SK Community — Building Ghana's Biggest Community{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -23,356 +23,364 @@
   body>footer.footer{display:none;}
 
   /* NAV */
-  .sk-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--blue-100);padding:0 48px;height:68px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);animation:navSlide 0.5s ease both;}
+  .sk-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--blue-100);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);animation:navSlide 0.5s ease both;}
   @keyframes navSlide{from{opacity:0;transform:translateY(-100%);}to{opacity:1;transform:translateY(0);}}
-  .sk-nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-  .sk-nav-logo{width:36px;height:36px;border-radius:8px;object-fit:cover;}
-  .sk-nav-name{font-size:15px;font-weight:600;color:var(--blue-900);letter-spacing:-0.01em;}
-  .sk-nav-right{display:flex;align-items:center;gap:12px;}
-  .sk-nav-pill{display:flex;align-items:center;gap:8px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--blue-700);}
-  .live-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:livePulse 2s ease-in-out infinite;}
+  .sk-nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .sk-nav-logo{width:32px;height:32px;border-radius:7px;object-fit:cover;}
+  .sk-nav-name{font-size:14px;font-weight:600;color:var(--blue-900);letter-spacing:-0.01em;}
+  .sk-nav-right{display:flex;align-items:center;gap:10px;}
+  .sk-nav-pill{display:flex;align-items:center;gap:7px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:5px 13px;font-size:11px;font-weight:500;color:var(--blue-700);}
+  .live-dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:livePulse 2s ease-in-out infinite;flex-shrink:0;}
   @keyframes livePulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
-  .sk-nav-dashboard{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));color:#fff!important;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;text-decoration:none!important;transition:all 0.2s;box-shadow:0 4px 14px rgba(30,111,217,0.28);white-space:nowrap;}
-  .sk-nav-dashboard:hover{background:linear-gradient(135deg,var(--blue-500),var(--blue-700));transform:translateY(-1px);}
-  @media(max-width:480px){.sk-nav-dashboard .db-label{display:none;}.sk-nav-dashboard{padding:8px 11px;}.sk-nav-pill{display:none;}}
+  @media(max-width:480px){.sk-nav-pill{display:none;}.sk-nav{padding:0 16px;}}
   @media(max-width:768px){.sk-nav{padding:0 20px;}}
 
-  /*  HERO ” FULL WIDTH FORM  */
-  .sk-hero{min-height:100vh;padding-top:68px;display:flex;align-items:stretch;background:var(--blue-900);position:relative;overflow:hidden;}
+  /* HERO */
+  .sk-hero{min-height:100vh;padding-top:64px;display:flex;align-items:stretch;background:var(--blue-900);position:relative;overflow:hidden;}
   .sk-hero::before{content:'';position:absolute;inset:0;background:url("{% static 'images/landing-5.png' %}") center/cover no-repeat;opacity:0.13;z-index:0;}
   .sk-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(56,182,255,0.10) 0%,transparent 65%);z-index:0;}
 
-  /* Centred content card */
-  .hero-card{position:relative;z-index:1;width:100%;max-width:1100px;margin:0 auto;padding:48px 64px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
-  .hero-left{display:flex;flex-direction:column;justify-content:center;padding-top:32px;}
-  .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:600;color:#fff;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:32px;width:fit-content;animation:fadeUp 0.6s 0.1s ease both;backdrop-filter:blur(8px);}
-  .hero-tag-bar{width:20px;height:2px;background:var(--blue-300);border-radius:1px;}
-  .hero-headline{font-family:'Playfair Display',serif;font-size:clamp(38px,4vw,62px);font-weight:800;line-height:1.06;letter-spacing:-0.025em;color:#fff;margin-bottom:24px;animation:fadeUp 0.6s 0.2s ease both;text-shadow:0 2px 24px rgba(0,0,0,0.35);}
+  .hero-card{position:relative;z-index:1;width:100%;max-width:1060px;margin:0 auto;padding:40px 48px 56px;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+  .hero-left{display:flex;flex-direction:column;justify-content:center;padding-top:24px;}
+  .hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);border-radius:100px;padding:5px 14px;font-size:10px;font-weight:600;color:#fff;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:26px;width:fit-content;animation:fadeUp 0.6s 0.1s ease both;backdrop-filter:blur(8px);}
+  .hero-tag-bar{width:18px;height:2px;background:var(--blue-300);border-radius:1px;}
+  .hero-headline{font-family:'Playfair Display',serif;font-size:clamp(34px,3.8vw,58px);font-weight:800;line-height:1.06;letter-spacing:-0.025em;color:#fff;margin-bottom:20px;animation:fadeUp 0.6s 0.2s ease both;text-shadow:0 2px 24px rgba(0,0,0,0.35);}
   .hero-headline .hl{color:var(--blue-300);}
-  .hero-sub{font-size:16px;line-height:1.75;color:rgba(255,255,255,0.75);font-weight:300;margin-bottom:44px;animation:fadeUp 0.6s 0.3s ease both;}
-  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,0.15);border-radius:14px;overflow:hidden;background:rgba(255,255,255,0.07);backdrop-filter:blur(14px);animation:fadeUp 0.6s 0.4s ease both;}
-  .hstat{padding:20px 16px;text-align:center;border-right:1px solid rgba(255,255,255,0.10);transition:background 0.2s;}
+  .hero-sub{font-size:15px;line-height:1.75;color:rgba(255,255,255,0.75);font-weight:300;margin-bottom:36px;animation:fadeUp 0.6s 0.3s ease both;}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,0.15);border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.07);backdrop-filter:blur(14px);animation:fadeUp 0.6s 0.4s ease both;}
+  .hstat{padding:16px 12px;text-align:center;border-right:1px solid rgba(255,255,255,0.10);transition:background 0.2s;}
   .hstat:last-child{border-right:none;}
   .hstat:hover{background:rgba(255,255,255,0.12);}
-  .hstat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;line-height:1;margin-bottom:5px;text-shadow:0 0 22px rgba(56,182,255,0.55);}
-  .hstat-label{font-size:11px;font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;}
+  .hstat-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;line-height:1;margin-bottom:4px;text-shadow:0 0 22px rgba(56,182,255,0.55);}
+  .hstat-label{font-size:10px;font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 
-  /* RIGHT: form panel */
-  .hero-form{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:20px;padding:40px 36px;display:flex;flex-direction:column;animation:fadeUp 0.6s 0.2s ease both;}
-  .form-head{margin-bottom:24px;}
-  .form-head-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:5px;}
-  .form-head-sub{font-size:13px;color:rgba(255,255,255,0.35);font-weight:300;}
+  /* FORM PANEL */
+  .hero-form{background:rgba(255,255,255,0.04);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;animation:fadeUp 0.6s 0.2s ease both;}
+  .form-head{margin-bottom:18px;}
+  .form-head-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#fff;margin-bottom:4px;}
+  .form-head-sub{font-size:12px;color:rgba(255,255,255,0.35);font-weight:300;}
   .form-head-sub em{color:var(--blue-300);font-style:normal;}
 
   /* Section labels */
-  .fsec{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-300);margin:20px 0 8px;display:flex;align-items:center;gap:10px;}
+  .fsec{font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-300);margin:16px 0 7px;display:flex;align-items:center;gap:8px;}
   .fsec::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.07);}
 
   /* Grid helpers */
-  .fg{display:grid;gap:10px;}
+  .fg{display:grid;gap:8px;}
   .fg2{grid-template-columns:1fr 1fr;}
   .fg3{grid-template-columns:1fr 1fr 1fr;}
 
   /* Field wrapper */
-  .fw{display:flex;flex-direction:column;gap:4px;position:relative;}
-  .fl{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.38);display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+  .fw{display:flex;flex-direction:column;gap:3px;position:relative;}
+  .fl{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.38);display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
   .fl .r{color:var(--blue-300);}
 
-  /* Tooltip icon */
-  .tip{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;background:rgba(56,182,255,0.12);border:1px solid rgba(56,182,255,0.28);border-radius:50%;font-size:8px;font-weight:700;color:var(--blue-300);cursor:pointer;position:relative;flex-shrink:0;transition:background 0.2s;}
+  /* Tooltip */
+  .tip{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;background:rgba(56,182,255,0.12);border:1px solid rgba(56,182,255,0.28);border-radius:50%;font-size:7px;font-weight:700;color:var(--blue-300);cursor:pointer;position:relative;flex-shrink:0;transition:background 0.2s;}
   .tip:hover,.tip:focus{background:rgba(56,182,255,0.28);outline:none;}
-  .tip-box{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,28,60,0.98);border:1px solid rgba(56,182,255,0.22);border-radius:8px;padding:9px 12px;font-size:11px;font-weight:400;color:rgba(255,255,255,0.82);white-space:normal;width:210px;z-index:999;pointer-events:none;line-height:1.55;text-transform:none;letter-spacing:0;box-shadow:0 8px 28px rgba(0,0,0,0.45);}
+  .tip-box{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(10,28,60,0.98);border:1px solid rgba(56,182,255,0.22);border-radius:8px;padding:8px 11px;font-size:11px;font-weight:400;color:rgba(255,255,255,0.82);white-space:normal;width:200px;z-index:999;pointer-events:none;line-height:1.55;text-transform:none;letter-spacing:0;box-shadow:0 8px 28px rgba(0,0,0,0.45);}
   .tip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:rgba(56,182,255,0.22);}
   .tip:hover .tip-box,.tip:focus .tip-box{display:block;}
 
   /* Inputs */
-  .fw input,.fw select,.fw textarea{background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.10)!important;border-radius:8px!important;color:#fff!important;padding:10px 12px!important;font-size:13px!important;font-family:'DM Sans',sans-serif!important;width:100%!important;outline:none!important;-webkit-appearance:none!important;appearance:none!important;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s!important;}
+  .fw input,.fw select,.fw textarea{background:rgba(255,255,255,0.06)!important;border:1px solid rgba(255,255,255,0.10)!important;border-radius:7px!important;color:#fff!important;padding:9px 11px!important;font-size:12px!important;font-family:'DM Sans',sans-serif!important;width:100%!important;outline:none!important;-webkit-appearance:none!important;appearance:none!important;transition:border-color 0.2s,background 0.2s,box-shadow 0.2s!important;}
   .fw input::placeholder{color:rgba(255,255,255,0.22)!important;}
   .fw input[readonly]{color:rgba(255,255,255,0.5)!important;cursor:default!important;}
   .fw input:hover:not([readonly]),.fw select:hover{border-color:rgba(56,182,255,0.3)!important;background:rgba(255,255,255,0.08)!important;}
   .fw input:focus:not([readonly]),.fw select:focus{border-color:var(--blue-400)!important;background:rgba(56,182,255,0.07)!important;box-shadow:0 0 0 3px rgba(56,182,255,0.1)!important;}
   .fw select option{background:#0F2D5A;color:#fff;}
-  .fw-hint{font-size:10px;color:rgba(255,255,255,0.22);margin-top:2px;}
-  .fw-error{font-size:11px;color:#FCA5A5;margin-top:2px;}
+  .fw-hint{font-size:9px;color:rgba(255,255,255,0.22);margin-top:1px;}
+  .fw-error{font-size:10px;color:#FCA5A5;margin-top:1px;}
 
   /* WhatsApp phone row */
   .phone-row{display:flex;gap:6px;align-items:flex-start;}
-  .phone-code-wrap{flex:0 0 auto;width:130px;}
-  .phone-code-wrap select{background:rgba(56,182,255,0.08)!important;border-color:rgba(56,182,255,0.2)!important;color:var(--blue-300)!important;font-weight:600!important;font-size:12px!important;}
+  .phone-code-wrap{flex:0 0 auto;width:122px;}
+  .phone-code-wrap select{background:rgba(56,182,255,0.08)!important;border-color:rgba(56,182,255,0.2)!important;color:var(--blue-300)!important;font-weight:600!important;font-size:11px!important;}
   .phone-num-wrap{flex:1;}
 
-  /* Terms checkbox row */
-  .terms-row{display:flex;align-items:flex-start;gap:10px;margin-top:16px;}
-  .terms-row input[type="checkbox"]{width:16px!important;height:16px!important;min-width:16px;margin-top:2px;accent-color:var(--blue-400);cursor:pointer;padding:0!important;border-radius:4px!important;}
-  .terms-row label{font-size:12px;color:rgba(255,255,255,0.50);line-height:1.6;cursor:pointer;}
-  .terms-row label a,.terms-row label button.policy-link{color:var(--blue-300);text-decoration:none;background:none;border:none;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;padding:0;line-height:inherit;}
+  /* Terms checkbox */
+  .terms-row{display:flex;align-items:flex-start;gap:8px;margin-top:14px;}
+  .terms-row input[type="checkbox"]{width:15px!important;height:15px!important;min-width:15px;margin-top:2px;accent-color:var(--blue-400);cursor:pointer;padding:0!important;border-radius:4px!important;}
+  .terms-row label{font-size:11px;color:rgba(255,255,255,0.50);line-height:1.6;cursor:pointer;}
+  .terms-row label a,.terms-row label button.policy-link{color:var(--blue-300);text-decoration:none;background:none;border:none;font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;padding:0;line-height:inherit;}
   .terms-row label a:hover,.terms-row label button.policy-link:hover{text-decoration:underline;}
 
-  /* Optional popup toggle */
-  .opt-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 14px;border:1px dashed rgba(56,182,255,0.2);border-radius:8px;margin-top:16px;background:rgba(56,182,255,0.03);transition:all 0.2s;}
+  /* Optional toggle */
+  .opt-toggle{display:flex;align-items:center;gap:9px;cursor:pointer;padding:9px 12px;border:1px dashed rgba(56,182,255,0.2);border-radius:8px;margin-top:14px;background:rgba(56,182,255,0.03);transition:all 0.2s;}
   .opt-toggle:hover{border-color:rgba(56,182,255,0.4);background:rgba(56,182,255,0.07);}
-  .opt-toggle-ico{width:26px;height:26px;background:rgba(56,182,255,0.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--blue-300);flex-shrink:0;transition:all 0.2s;}
+  .opt-toggle-ico{width:24px;height:24px;background:rgba(56,182,255,0.1);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--blue-300);flex-shrink:0;transition:all 0.2s;}
   .opt-toggle:hover .opt-toggle-ico,.opt-toggle.done .opt-toggle-ico{background:var(--blue-500);color:#fff;}
   .opt-toggle-text{flex:1;}
-  .opt-toggle-text strong{display:block;font-size:12px;color:rgba(255,255,255,0.60);}
-  .opt-toggle-text small{font-size:11px;color:rgba(255,255,255,0.28);}
-  .opt-chev{font-size:10px;color:rgba(255,255,255,0.25);transition:transform 0.3s;}
+  .opt-toggle-text strong{display:block;font-size:11px;color:rgba(255,255,255,0.60);}
+  .opt-toggle-text small{font-size:10px;color:rgba(255,255,255,0.28);}
+  .opt-chev{font-size:9px;color:rgba(255,255,255,0.25);transition:transform 0.3s;}
 
   /* Submit button */
-  .f-btn{width:100%;background:linear-gradient(135deg,var(--blue-400) 0%,var(--blue-500) 100%);color:#fff;border:none;border-radius:10px;padding:14px 24px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:9px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 18px rgba(56,182,255,0.28);position:relative;}
+  .f-btn{width:100%;background:linear-gradient(135deg,var(--blue-400) 0%,var(--blue-500) 100%);color:#fff;border:none;border-radius:9px;padding:13px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 18px rgba(56,182,255,0.28);position:relative;min-height:46px;}
   .f-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.1) 0%,transparent 60%);pointer-events:none;}
   .f-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(56,182,255,0.42);}
   .f-btn:active{transform:scale(0.98);}
   .f-btn.loading .f-btn-label{opacity:0;}
   .f-btn.loading::after{content:'';position:absolute;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
-  .f-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.20);margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px;}
+  .f-note{text-align:center;font-size:10px;color:rgba(255,255,255,0.20);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:4px;}
 
   /* Phone error */
-  .phone-inline-error{display:none;font-size:11px;color:#FCA5A5;margin-top:4px;}
+  .phone-inline-error{display:none;font-size:10px;color:#FCA5A5;margin-top:3px;}
 
   /* Opt saved */
-  .opt-saved{display:none;margin-top:8px;padding:7px 12px;background:rgba(56,182,255,0.07);border:1px solid rgba(56,182,255,0.2);border-radius:8px;font-size:12px;color:var(--blue-300);align-items:center;gap:7px;}
+  .opt-saved{display:none;margin-top:7px;padding:6px 11px;background:rgba(56,182,255,0.07);border:1px solid rgba(56,182,255,0.2);border-radius:7px;font-size:11px;color:var(--blue-300);align-items:center;gap:6px;}
 
-  /*  TESTIMONIALS / COMMUNITY FEED  */
+  /* FEED SECTION */
   .feed-section{background:var(--blue-900);padding-bottom:0;}
-  .feed-section-label{padding:36px 64px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-  .feed-section-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(56,182,255,0.10);border:1px solid rgba(56,182,255,0.20);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--blue-300);letter-spacing:0.08em;text-transform:uppercase;}
-  .feed-section-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;}
-  .feed-section-sub{font-size:13px;color:rgba(255,255,255,0.38);font-weight:300;}
-  .feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:28px 64px 52px;}
+  .feed-section-label{padding:32px 48px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .feed-section-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(56,182,255,0.10);border:1px solid rgba(56,182,255,0.20);border-radius:100px;padding:4px 13px;font-size:10px;font-weight:600;color:var(--blue-300);letter-spacing:0.08em;text-transform:uppercase;}
+  .feed-section-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;}
+  .feed-section-sub{font-size:12px;color:rgba(255,255,255,0.38);font-weight:300;}
+  .feed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:22px 48px 44px;}
 
-  /* Individual feed card */
-  .fc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;transition:all 0.25s;cursor:pointer;}
-  .fc:hover{border-color:rgba(56,182,255,0.28);background:rgba(56,182,255,0.05);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.35);}
+  /* Feed card */
+  .fc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;transition:all 0.25s;cursor:pointer;}
+  .fc:hover{border-color:rgba(56,182,255,0.28);background:rgba(56,182,255,0.05);transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.32);}
 
   /* Testimonial card */
-  .fc-testimonial .fc-body{padding:22px 20px 18px;}
-  .fc-testimonial .fc-quote{font-size:32px;line-height:1;color:var(--blue-300);margin-bottom:12px;font-family:'Playfair Display',serif;}
-  .fc-testimonial .fc-text{font-size:14px;color:rgba(255,255,255,0.78);line-height:1.7;font-weight:300;margin-bottom:18px;}
-  .fc-testimonial .fc-author{display:flex;align-items:center;gap:10px;}
-  .fc-testimonial .fc-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
-  .fc-testimonial .fc-author-name{font-size:13px;font-weight:600;color:#fff;}
-  .fc-testimonial .fc-author-role{font-size:11px;color:rgba(255,255,255,0.38);}
-  .fc-testimonial .fc-stars{color:#F59E0B;font-size:11px;letter-spacing:1px;margin-top:2px;}
-  .fc-footer{padding:10px 20px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
-  .fc-footer-meta{font-size:11px;color:rgba(255,255,255,0.28);}
-  .fc-likes{display:flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,0.38);}
-  .fc-likes i{font-size:11px;color:var(--blue-300);}
+  .fc-testimonial .fc-body{padding:18px 17px 15px;}
+  .fc-testimonial .fc-quote{font-size:28px;line-height:1;color:var(--blue-300);margin-bottom:10px;font-family:'Playfair Display',serif;}
+  .fc-testimonial .fc-text{font-size:13px;color:rgba(255,255,255,0.78);line-height:1.7;font-weight:300;margin-bottom:14px;}
+  .fc-testimonial .fc-author{display:flex;align-items:center;gap:9px;}
+  .fc-testimonial .fc-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+  .fc-testimonial .fc-author-name{font-size:12px;font-weight:600;color:#fff;}
+  .fc-testimonial .fc-author-role{font-size:10px;color:rgba(255,255,255,0.38);}
+  .fc-testimonial .fc-stars{color:#F59E0B;font-size:10px;letter-spacing:1px;margin-top:1px;}
+  .fc-footer{padding:8px 17px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
+  .fc-footer-meta{font-size:10px;color:rgba(255,255,255,0.28);}
+  .fc-likes{display:flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.38);}
+  .fc-likes i{font-size:10px;color:var(--blue-300);}
 
-  /* Update / post card */
-  .fc-update .fc-img{width:100%;height:160px;object-fit:cover;display:block;}
-  .fc-update .fc-body{padding:16px 18px 14px;}
-  .fc-update .fc-tag{display:inline-block;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:9px;}
+  /* Update card */
+  .fc-update .fc-img{width:100%;height:140px;object-fit:cover;display:block;}
+  .fc-update .fc-body{padding:14px 16px 12px;}
+  .fc-update .fc-tag{display:inline-block;padding:2px 8px;border-radius:100px;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;}
   .fc-update .fc-tag.announcement{background:rgba(56,182,255,0.15);color:var(--blue-300);}
   .fc-update .fc-tag.campaign{background:rgba(34,197,94,0.15);color:#4ADE80;}
   .fc-update .fc-tag.milestone{background:rgba(245,158,11,0.15);color:#FBBF24;}
-  .fc-update .fc-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:7px;line-height:1.25;}
-  .fc-update .fc-desc{font-size:13px;color:rgba(255,255,255,0.52);line-height:1.6;font-weight:300;}
+  .fc-update .fc-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.25;}
+  .fc-update .fc-desc{font-size:12px;color:rgba(255,255,255,0.52);line-height:1.6;font-weight:300;}
 
   /* Video card */
-  .fc-video .fc-thumb{position:relative;width:100%;height:180px;overflow:hidden;background:#000;}
+  .fc-video .fc-thumb{position:relative;width:100%;height:155px;overflow:hidden;background:#000;}
   .fc-video .fc-thumb img{width:100%;height:100%;object-fit:cover;opacity:0.75;}
   .fc-video .fc-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-  .fc-video .fc-play-btn{width:52px;height:52px;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);border:2px solid rgba(255,255,255,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;transition:all 0.2s;}
+  .fc-video .fc-play-btn{width:46px;height:46px;background:rgba(255,255,255,0.18);backdrop-filter:blur(6px);border:2px solid rgba(255,255,255,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;transition:all 0.2s;}
   .fc:hover .fc-play-btn{background:var(--blue-500);border-color:var(--blue-500);transform:scale(1.1);}
-  .fc-video .fc-body{padding:16px 18px 14px;}
+  .fc-video .fc-body{padding:14px 16px 12px;}
 
-  /* Empty state */
-  .feed-empty{grid-column:1/-1;text-align:center;padding:60px 20px;}
-  .feed-empty-ico{font-size:40px;color:rgba(56,182,255,0.25);margin-bottom:14px;}
-  .feed-empty-text{font-size:14px;color:rgba(255,255,255,0.30);}
-
-  /*  FEATURES SLIDESHOW  */
-  .slideshow-section{background:var(--white);padding:72px 64px;overflow:hidden;}
-  .slideshow-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;flex-wrap:wrap;gap:20px;}
-  .ss-dots{display:flex;gap:8px;align-items:center;padding-bottom:4px;}
-  .ss-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-100);cursor:pointer;transition:all 0.3s;border:none;padding:0;}
-  .ss-dot.active{background:var(--blue-500);width:24px;border-radius:4px;}
+  /* FEATURES SLIDESHOW */
+  .slideshow-section{background:var(--white);padding:60px 48px;overflow:hidden;}
+  .slideshow-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+  .ss-dots{display:flex;gap:7px;align-items:center;padding-bottom:3px;}
+  .ss-dot{width:7px;height:7px;border-radius:50%;background:var(--blue-100);cursor:pointer;transition:all 0.3s;border:none;padding:0;}
+  .ss-dot.active{background:var(--blue-500);width:20px;border-radius:4px;}
   .slideshow-track-wrap{overflow:hidden;}
-  .slideshow-track{display:flex;gap:20px;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
-  .ss-card{flex:0 0 calc(33.333% - 14px);background:var(--gray-50);border:1px solid var(--blue-100);border-radius:16px;padding:36px 32px;position:relative;overflow:hidden;transition:all 0.3s;}
+  .slideshow-track{display:flex;gap:16px;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
+  .ss-card{flex:0 0 calc(33.333% - 11px);background:var(--gray-50);border:1px solid var(--blue-100);border-radius:14px;padding:26px 24px;position:relative;overflow:hidden;transition:all 0.3s;}
   .ss-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-400),var(--blue-500));opacity:0;transition:opacity 0.3s;}
-  .ss-card:hover{border-color:var(--blue-300);box-shadow:var(--shadow-md);transform:translateY(-4px);background:var(--white);}
+  .ss-card:hover{border-color:var(--blue-300);box-shadow:var(--shadow-md);transform:translateY(-3px);background:var(--white);}
   .ss-card:hover::before{opacity:1;}
-  .ss-card-ico{width:52px;height:52px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--blue-500);margin-bottom:22px;transition:all 0.3s;}
-  .ss-card:hover .ss-card-ico{background:var(--blue-500);color:#fff;border-color:var(--blue-500);box-shadow:0 6px 18px rgba(30,111,217,0.3);}
-  .ss-card-tag{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-400);margin-bottom:8px;}
-  .ss-card-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--blue-900);margin-bottom:12px;line-height:1.2;}
-  .ss-card-desc{font-size:14px;color:var(--gray-600);line-height:1.7;font-weight:300;}
-  .ss-card-benefit{margin-top:20px;padding-top:16px;border-top:1px solid var(--blue-100);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--blue-500);}
-  .ss-card-link{margin-top:10px;font-size:12px;color:var(--blue-400);text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+  .ss-card-ico{width:44px;height:44px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--blue-500);margin-bottom:16px;transition:all 0.3s;}
+  .ss-card:hover .ss-card-ico{background:var(--blue-500);color:#fff;border-color:var(--blue-500);box-shadow:0 5px 15px rgba(30,111,217,0.28);}
+  .ss-card-tag{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-400);margin-bottom:6px;}
+  .ss-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--blue-900);margin-bottom:10px;line-height:1.2;}
+  .ss-card-desc{font-size:13px;color:var(--gray-600);line-height:1.65;font-weight:300;}
+  .ss-card-benefit{margin-top:16px;padding-top:13px;border-top:1px solid var(--blue-100);display:flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:var(--blue-500);}
+  .ss-card-link{margin-top:8px;font-size:11px;color:var(--blue-400);text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
   .ss-card-link:hover{text-decoration:underline;}
-  .ss-nav-btns{display:flex;gap:8px;}
-  .ss-btn{width:38px;height:38px;background:var(--white);border:1px solid var(--blue-100);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--blue-500);cursor:pointer;transition:all 0.2s;}
+  .ss-nav-btns{display:flex;gap:7px;}
+  .ss-btn{width:34px;height:34px;background:var(--white);border:1px solid var(--blue-100);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--blue-500);cursor:pointer;transition:all 0.2s;}
   .ss-btn:hover{background:var(--blue-500);border-color:var(--blue-500);color:#fff;}
 
   /* TRUST STRIP */
-  .trust-strip{background:var(--gray-50);border-top:1px solid var(--blue-100);border-bottom:1px solid var(--blue-100);padding:22px 64px;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
-  .ti{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:var(--gray-600);}
-  .ti i{font-size:15px;color:var(--blue-500);}
+  .trust-strip{background:var(--gray-50);border-top:1px solid var(--blue-100);border-bottom:1px solid var(--blue-100);padding:18px 48px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;}
+  .ti{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--gray-600);}
+  .ti i{font-size:13px;color:var(--blue-500);}
 
   /* HOW IT WORKS */
-  .how-section{padding:96px 64px;background:var(--white);}
-  .stag{display:inline-flex;align-items:center;gap:8px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--blue-500);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px;}
-  .stitle{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,40px);font-weight:700;color:var(--blue-900);letter-spacing:-0.02em;margin-bottom:14px;line-height:1.1;}
-  .ssub{font-size:16px;color:var(--gray-600);font-weight:300;line-height:1.7;max-width:500px;margin-bottom:56px;}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--blue-100);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-md);}
-  .step{background:var(--white);padding:40px 32px;transition:background 0.25s;}
+  .how-section{padding:80px 48px;background:var(--white);}
+  .stag{display:inline-flex;align-items:center;gap:7px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:100px;padding:4px 13px;font-size:10px;font-weight:600;color:var(--blue-500);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;}
+  .stitle{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--blue-900);letter-spacing:-0.02em;margin-bottom:12px;line-height:1.1;}
+  .ssub{font-size:15px;color:var(--gray-600);font-weight:300;line-height:1.7;max-width:480px;margin-bottom:44px;}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--blue-100);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-md);}
+  .step{background:var(--white);padding:32px 26px;transition:background 0.25s;}
   .step:hover{background:#C8E6FA;}
-  .step-n{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--blue-100);line-height:1;margin-bottom:18px;transition:color 0.25s;}
+  .step-n{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--blue-100);line-height:1;margin-bottom:14px;transition:color 0.25s;}
   .step:hover .step-n{color:var(--blue-500);}
-  .step-ico{width:42px;height:42px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--blue-500);margin-bottom:18px;transition:all 0.25s;}
+  .step-ico{width:38px;height:38px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--blue-500);margin-bottom:14px;transition:all 0.25s;}
   .step:hover .step-ico{background:var(--blue-500);color:#fff;border-color:var(--blue-500);}
-  .step-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--blue-900);margin-bottom:10px;}
-  .step-d{font-size:14px;color:var(--gray-600);line-height:1.65;font-weight:300;}
+  .step-t{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--blue-900);margin-bottom:8px;}
+  .step-d{font-size:13px;color:var(--gray-600);line-height:1.65;font-weight:300;}
 
   /* CATEGORIES */
-  .cats-section{background:var(--blue-900);padding:96px 64px;position:relative;overflow:hidden;}
-  .cats-section::before{content:'';position:absolute;top:-180px;right:-180px;width:550px;height:550px;background:radial-gradient(circle,rgba(56,182,255,0.05) 0%,transparent 65%);pointer-events:none;}
+  .cats-section{background:var(--blue-900);padding:80px 48px;position:relative;overflow:hidden;}
+  .cats-section::before{content:'';position:absolute;top:-180px;right:-180px;width:500px;height:500px;background:radial-gradient(circle,rgba(56,182,255,0.05) 0%,transparent 65%);pointer-events:none;}
   .cats-section .stag{background:rgba(56,182,255,0.08);border-color:rgba(56,182,255,0.18);color:var(--blue-300);}
   .cats-section .stitle{color:#fff;}
   .cats-section .ssub{color:rgba(255,255,255,0.45);}
-  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative;z-index:1;}
-  .cat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px;display:flex;align-items:center;gap:12px;transition:all 0.22s;}
-  .cat:hover{background:rgba(56,182,255,0.09);border-color:rgba(56,182,255,0.25);transform:translateY(-3px);}
-  .cat-ico{width:34px;height:34px;background:rgba(56,182,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--blue-300);flex-shrink:0;transition:all 0.22s;}
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;position:relative;z-index:1;}
+  .cat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:13px;display:flex;align-items:center;gap:10px;transition:all 0.22s;}
+  .cat:hover{background:rgba(56,182,255,0.09);border-color:rgba(56,182,255,0.25);transform:translateY(-2px);}
+  .cat-ico{width:30px;height:30px;background:rgba(56,182,255,0.1);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--blue-300);flex-shrink:0;transition:all 0.22s;}
   .cat:hover .cat-ico{background:var(--blue-500);color:#fff;}
-  .cat-name{font-size:13px;font-weight:500;color:rgba(255,255,255,0.75);}
+  .cat-name{font-size:12px;font-weight:500;color:rgba(255,255,255,0.75);}
 
   /* FOOTER CTA */
-  .fcta{background:var(--white);padding:80px 64px;text-align:center;border-top:1px solid var(--blue-100);}
-  .fcta .stag{margin:0 auto 18px;}
-  .fcta .ssub{margin:0 auto 36px;}
-  .cta-link{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--blue-500),var(--blue-700));color:#fff;border:none;border-radius:10px;padding:14px 34px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 18px rgba(30,111,217,0.3);}
+  .fcta{background:var(--white);padding:72px 48px;text-align:center;border-top:1px solid var(--blue-100);}
+  .fcta .stag{margin:0 auto 14px;}
+  .fcta .ssub{margin:0 auto 30px;}
+  .cta-link{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--blue-500),var(--blue-700));color:#fff;border:none;border-radius:9px;padding:13px 30px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 18px rgba(30,111,217,0.3);}
   .cta-link:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(30,111,217,0.42);color:#fff;}
 
   /* PAGE FOOTER */
-  .pg-footer{background:var(--blue-900);padding:24px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
-  .pg-footer-brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.5);}
-  .pg-footer-copy{font-size:12px;color:rgba(255,255,255,0.28);}
+  .pg-footer{background:var(--blue-900);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pg-footer-brand{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.5);}
+  .pg-footer-copy{font-size:11px;color:rgba(255,255,255,0.28);}
 
-  /*  MODAL SYSTEM  */
+  /* MODAL SYSTEM */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(5px);}
   .modal-overlay.open{display:flex;}
-  .modal-box{background:var(--blue-800);border:1px solid rgba(56,182,255,0.16);border-radius:16px;padding:36px 32px;width:min(500px,92vw);max-height:85vh;overflow-y:auto;position:relative;animation:mIn 0.28s ease both;}
+  .modal-box{background:var(--blue-800);border:1px solid rgba(56,182,255,0.16);border-radius:14px;padding:28px 26px;width:min(480px,92vw);max-height:85vh;overflow-y:auto;position:relative;animation:mIn 0.28s ease both;}
   @keyframes mIn{from{opacity:0;transform:scale(0.94) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
-  .modal-close{position:absolute;top:14px;right:14px;width:28px;height:28px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:50%;color:rgba(255,255,255,0.45);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+  .modal-close{position:absolute;top:12px;right:12px;width:26px;height:26px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:50%;color:rgba(255,255,255,0.45);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
   .modal-close:hover{background:rgba(255,255,255,0.15);color:#fff;}
-  .modal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:4px;}
-  .modal-sub{font-size:12px;color:rgba(255,255,255,0.32);margin-bottom:22px;}
-  .modal-save{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));color:#fff;border:none;border-radius:8px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:18px;transition:all 0.2s;}
+  .modal-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
+  .modal-sub{font-size:11px;color:rgba(255,255,255,0.32);margin-bottom:20px;}
+  .modal-save{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--blue-400),var(--blue-500));color:#fff;border:none;border-radius:7px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;margin-top:16px;transition:all 0.2s;}
   .modal-save:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(56,182,255,0.35);}
 
   /* Policy modal content */
-  .policy-body{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;font-weight:300;}
-  .policy-body h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;margin:20px 0 8px;}
+  .policy-body{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.8;font-weight:300;}
+  .policy-body h3{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fff;margin:18px 0 7px;}
   .policy-body h3:first-child{margin-top:0;}
-  .policy-body p{margin-bottom:12px;}
-  .policy-body ul{padding-left:18px;margin-bottom:12px;}
-  .policy-body ul li{margin-bottom:6px;}
+  .policy-body p{margin-bottom:10px;}
+  .policy-body ul{padding-left:16px;margin-bottom:10px;}
+  .policy-body ul li{margin-bottom:5px;}
 
-  /*  ABOUT MODAL  */
-  .about-modal-box{background:var(--blue-900);border:1px solid rgba(56,182,255,0.16);border-radius:16px;width:min(600px,94vw);max-height:88vh;overflow:hidden;position:relative;animation:mIn 0.28s ease both;display:flex;flex-direction:column;}
-  .about-header{background:linear-gradient(135deg,var(--blue-700),var(--blue-900));padding:32px;border-bottom:1px solid rgba(56,182,255,0.12);flex-shrink:0;position:relative;overflow:hidden;}
-  .about-header::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(56,182,255,0.10) 0%,transparent 65%);pointer-events:none;}
-  .about-header-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(56,182,255,0.15);border:1px solid rgba(56,182,255,0.30);border-radius:100px;padding:4px 13px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-300);margin-bottom:12px;}
-  .about-header h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px;}
-  .about-header p{font-size:14px;color:rgba(255,255,255,0.65);font-weight:300;line-height:1.65;margin:0;}
-  .about-body{padding:28px 32px 32px;overflow-y:auto;}
-  .about-mission{background:rgba(56,182,255,0.06);border:1px solid rgba(56,182,255,0.14);border-radius:12px;padding:20px 22px;margin-bottom:24px;}
-  .about-mission-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--blue-300);margin-bottom:8px;}
-  .about-mission-text{font-size:14px;color:rgba(255,255,255,0.80);line-height:1.7;font-weight:300;}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
-  .about-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px;}
-  .about-card-ico{width:32px;height:32px;background:rgba(56,182,255,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--blue-300);margin-bottom:10px;}
-  .about-card-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:5px;}
-  .about-card-desc{font-size:12px;color:rgba(255,255,255,0.42);line-height:1.55;font-weight:300;}
-  .about-founder{display:flex;align-items:center;gap:14px;padding:16px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;}
-  .about-founder-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-400),var(--blue-700));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;}
-  .about-founder-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:2px;}
-  .about-founder-role{font-size:12px;color:rgba(255,255,255,0.38);}
-  @media(max-width:520px){.about-grid{grid-template-columns:1fr;}.about-header,.about-body{padding-left:20px;padding-right:20px;}}
+  /* ABOUT MODAL */
+  .about-modal-box{background:var(--blue-900);border:1px solid rgba(56,182,255,0.16);border-radius:14px;width:min(560px,94vw);max-height:88vh;overflow:hidden;position:relative;animation:mIn 0.28s ease both;display:flex;flex-direction:column;}
+  .about-header{background:linear-gradient(135deg,var(--blue-700),var(--blue-900));padding:26px;border-bottom:1px solid rgba(56,182,255,0.12);flex-shrink:0;position:relative;overflow:hidden;}
+  .about-header::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(56,182,255,0.10) 0%,transparent 65%);pointer-events:none;}
+  .about-header-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(56,182,255,0.15);border:1px solid rgba(56,182,255,0.30);border-radius:100px;padding:3px 12px;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-300);margin-bottom:10px;}
+  .about-header h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:8px;}
+  .about-header p{font-size:13px;color:rgba(255,255,255,0.65);font-weight:300;line-height:1.65;margin:0;}
+  .about-body{padding:22px 26px 26px;overflow-y:auto;}
+  .about-mission{background:rgba(56,182,255,0.06);border:1px solid rgba(56,182,255,0.14);border-radius:10px;padding:16px 18px;margin-bottom:20px;}
+  .about-mission-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--blue-300);margin-bottom:7px;}
+  .about-mission-text{font-size:13px;color:rgba(255,255,255,0.80);line-height:1.7;font-weight:300;}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+  .about-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:14px;}
+  .about-card-ico{width:28px;height:28px;background:rgba(56,182,255,0.12);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--blue-300);margin-bottom:8px;}
+  .about-card-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:4px;}
+  .about-card-desc{font-size:11px;color:rgba(255,255,255,0.42);line-height:1.55;font-weight:300;}
+  .about-founder{display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:9px;}
+  .about-founder-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue-400),var(--blue-700));display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0;}
+  .about-founder-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:2px;}
+  .about-founder-role{font-size:11px;color:rgba(255,255,255,0.38);}
 
-  /*  WORK WITH US MODAL  */
-  .work-modal-box{background:var(--blue-900);border:1px solid rgba(56,182,255,0.16);border-radius:16px;width:min(580px,94vw);max-height:90vh;overflow:hidden;position:relative;animation:mIn 0.28s ease both;display:flex;flex-direction:column;}
-  .wm-header{background:linear-gradient(135deg,var(--blue-400),var(--blue-500));padding:30px 32px 26px;position:relative;overflow:hidden;flex-shrink:0;}
-  .wm-header::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(255,255,255,0.12) 0%,transparent 65%);pointer-events:none;}
-  .wm-header-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:4px 13px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;margin-bottom:12px;}
-  .wm-header h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:8px;}
-  .wm-header p{font-size:13px;color:rgba(255,255,255,0.82);font-weight:300;line-height:1.6;margin:0;}
-  .wm-body{padding:24px 32px 28px;overflow-y:auto;}
-  .wm-sec-label{font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--blue-300);margin-bottom:14px;}
-  .wm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
-  .wm-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px 16px;transition:all 0.2s;}
+  /* WORK WITH US MODAL */
+  .work-modal-box{background:var(--blue-900);border:1px solid rgba(56,182,255,0.16);border-radius:14px;width:min(560px,94vw);max-height:90vh;overflow:hidden;position:relative;animation:mIn 0.28s ease both;display:flex;flex-direction:column;}
+  .wm-header{background:linear-gradient(135deg,var(--blue-400),var(--blue-500));padding:24px 26px 22px;position:relative;overflow:hidden;flex-shrink:0;}
+  .wm-header::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,0.12) 0%,transparent 65%);pointer-events:none;}
+  .wm-header-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:3px 12px;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;margin-bottom:10px;}
+  .wm-header h2{font-family:'Playfair Display',serif;font-size:20px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:6px;}
+  .wm-header p{font-size:12px;color:rgba(255,255,255,0.82);font-weight:300;line-height:1.6;margin:0;}
+  .wm-body{padding:20px 26px 24px;overflow-y:auto;}
+  .wm-sec-label{font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--blue-300);margin-bottom:12px;}
+  .wm-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;}
+  .wm-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 14px;transition:all 0.2s;}
   .wm-card:hover{background:rgba(56,182,255,0.08);border-color:rgba(56,182,255,0.2);}
-  .wm-card-ico{width:32px;height:32px;background:rgba(56,182,255,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--blue-300);margin-bottom:10px;transition:all 0.2s;}
+  .wm-card-ico{width:28px;height:28px;background:rgba(56,182,255,0.12);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--blue-300);margin-bottom:8px;transition:all 0.2s;}
   .wm-card:hover .wm-card-ico{background:var(--blue-500);color:#fff;}
-  .wm-card-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px;}
-  .wm-card-desc{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.55;font-weight:300;}
-  .wm-cta{background:rgba(56,182,255,0.08);border:1px solid rgba(56,182,255,0.18);border-radius:10px;padding:18px;margin-bottom:0;}
-  .wm-cta-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px;}
-  .wm-cta-sub{font-size:12px;color:rgba(255,255,255,0.42);margin-bottom:14px;font-weight:300;}
-  .wm-cta-btns{display:flex;gap:10px;flex-wrap:wrap;}
-  .wm-wa-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;text-decoration:none;border-radius:9px;padding:10px 18px;font-size:13px;font-weight:600;white-space:nowrap;box-shadow:0 4px 14px rgba(34,197,94,0.3);transition:all 0.2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+  .wm-card-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:3px;}
+  .wm-card-desc{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.55;font-weight:300;}
+  .wm-cta{background:rgba(56,182,255,0.08);border:1px solid rgba(56,182,255,0.18);border-radius:9px;padding:16px;}
+  .wm-cta-title{font-size:12px;font-weight:600;color:#fff;margin-bottom:3px;}
+  .wm-cta-sub{font-size:11px;color:rgba(255,255,255,0.42);margin-bottom:12px;font-weight:300;}
+  .wm-cta-btns{display:flex;gap:9px;flex-wrap:wrap;}
+  .wm-wa-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;text-decoration:none;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;white-space:nowrap;box-shadow:0 4px 14px rgba(34,197,94,0.3);transition:all 0.2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
   .wm-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(34,197,94,0.4);color:#fff;}
-  .wm-email-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);color:#fff;text-decoration:none;border-radius:9px;padding:10px 18px;font-size:13px;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,0.15);transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+  .wm-email-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:#fff;text-decoration:none;border-radius:8px;padding:9px 16px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid rgba(255,255,255,0.15);transition:all 0.2s;font-family:'DM Sans',sans-serif;}
   .wm-email-btn:hover{background:rgba(255,255,255,0.15);color:#fff;}
-  @media(max-width:520px){.wm-grid{grid-template-columns:1fr;}.wm-cta-btns{flex-direction:column;}.wm-wa-btn,.wm-email-btn{justify-content:center;}.wm-header,.wm-body{padding-left:20px;padding-right:20px;}}
 
-  /*  RESPONSIVE  */
+  /* RESPONSIVE */
   @media(max-width:960px){
-    .hero-card{grid-template-columns:1fr;gap:40px;padding:40px 32px 52px;}
+    .hero-card{grid-template-columns:1fr;gap:32px;padding:32px 28px 44px;}
     .hero-left{padding-top:0;}
     .steps{grid-template-columns:1fr;}
     .cats{grid-template-columns:1fr 1fr;}
-    .how-section,.cats-section,.fcta{padding:64px 32px;}
-    .slideshow-section{padding:56px 32px;}
-    .ss-card{flex:0 0 calc(50% - 10px);}
-    .trust-strip{padding:20px 32px;gap:24px;}
-    .pg-footer{padding:22px 32px;}
+    .how-section,.cats-section,.fcta{padding:56px 28px;}
+    .slideshow-section{padding:48px 28px;}
+    .ss-card{flex:0 0 calc(50% - 8px);}
+    .trust-strip{padding:16px 28px;gap:20px;}
+    .pg-footer{padding:18px 28px;}
     .fg3{grid-template-columns:1fr 1fr;}
-    .feed-grid{grid-template-columns:1fr 1fr;padding:24px 32px 40px;}
-    .feed-section-label{padding:28px 32px 0;}
+    .feed-grid{grid-template-columns:1fr 1fr;padding:20px 28px 36px;}
+    .feed-section-label{padding:24px 28px 0;}
+    .about-grid{grid-template-columns:1fr 1fr;}
+    .wm-grid{grid-template-columns:1fr 1fr;}
   }
-  @media(max-width:560px){
-    .hero-card{padding:32px 20px 48px;}
+  @media(max-width:640px){
+    .hero-card{padding:28px 16px 40px;}
     .fg2,.fg3{grid-template-columns:1fr;}
     .phone-row{flex-direction:column;}
     .phone-code-wrap{width:100%;}
-    .cats{grid-template-columns:1fr;}
-    .ss-card{flex:0 0 100%;}
+    .cats{grid-template-columns:1fr 1fr;}
+    .ss-card{flex:0 0 calc(100% - 0px);}
     .hero-stats{grid-template-columns:1fr 1fr;}
     .hstat:nth-child(2){border-right:none;}
     .hstat:nth-child(1),.hstat:nth-child(2){border-bottom:1px solid rgba(255,255,255,0.12);}
-    .feed-grid{grid-template-columns:1fr;padding:20px 20px 36px;}
-    .feed-section-label{padding:24px 20px 0;flex-direction:column;align-items:flex-start;}
-    .slideshow-section,.how-section,.cats-section,.fcta{padding:48px 20px;}
-    .trust-strip{padding:18px 20px;}
-    .pg-footer{padding:20px 20px;}
+    .feed-grid{grid-template-columns:1fr;padding:16px 16px 28px;}
+    .feed-section-label{padding:20px 16px 0;flex-direction:column;align-items:flex-start;}
+    .slideshow-section,.how-section,.cats-section,.fcta{padding:40px 16px;}
+    .trust-strip{padding:14px 16px;gap:14px;}
+    .pg-footer{padding:16px 16px;flex-direction:column;align-items:flex-start;gap:8px;}
+    .about-grid{grid-template-columns:1fr;}
+    .wm-grid{grid-template-columns:1fr;}
+    .wm-cta-btns{flex-direction:column;}
+    .wm-wa-btn,.wm-email-btn{justify-content:center;}
+    .about-header,.about-body,.wm-header,.wm-body{padding-left:18px;padding-right:18px;}
+    .modal-box{padding:22px 18px;}
+    .hero-form{padding:22px 18px;}
+    .f-btn{font-size:14px;padding:14px 20px;}
+    .terms-row input[type="checkbox"]{min-height:18px;}
+    .cats-section,.how-section,.slideshow-section,.fcta,.feed-section-label{padding-left:16px;padding-right:16px;}
+  }
+  @media(max-width:360px){
+    .cats{grid-template-columns:1fr;}
+    .hero-stats{grid-template-columns:repeat(3,1fr);}
+    .hstat:nth-child(1),.hstat:nth-child(2){border-bottom:none;}
+    .hstat:nth-child(2){border-right:1px solid rgba(255,255,255,0.10);}
   }
 </style>
 {% endblock %}
 
 {% block content %}
 {% if notifications %}
-<div id="sk-notif-bar" style="position:fixed;top:68px;left:0;right:0;z-index:90;">
+<div id="sk-notif-bar" style="position:fixed;top:64px;left:0;right:0;z-index:90;">
   {% for notif in notifications %}
-  <div class="sk-notif-item" style="display:flex;align-items:center;justify-content:space-between;padding:10px 32px;font-size:13px;font-weight:500;color:#fff;background:{% if notif.type == 'job' %}#0F6E56{% elif notif.type == 'giveaway' %}#533AB7{% elif notif.type == 'link' %}#185FA5{% else %}#854F0B{% endif %};border-bottom:1px solid rgba(255,255,255,0.12);">
-    <span><span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-right:10px;">{{ notif.get_type_display }}</span>{{ notif.title }} &mdash; {{ notif.body|truncatechars:120 }}</span>
-    <button onclick="this.closest('.sk-notif-item').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.6);font-size:16px;cursor:pointer;padding:0 0 0 16px;">&times;</button>
+  <div class="sk-notif-item" style="display:flex;align-items:center;justify-content:space-between;padding:9px 24px;font-size:12px;font-weight:500;color:#fff;background:{% if notif.type == 'job' %}#0F6E56{% elif notif.type == 'giveaway' %}#533AB7{% elif notif.type == 'link' %}#185FA5{% else %}#854F0B{% endif %};border-bottom:1px solid rgba(255,255,255,0.12);">
+    <span><span style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-right:9px;">{{ notif.get_type_display }}</span>{{ notif.title }} &mdash; {{ notif.body|truncatechars:120 }}</span>
+    <button onclick="this.closest('.sk-notif-item').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.6);font-size:16px;cursor:pointer;padding:0 0 0 14px;">&times;</button>
   </div>
   {% endfor %}
 </div>
 {% endif %}
 
-<!--  OPTIONAL DETAILS MODAL  -->
+<!-- OPTIONAL DETAILS MODAL -->
 <div class="modal-overlay" id="optModal">
   <div class="modal-box">
     <button class="modal-close" id="modalClose" type="button"><i class="fas fa-times"></i></button>
     <div class="modal-title">Optional Details</div>
-    <p class="modal-sub">These help us match you to the right campaigns ” takes 30 seconds.</p>
+    <p class="modal-sub">These help us match you to the right campaigns — takes 30 seconds.</p>
     <p class="fsec" style="margin-top:0;">Category</p>
     <div class="fg">
       <div class="fw">
@@ -408,7 +416,7 @@
   </div>
 </div>
 
-<!--  COMMUNITY RULES MODAL  -->
+<!-- COMMUNITY RULES MODAL -->
 <div class="modal-overlay" id="rulesModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePolicy('rulesModal')" type="button"><i class="fas fa-times"></i></button>
@@ -423,17 +431,17 @@
       <h3>3. Active WhatsApp Number</h3>
       <p>The WhatsApp number you register must be active and accessible. We use this to send you your contact number and campaign invitations.</p>
       <h3>4. Respectful Conduct</h3>
-      <p>Members are expected to engage respectfully with SK Community Base and any brands or campaigns they are introduced to.</p>
+      <p>Members are expected to engage respectfully with SK Community and any brands or campaigns they are introduced to.</p>
       <h3>5. No Spam or Misuse</h3>
       <p>You may not use contact information obtained through this network to spam, scam, or harass other individuals or brands.</p>
       <h3>6. Removal Policy</h3>
-      <p>SK Community Base reserves the right to remove any contact from the database at any time without notice if these rules are violated.</p>
+      <p>SK Community reserves the right to remove any contact from the database at any time without notice if these rules are violated.</p>
       {% endblock %}
     </div>
   </div>
 </div>
 
-<!--  PRIVACY POLICY MODAL  -->
+<!-- PRIVACY POLICY MODAL -->
 <div class="modal-overlay" id="privacyModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePolicy('privacyModal')" type="button"><i class="fas fa-times"></i></button>
@@ -442,18 +450,18 @@
     <div class="policy-body">
       {% block privacy_content %}
       <h3>What We Collect</h3>
-      <p>We collect your name, email address, WhatsApp number, country, region, age range, social media handle, follower count, and any optional details you provide (school, category).</p>
+      <p>We collect your name, WhatsApp number, country, region, age range, social media handle, follower count, and any optional details you provide (email, school, category).</p>
       <h3>How We Use Your Data</h3>
       <p>Your information is used solely to:</p>
       <ul>
-        <li>Register you in the SK Community Base network</li>
+        <li>Register you in the SK Community network</li>
         <li>Send you a confirmation and your unique contact number via WhatsApp</li>
         <li>Contact you about relevant brand campaigns and opportunities</li>
       </ul>
       <h3>Who Can Access Your Data</h3>
-      <p>Your data is only accessible to authorised SK Community Base administrators. We do not sell or share your data with third parties outside of campaign purposes.</p>
+      <p>Your data is only accessible to authorised SK Community administrators. We do not sell or share your data with third parties outside of campaign purposes.</p>
       <h3>Data Retention</h3>
-      <p>Your data is retained for as long as you remain in the SK Community Base network. Contact us to request deletion at any time.</p>
+      <p>Your data is retained for as long as you remain in the SK Community network. Contact us to request deletion at any time.</p>
       <h3>Your Rights</h3>
       <p>You have the right to access, correct, or delete your personal data at any time. Contact us to exercise these rights.</p>
       <h3>Security</h3>
@@ -463,19 +471,19 @@
   </div>
 </div>
 
-<!--  ABOUT MODAL  -->
+<!-- ABOUT MODAL -->
 <div class="modal-overlay" id="aboutModal">
   <div class="about-modal-box">
     <button class="modal-close" onclick="closePolicy('aboutModal')" type="button"><i class="fas fa-times"></i></button>
     <div class="about-header">
       <div class="about-header-tag"><i class="fas fa-info-circle"></i> About Us</div>
-      <h2>About SK Community Base</h2>
+      <h2>About SK Community</h2>
       <p>Ghana's fastest-growing verified contact network connecting creators, influencers, talent and brands through direct WhatsApp outreach.</p>
     </div>
     <div class="about-body">
       <div class="about-mission">
         <div class="about-mission-label">Our Mission</div>
-        <div class="about-mission-text">SK Community Base exists to bridge the gap between talent and opportunity. We believe every creator, influencer, brand owner, and skilled individual deserves to be found ” and every brand or campaign deserves to reach exactly the right person. We make that connection fast, direct and real.</div>
+        <div class="about-mission-text">SK Community exists to bridge the gap between talent and opportunity. We believe every creator, influencer, brand owner, and skilled individual deserves to be found — and every brand or campaign deserves to reach exactly the right person. We make that connection fast, direct and real.</div>
       </div>
       <div class="about-grid">
         <div class="about-card">
@@ -486,12 +494,12 @@
         <div class="about-card">
           <div class="about-card-ico"><i class="fas fa-users"></i></div>
           <div class="about-card-title">Community-First</div>
-          <div class="about-card-desc">Every member is treated as part of a community ” not just a record in a database.</div>
+          <div class="about-card-desc">Every member is treated as part of a community — not just a record in a database.</div>
         </div>
         <div class="about-card">
           <div class="about-card-ico"><i class="fab fa-whatsapp"></i></div>
           <div class="about-card-title">WhatsApp-Powered</div>
-          <div class="about-card-desc">We go where people already are ” WhatsApp ” for instant, personal outreach.</div>
+          <div class="about-card-desc">We go where people already are — WhatsApp — for instant, personal outreach.</div>
         </div>
         <div class="about-card">
           <div class="about-card-ico"><i class="fas fa-shield-alt"></i></div>
@@ -502,7 +510,7 @@
       <div class="about-founder">
         <div class="about-founder-avatar"><i class="fas fa-user"></i></div>
         <div>
-          <div class="about-founder-name">SK Community Base Admin</div>
+          <div class="about-founder-name">SK Community Admin</div>
           <div class="about-founder-role">Founder &amp; Community Manager &mdash; Ghana</div>
         </div>
       </div>
@@ -510,13 +518,13 @@
   </div>
 </div>
 
-<!--  WORK WITH US MODAL  -->
+<!-- WORK WITH US MODAL -->
 <div class="modal-overlay" id="workModal">
   <div class="work-modal-box">
     <button class="modal-close" onclick="closePolicy('workModal')" type="button"><i class="fas fa-times"></i></button>
     <div class="wm-header">
       <div class="wm-header-tag"><i class="fas fa-handshake"></i> Partner With Us</div>
-      <h2>Work With SK Community Base</h2>
+      <h2>Work With SK Community</h2>
       <p>Connect your brand or campaign to verified creators, influencers and talent across our growing network.</p>
     </div>
     <div class="wm-body">
@@ -530,12 +538,12 @@
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-video"></i></div>
           <div class="wm-card-title">UGC Agency</div>
-          <div class="wm-card-desc">Get influencers, content creators, voiceovers and more to make campaigns and run content for your business or project.</div>
+          <div class="wm-card-desc">Get influencers, content creators, voiceovers and more to make campaigns and run content for your business.</div>
         </div>
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fab fa-whatsapp"></i></div>
           <div class="wm-card-title">Direct WhatsApp Reach</div>
-          <div class="wm-card-desc">We contact people directly on WhatsApp ” no cold emails, no middlemen, no guesswork.</div>
+          <div class="wm-card-desc">We contact people directly on WhatsApp — no cold emails, no middlemen, no guesswork.</div>
         </div>
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-globe"></i></div>
@@ -550,7 +558,7 @@
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-tags"></i></div>
           <div class="wm-card-title">Category Matching</div>
-          <div class="wm-card-desc">Dark, Fair, Curvy, Tall, Short, Hairy, Half Cast and many more ” we match the right look to your campaign.</div>
+          <div class="wm-card-desc">Dark, Fair, Curvy, Tall, Short, Hairy, Half Cast and many more — we match the right look to your campaign.</div>
         </div>
         <div class="wm-card">
           <div class="wm-card-ico"><i class="fas fa-chart-bar"></i></div>
@@ -560,12 +568,12 @@
       </div>
       <div class="wm-cta">
         <div class="wm-cta-title">Ready to connect?</div>
-        <div class="wm-cta-sub">Reach us on WhatsApp or Email to discuss your campaign ” we respond fast.</div>
+        <div class="wm-cta-sub">Reach us on WhatsApp or Email to discuss your campaign — we respond fast.</div>
         <div class="wm-cta-btns">
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20work%20with%20S.K%20Contact%20Base" target="_blank" class="wm-wa-btn">
+          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20work%20with%20SK%20Community" target="_blank" class="wm-wa-btn">
             <i class="fab fa-whatsapp"></i> WhatsApp Us
           </a>
-          <a href="mailto:skcontactbase@gmail.com" class="wm-email-btn">
+          <a href="mailto:skcommunitybase@gmail.com" class="wm-email-btn">
             <i class="fas fa-envelope"></i> Email Us
           </a>
         </div>
@@ -574,47 +582,38 @@
   </div>
 </div>
 
-<!--  NAV  -->
+<!-- NAV — no admin/login button -->
 <nav class="sk-nav">
   <a class="sk-nav-brand" href="#">
-    <img class="sk-nav-logo" src="{% static 'images/logo.png' %}" alt="SK Community Base">
-    <span class="sk-nav-name">SK Community Base</span>
+    <img class="sk-nav-logo" src="{% static 'images/logo.png' %}" alt="SK Community">
+    <span class="sk-nav-name">SK Community</span>
   </a>
   <div class="sk-nav-right">
     <div class="sk-nav-pill">
       <span class="live-dot"></span>
       <span>{{ total_contacts }} contacts registered</span>
     </div>
-    <button id="langToggle" onclick="toggleLang()" style="display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:8px;border:1px solid var(--blue-100);background:var(--blue-50);color:var(--blue-700);font-size:12px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;transition:all 0.2s;" title="Switch language">
+    <button id="langToggle" onclick="toggleLang()" style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:7px;border:1px solid var(--blue-100);background:var(--blue-50);color:var(--blue-700);font-size:11px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;transition:all 0.2s;" title="Switch language">
       <span id="langFlag">&#x1F1EB;&#x1F1F7;</span><span id="langLabel">FR</span>
     </button>
-    {% if user.is_authenticated %}
-      <a href="{% url 'dashboard' %}" class="sk-nav-dashboard">
-        <i class="fas fa-chart-line"></i><span class="db-label">Dashboard</span>
-      </a>
-    {% else %}
-      <a href="{% url 'login' %}" class="sk-nav-dashboard">
-        <i class="fas fa-lock"></i><span class="db-label">Admin</span>
-      </a>
-    {% endif %}
   </div>
 </nav>
 
-<!--  HERO ” FULL WIDTH  -->
+<!-- HERO -->
 <section class="sk-hero">
   <div class="hero-card">
 
-    <!-- LEFT: brand copy -->
+    <!-- LEFT -->
     <div class="hero-left">
       <div class="hero-tag">
         <div class="hero-tag-bar"></div>
-        Building Ghana's Biggest Contact Base
+        Building Ghana's Biggest Community
       </div>
       <h1 class="hero-headline">
         Get Into<br>The <span class="hl">Right</span><br>Hands.
       </h1>
       <p class="hero-sub">
-        SK Community Base connects creators, influencers, brand owners and talent with the right opportunities. Register your details and we'll reach out directly on WhatsApp.
+        SK Community connects creators, influencers, brand owners and talent with the right opportunities. Register your details and we'll reach out directly on WhatsApp.
       </p>
       <div class="hero-stats">
         <div class="hstat"><div class="hstat-num">{{ total_contacts }}+</div><div class="hstat-label">Registered</div></div>
@@ -627,7 +626,7 @@
     <div class="hero-form">
       <div class="form-head">
         <h2 class="form-head-title">Join the Network</h2>
-        <p class="form-head-sub">Fields marked <em>*</em> are required</p>
+        <p class="form-head-sub">Fields marked <em>*</em> are required &mdash; email is optional</p>
       </div>
 
       <form method="post" novalidate id="joinForm">
@@ -636,8 +635,8 @@
         {{ form.referral_source }}
         {{ form.referral_slug }}
 
-        <div style="display:flex;align-items:center;gap:10px;margin:14px 0 0;">
-          <span style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-300);white-space:nowrap;">Basic Details</span>
+        <div style="display:flex;align-items:center;gap:9px;margin:12px 0 0;">
+          <span style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue-300);white-space:nowrap;">Basic Details</span>
           <span style="flex:1;height:1px;background:rgba(255,255,255,0.07);display:block;"></span>
         </div>
 
@@ -652,15 +651,16 @@
           </div>
         </div>
 
-        <div class="fg" style="margin-top:10px;">
+        <!-- Email — optional -->
+        <div class="fg" style="margin-top:9px;">
           <div class="fw">
-            <label class="fl" for="{{ form.email.id_for_label }}">Email <span class="r">*</span></label>
+            <label class="fl" for="{{ form.email.id_for_label }}">Email <span style="color:rgba(255,255,255,0.28);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
             {{ form.email }}
             {% if form.email.errors %}<p class="fw-error">{{ form.email.errors.0 }}</p>{% endif %}
           </div>
         </div>
 
-        <div class="fg" style="margin-top:10px;">
+        <div class="fg" style="margin-top:9px;">
           <div class="fw">
             <label class="fl" for="{{ form.whatsapp_number.id_for_label }}">WhatsApp <span class="r">*</span>
               <span class="tip" tabindex="0">i<span class="tip-box">Select your country code on the left, then type your number without the country code or leading zero.</span></span>
@@ -690,7 +690,7 @@
           </div>
         </div>
 
-        <div class="fg" style="margin-top:10px;">
+        <div class="fg" style="margin-top:9px;">
           <div class="fw">
             <label class="fl" for="{{ form.region.id_for_label }}">Region</label>
             {{ form.region }}
@@ -717,7 +717,7 @@
           <div class="opt-toggle-ico"><i class="fas fa-plus" id="optIcon"></i></div>
           <div class="opt-toggle-text">
             <strong>Add Optional Details</strong>
-            <small>Category, school info ” takes 30 seconds</small>
+            <small>Category, school info — takes 30 seconds</small>
           </div>
           <i class="fas fa-chevron-right opt-chev" id="optChev"></i>
         </div>
@@ -734,36 +734,36 @@
           </label>
         </div>
         {% if form.agree_to_terms.errors %}
-        <p class="fw-error" style="margin-top:4px;">{{ form.agree_to_terms.errors.0 }}</p>
+        <p class="fw-error" style="margin-top:3px;">{{ form.agree_to_terms.errors.0 }}</p>
         {% endif %}
 
         <button type="submit" class="f-btn" id="submitBtn">
           <span class="f-btn-label"><i class="fas fa-arrow-right"></i> Submit My Details</span>
         </button>
         <p class="f-note"><i class="fas fa-lock"></i> Your information is private and secure</p>
-      <!-- PATCHED: mirror optional modal fields into form submission -->
-      <input type="hidden" name="category"        id="mirror_category">
-      <input type="hidden" name="school_category" id="mirror_school_category">
-      <input type="hidden" name="school_name"     id="mirror_school_name">
-      <input type="hidden" name="level_year"      id="mirror_level_year">
+
+        <!-- Mirror hidden fields for optional modal -->
+        <input type="hidden" name="category"        id="mirror_category">
+        <input type="hidden" name="school_category" id="mirror_school_category">
+        <input type="hidden" name="school_name"     id="mirror_school_name">
+        <input type="hidden" name="level_year"      id="mirror_level_year">
       </form>
     </div>
 
   </div>
 </section>
 
-<!--  COMMUNITY FEED (Testimonials + Updates + Videos)  -->
+<!-- COMMUNITY FEED -->
 <div class="feed-section">
   <div class="feed-section-label">
     <div>
       <div class="feed-section-tag"><i class="fas fa-star"></i> Community</div>
-      <div class="feed-section-title" style="margin-top:8px;">From the Network</div>
-      <div class="feed-section-sub">Testimonials, updates and highlights from the SK Community Base community</div>
+      <div class="feed-section-title" style="margin-top:7px;">From the Network</div>
+      <div class="feed-section-sub">Testimonials, updates and highlights from the SK Community network</div>
     </div>
   </div>
 
   <div class="feed-grid">
-
     {% if community_posts %}
       {% for post in community_posts %}
         {% if post.type == 'testimonial' %}
@@ -789,9 +789,7 @@
         <div class="fc fc-video">
           <div class="fc-thumb">
             <img src="{{ post.thumbnail_url }}" alt="{{ post.title }}">
-            <div class="fc-play">
-              <div class="fc-play-btn"><i class="fas fa-play"></i></div>
-            </div>
+            <div class="fc-play"><div class="fc-play-btn"><i class="fas fa-play"></i></div></div>
           </div>
           <div class="fc-body">
             <div class="fc-tag announcement">Video</div>
@@ -818,13 +816,12 @@
         </div>
         {% endif %}
       {% endfor %}
-
     {% else %}
-      <!-- Demo cards shown when no admin posts exist yet -->
+      <!-- Demo cards -->
       <div class="fc fc-testimonial">
         <div class="fc-body">
           <div class="fc-quote">&ldquo;</div>
-          <div class="fc-text">I registered and within 24 hours I got a WhatsApp message with my contact number. Two weeks later I was booked for a campaign. SK Community Base is the real deal.</div>
+          <div class="fc-text">I registered and within 24 hours I got a WhatsApp message with my contact number. Two weeks later I was booked for a campaign. SK Community is the real deal.</div>
           <div class="fc-author">
             <div class="fc-avatar">AK</div>
             <div>
@@ -841,13 +838,13 @@
       </div>
 
       <div class="fc fc-update">
-        <div class="fc-body" style="padding-top:22px;">
+        <div class="fc-body" style="padding-top:18px;">
           <div class="fc-tag milestone">Milestone</div>
           <div class="fc-title">We Hit {{ total_contacts }}+ Members!</div>
-          <div class="fc-desc">The network keeps growing. Thank you to every creator, influencer and brand owner who has joined SK Community Base. This is just the beginning.</div>
+          <div class="fc-desc">The network keeps growing. Thank you to every creator, influencer and brand owner who has joined SK Community. This is just the beginning.</div>
         </div>
         <div class="fc-footer">
-          <span class="fc-footer-meta">S.K Admin</span>
+          <span class="fc-footer-meta">SK Admin</span>
           <span class="fc-likes"><i class="fas fa-heart"></i> 124</span>
         </div>
       </div>
@@ -855,7 +852,7 @@
       <div class="fc fc-testimonial">
         <div class="fc-body">
           <div class="fc-quote">&ldquo;</div>
-          <div class="fc-text">As a brand owner, SK Community Base helped me find the exact face for my product launch. The category filtering is incredibly useful ” fast, direct and professional.</div>
+          <div class="fc-text">As a brand owner, SK Community helped me find the exact face for my product launch. The category filtering is incredibly useful — fast, direct and professional.</div>
           <div class="fc-author">
             <div class="fc-avatar">KO</div>
             <div>
@@ -872,13 +869,13 @@
       </div>
 
       <div class="fc fc-update">
-        <div class="fc-body" style="padding-top:22px;">
+        <div class="fc-body" style="padding-top:18px;">
           <div class="fc-tag campaign">Campaign</div>
-          <div class="fc-title">New Skincare Campaign ” Face Cards &amp; Curvy Category</div>
-          <div class="fc-desc">A major skincare brand is looking for registered members in the Face Card and Curvy categories. Check your WhatsApp ” invitations go out this week.</div>
+          <div class="fc-title">New Skincare Campaign — Face Cards &amp; Curvy Category</div>
+          <div class="fc-desc">A major skincare brand is looking for registered members in the Face Card and Curvy categories. Check your WhatsApp — invitations go out this week.</div>
         </div>
         <div class="fc-footer">
-          <span class="fc-footer-meta">S.K Admin</span>
+          <span class="fc-footer-meta">SK Admin</span>
           <span class="fc-likes"><i class="fas fa-heart"></i> 89</span>
         </div>
       </div>
@@ -903,30 +900,29 @@
       </div>
 
       <div class="fc fc-update">
-        <div class="fc-body" style="padding-top:22px;">
+        <div class="fc-body" style="padding-top:18px;">
           <div class="fc-tag announcement">Announcement</div>
           <div class="fc-title">We're Now Open to All Countries</div>
-          <div class="fc-desc">SK Community Base is no longer Ghana-only. Register from anywhere in the world and join the growing international network.</div>
+          <div class="fc-desc">SK Community is no longer Ghana-only. Register from anywhere in the world and join the growing international network.</div>
         </div>
         <div class="fc-footer">
-          <span class="fc-footer-meta">S.K Admin</span>
+          <span class="fc-footer-meta">SK Admin</span>
           <span class="fc-likes"><i class="fas fa-heart"></i> 73</span>
         </div>
       </div>
     {% endif %}
-
   </div>
 </div>
 
-<!--  FEATURES SLIDESHOW  -->
+<!-- FEATURES SLIDESHOW -->
 <section class="slideshow-section">
   <div class="slideshow-header">
-    <div class="slideshow-header-left">
+    <div>
       <div class="stag">What We Offer</div>
       <h2 class="stitle">Core Functions &amp; Benefits</h2>
-      <p class="ssub" style="margin-bottom:0;max-width:480px;">Everything SK Community Base does to help you grow, connect and get noticed by the right people.</p>
+      <p class="ssub" style="margin-bottom:0;max-width:460px;">Everything SK Community does to help you grow, connect and get noticed by the right people.</p>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
       <div class="ss-nav-btns">
         <button class="ss-btn" id="ssPrev"><i class="fas fa-arrow-left"></i></button>
         <button class="ss-btn" id="ssNext"><i class="fas fa-arrow-right"></i></button>
@@ -936,15 +932,13 @@
   </div>
   <div class="slideshow-track-wrap">
     <div class="slideshow-track" id="ssTrack">
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-address-book"></i></div>
         <div class="ss-card-tag">Core Function</div>
         <div class="ss-card-title">Centralised Contact Management</div>
-        <p class="ss-card-desc">Every contact ” creator, influencer or brand owner ” is stored, organised and searchable in one professional system.</p>
+        <p class="ss-card-desc">Every contact — creator, influencer or brand owner — is stored, organised and searchable in one professional system.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Instant access to your entire network</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-bullseye"></i></div>
         <div class="ss-card-tag">Core Function</div>
@@ -952,23 +946,20 @@
         <p class="ss-card-desc">Campaigns are targeted by category so only the right people are contacted. Categories can be updated by the admin at any time.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Relevant outreach, zero noise</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fab fa-whatsapp"></i></div>
         <div class="ss-card-tag">Automation</div>
         <div class="ss-card-title">Instant WhatsApp Messaging</div>
-        <p class="ss-card-desc">The moment you register, you receive a personalised WhatsApp message from SK Community Base with your contact number and details.</p>
+        <p class="ss-card-desc">The moment you register, you receive a personalised WhatsApp message from SK Community with your contact number and details.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Real-time engagement from day one</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-cloud"></i></div>
         <div class="ss-card-tag">Data Export</div>
         <div class="ss-card-title">Google Contacts &amp; CSV Export</div>
-        <p class="ss-card-desc">All contacts are stored in the SK Community Base cloud and Google Contacts. You're forever part of the community ” your data is safe, saved and stored.</p>
+        <p class="ss-card-desc">All contacts are stored in the SK Community cloud and Google Contacts. You're forever part of the community — your data is safe, saved and stored.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Your data, safe and always accessible</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-globe"></i></div>
         <div class="ss-card-tag">Reach</div>
@@ -976,53 +967,47 @@
         <p class="ss-card-desc">Register contacts from any country. Country codes are stored alongside each record for easy outreach across borders.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Building a truly global network</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-chart-bar"></i></div>
         <div class="ss-card-tag">Analytics</div>
         <div class="ss-card-title">Conversion Rate Tracking</div>
-        <p class="ss-card-desc">We track exactly which social media links and platforms drive registrations. Conversion rates by source, date and category ” decisions backed by real data.</p>
+        <p class="ss-card-desc">We track exactly which social media links and platforms drive registrations. Conversion rates by source, date and category — decisions backed by real data.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Decisions backed by real data</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-shield-alt"></i></div>
         <div class="ss-card-tag">Trust &amp; Security</div>
         <div class="ss-card-title">Private &amp; Duplicate-Free</div>
-        <p class="ss-card-desc">One contact per number ” duplicates are blocked at submission. Data is only accessible to authorised admins. Clean, trustworthy data always.</p>
+        <p class="ss-card-desc">One contact per number — duplicates are blocked at submission. Data is only accessible to authorised admins. Clean, trustworthy data always.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Clean, trustworthy data always</div>
         <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20request%20a%20data%20update" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> Request a data update on WhatsApp</a>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-id-badge"></i></div>
         <div class="ss-card-tag">Client Benefit</div>
         <div class="ss-card-title">Your Unique Contact Number</div>
-        <p class="ss-card-desc">Every member who registers receives a unique community membership number ” their permanent position in the SK Community Base network. Personal, trackable identity.</p>
+        <p class="ss-card-desc">Every member who registers receives a unique community membership number — their permanent position in the SK Community network. Personal, trackable identity.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Personal, trackable identity</div>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-user-shield"></i></div>
         <div class="ss-card-tag">Privacy Benefit</div>
         <div class="ss-card-title">Ownership of Your Data</div>
-        <p class="ss-card-desc">You are entitled by Admin to request your data to be deleted from SK Community Base at any time, permanently and completely.</p>
+        <p class="ss-card-desc">You are entitled by Admin to request your data to be deleted from SK Community at any time, permanently and completely.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Full control over your data</div>
-        <a href="mailto:skcontactbase@gmail.com?subject=Data%20Deletion%20Request" class="ss-card-link"><i class="fas fa-envelope"></i> Request data deletion by email</a>
+        <a href="mailto:skcommunitybase@gmail.com?subject=Data%20Deletion%20Request" class="ss-card-link"><i class="fas fa-envelope"></i> Request data deletion by email</a>
       </div>
-
       <div class="ss-card">
         <div class="ss-card-ico"><i class="fas fa-handshake"></i></div>
         <div class="ss-card-tag">Service Benefit</div>
         <div class="ss-card-title">Collaboration &amp; Business</div>
-        <p class="ss-card-desc">Every member can request services and collaboration with SK Community Base at any time. We're always open to working together.</p>
+        <p class="ss-card-desc">Every member can request services and collaboration with SK Community at any time. We're always open to working together.</p>
         <div class="ss-card-benefit"><i class="fas fa-check-circle"></i> Reach out anytime</div>
-        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
-          <a href="mailto:skcontactbase@gmail.com" class="ss-card-link"><i class="fas fa-envelope"></i> Email us</a>
-          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20collaborate%20with%20S.K%20Community" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
+        <div style="display:flex;gap:7px;margin-top:8px;flex-wrap:wrap;">
+          <a href="mailto:skcommunitybase@gmail.com" class="ss-card-link"><i class="fas fa-envelope"></i> Email us</a>
+          <a href="https://wa.me/233530622921?text=Hi%2C%20I%27d%20like%20to%20collaborate%20with%20SK%20Community" target="_blank" class="ss-card-link"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1037,7 +1022,7 @@
 <section class="how-section">
   <div class="stag">How It Works</div>
   <h2 class="stitle">Three Simple Steps</h2>
-  <p class="ssub">Getting into the SK Community Base network is fast and straightforward. No account needed, no login required.</p>
+  <p class="ssub">Getting into the SK Community network is fast and straightforward. No account needed, no login required.</p>
   <div class="steps">
     <div class="step"><div class="step-n">01</div><div class="step-ico"><i class="fas fa-pen"></i></div><div class="step-t">Fill Your Details</div><p class="step-d">Complete the registration form with your personal information, social media profile and your category.</p></div>
     <div class="step"><div class="step-n">02</div><div class="step-ico"><i class="fab fa-whatsapp"></i></div><div class="step-t">Get Your Number</div><p class="step-d">Receive your unique contact number and a brand message on WhatsApp immediately after registration.</p></div>
@@ -1048,7 +1033,7 @@
 <section class="cats-section">
   <div class="stag">Who We Work With</div>
   <h2 class="stitle">Our Contact Categories</h2>
-  <p class="ssub">We work with a diverse range of talent ” categories are managed and updated by the admin.</p>
+  <p class="ssub">We work with a diverse range of talent — categories are managed and updated by the admin.</p>
   <div class="cats">
     {% for cat in active_categories %}
     <div class="cat"><div class="cat-ico"><i class="fas fa-star"></i></div><span class="cat-name">{{ cat.name }}</span></div>
@@ -1073,40 +1058,41 @@
 </section>
 
 <section class="fcta">
-  <div class="stag" style="margin:0 auto 18px;">Ready to Join?</div>
+  <div class="stag" style="margin:0 auto 14px;">Ready to Join?</div>
   <h2 class="stitle">Register Your Contact Today</h2>
-  <p class="ssub">Fill in the form above and become part of Ghana's biggest contact base.</p>
+  <p class="ssub">Fill in the form above and become part of Ghana's biggest community.</p>
   <a href="#" class="cta-link" id="scrollToForm"><i class="fas fa-arrow-up"></i> Go to Registration Form</a>
 </section>
 
-<!--  FOOTER  -->
-<!--  CATEGORY CHANGE REQUEST MODAL  -->
+<!-- CATEGORY CHANGE MODAL -->
 <div class="modal-overlay" id="catChangeModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closePolicy('catChangeModal')" type="button"><i class="fas fa-times"></i></button>
     <div class="modal-title">Change My Category</div>
     <p class="modal-sub">Already registered? Ask the admin to update your category.</p>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">Your WhatsApp Number <span style="color:var(--blue-300);">*</span></label><input type="text" id="ccWhatsapp" placeholder="+233241234567"></div>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">Your Name</label><input type="text" id="ccName" placeholder="Helps the admin find you faster"></div>
-    <div class="fw" style="margin-bottom:12px;"><label class="fl">New Category <span style="color:var(--blue-300);">*</span></label><select id="ccCategory"><option value="">-- Select a category --</option>{% for cat in active_categories %}<option value="{{ cat.pk }}">{{ cat.name }}</option>{% endfor %}</select></div>
+    <div class="fw" style="margin-bottom:10px;"><label class="fl">Your WhatsApp Number <span style="color:var(--blue-300);">*</span></label><input type="text" id="ccWhatsapp" placeholder="+233241234567"></div>
+    <div class="fw" style="margin-bottom:10px;"><label class="fl">Your Name</label><input type="text" id="ccName" placeholder="Helps the admin find you faster"></div>
+    <div class="fw" style="margin-bottom:10px;"><label class="fl">New Category <span style="color:var(--blue-300);">*</span></label><select id="ccCategory"><option value="">-- Select a category --</option>{% for cat in active_categories %}<option value="{{ cat.pk }}">{{ cat.name }}</option>{% endfor %}</select></div>
     <div class="fw" style="margin-bottom:4px;"><label class="fl">Reason (optional)</label><textarea id="ccReason" rows="3" placeholder="Why do you want to change your category?" style="resize:vertical;"></textarea></div>
-    <div id="ccMsg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;"></div>
+    <div id="ccMsg" style="display:none;margin-top:10px;padding:9px 13px;border-radius:7px;font-size:12px;font-weight:600;"></div>
     <button class="modal-save" onclick="submitCatChange()" type="button" id="ccSubmitBtn"><i class="fas fa-paper-plane"></i> Submit Request</button>
   </div>
 </div>
+
+<!-- FOOTER -->
 <footer class="pg-footer">
-  <div style="width:100%;text-align:center;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:12px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
-    <button type="button" onclick="openPolicy('privacyModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Privacy Policy</button>
-    <button type="button" onclick="openPolicy('rulesModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Community Rules</button>
-    <button type="button" onclick="openPolicy('aboutModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">About</button>
-    <button type="button" onclick="openPolicy('workModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Work With Us</button>
-    <button type="button" onclick="openPolicy('catChangeModal')" style="background:none;border:none;font-size:12px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Change My Category</button>
+  <div style="width:100%;text-align:center;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:10px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+    <button type="button" onclick="openPolicy('privacyModal')" style="background:none;border:none;font-size:11px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Privacy Policy</button>
+    <button type="button" onclick="openPolicy('rulesModal')" style="background:none;border:none;font-size:11px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Community Rules</button>
+    <button type="button" onclick="openPolicy('aboutModal')" style="background:none;border:none;font-size:11px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">About</button>
+    <button type="button" onclick="openPolicy('workModal')" style="background:none;border:none;font-size:11px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Work With Us</button>
+    <button type="button" onclick="openPolicy('catChangeModal')" style="background:none;border:none;font-size:11px;color:rgba(255,255,255,0.45);cursor:pointer;font-family:'DM Sans',sans-serif;">Change My Category</button>
   </div>
   <div class="pg-footer-brand">
-    <img src="{% static 'images/logo.png' %}" alt="SK Community Base" style="height:26px;width:auto;border-radius:6px;">
-    SK Community Base
+    <img src="{% static 'images/logo.png' %}" alt="SK Community" style="height:24px;width:auto;border-radius:5px;">
+    SK Community
   </div>
-  <div class="pg-footer-copy">&copy; 2026 SK Community Base. All rights reserved.</div>
+  <div class="pg-footer-copy">&copy; 2026 SK Community. All rights reserved.</div>
 </footer>
 
 {% endblock %}
@@ -1116,7 +1102,7 @@
 (function () {
   'use strict';
 
-  /* PATCHED: toggleLang was called but never defined */
+  /* Language toggle */
   var _currentLang = 'en';
   window.toggleLang = function(){
     _currentLang = _currentLang === 'en' ? 'fr' : 'en';
@@ -1131,7 +1117,7 @@
     }
   };
 
-  /* ”€”€ POLICY / GENERAL MODALS ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* MODALS */
   window.openPolicy = function(id) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -1164,7 +1150,7 @@
     }
   });
 
-  /* ”€”€ NAME FIELD SPLIT ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* NAME SPLIT */
   var fullNameInput = document.getElementById('id_full_name');
   var firstHidden   = document.getElementById('id_first_name_hidden');
   var surnameHidden = document.getElementById('id_surname_hidden');
@@ -1176,7 +1162,7 @@
     });
   }
 
-  /* ”€”€ DIAL CODE †’ COUNTRY ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* DIAL CODE → COUNTRY */
   const CODE_TO_COUNTRY = {
     '+233':'Ghana','+234':'Nigeria','+1':'United States','+44':'United Kingdom',
     '+27':'South Africa','+254':'Kenya','+20':'Egypt','+212':'Morocco',
@@ -1219,12 +1205,12 @@
   }
   if (countryFld) countryFld.removeAttribute('readonly');
 
-  /* ”€”€ FORM SUBMIT ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* FORM SUBMIT */
   const joinForm  = document.getElementById('joinForm');
   const submitBtn = document.getElementById('submitBtn');
   if (joinForm) {
     joinForm.addEventListener('submit', function(e) {
-      // PATCHED: sync modal fields into hidden mirror inputs
+      // Mirror optional modal fields
       var catSel = document.getElementById('id_category');
       var schCat = document.getElementById('id_school_category');
       var schNam = document.getElementById('id_school_name');
@@ -1273,11 +1259,11 @@
     }
   }
 
-  /* ”€”€ LEVEL YEAR: digits only ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* LEVEL YEAR: digits only */
   const levelFld = document.getElementById('id_level_year');
   if (levelFld) levelFld.addEventListener('input', function() { this.value = this.value.replace(/\D/g, ''); });
 
-  /* ”€”€ OPTIONAL MODAL ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* OPTIONAL MODAL */
   const optToggle = document.getElementById('optToggle');
   const optModal  = document.getElementById('optModal');
   const modalClose= document.getElementById('modalClose');
@@ -1303,7 +1289,7 @@
     });
   }
 
-  /* ”€”€ SCROLL TO FORM ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* SCROLL TO FORM */
   const scrollBtn = document.getElementById('scrollToForm');
   if (scrollBtn) {
     scrollBtn.addEventListener('click', function(e) {
@@ -1312,7 +1298,7 @@
     });
   }
 
-  /* ”€”€ FEATURES SLIDESHOW ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* FEATURES SLIDESHOW */
   (function() {
     const track = document.getElementById('ssTrack');
     const dw    = document.getElementById('ssDots');
@@ -1330,7 +1316,7 @@
       dot.addEventListener('click', function(){ goF(i); });
       dw.appendChild(dot);
     }
-    function cw(){ const gap=20,w=track.parentElement.offsetWidth,v=window.innerWidth<640?1:window.innerWidth<960?2:3; return(w-gap*(v-1))/v+gap; }
+    function cw(){ const gap=16,w=track.parentElement.offsetWidth,v=window.innerWidth<640?1:window.innerWidth<960?2:3; return(w-gap*(v-1))/v+gap; }
     function goF(i){ cur=(i+total)%total; track.style.transform='translateX(-'+(cur*vc*cw())+'px)'; dw.querySelectorAll('.ss-dot').forEach(function(d,j){ d.classList.toggle('active',j===cur); }); }
     function ra(){ clearInterval(at); at=setInterval(function(){ goF(cur+1); }, 4500); }
     if(p) p.addEventListener('click', function(){ goF(cur-1); ra(); });
@@ -1338,9 +1324,18 @@
     ra();
     track.addEventListener('mouseenter', function(){ clearInterval(at); });
     track.addEventListener('mouseleave', ra);
+
+    /* Touch/swipe support for mobile slideshow */
+    var touchStartX = 0;
+    track.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].screenX; clearInterval(at); }, {passive:true});
+    track.addEventListener('touchend', function(e){
+      var diff = touchStartX - e.changedTouches[0].screenX;
+      if(Math.abs(diff) > 40){ goF(diff > 0 ? cur+1 : cur-1); }
+      ra();
+    }, {passive:true});
   })();
 
-  /* ”€”€ SCROLL ANIMATIONS ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* SCROLL ANIMATIONS */
   const obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
@@ -1348,15 +1343,15 @@
         obs.unobserve(e.target);
       }
     });
-  }, {threshold:0.12});
+  }, {threshold:0.10});
   document.querySelectorAll('.step,.cat,.ti,.fc').forEach(function(el,i){
-    el.style.opacity='0'; el.style.transform='translateY(18px)';
-    el.style.transition='opacity 0.5s ease,transform 0.5s ease';
-    el.dataset.delay=(i%4)*80;
+    el.style.opacity='0'; el.style.transform='translateY(16px)';
+    el.style.transition='opacity 0.45s ease,transform 0.45s ease';
+    el.dataset.delay=(i%4)*70;
     obs.observe(el);
   });
 
-  /* ”€”€ CATEGORY CHANGE REQUEST ”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€”€ */
+  /* CATEGORY CHANGE REQUEST */
   window.submitCatChange = function() {
     var wa  = (document.getElementById('ccWhatsapp') || {}).value || '';
     var nm  = (document.getElementById('ccName')     || {}).value || '';
@@ -1367,7 +1362,7 @@
     wa = wa.trim(); cat = cat.trim();
     if (!wa || !cat) {
       if (msg) {
-        msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
+        msg.style.cssText = 'display:block;margin-top:10px;padding:9px 13px;border-radius:7px;font-size:12px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
         msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number and select a category.';
       }
       return;
@@ -1387,13 +1382,13 @@
       .then(function(d) {
         if (msg) {
           if (d.ok) {
-            msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#DCFCE7;border:1px solid #BBF7D0;color:#15803D;';
+            msg.style.cssText = 'display:block;margin-top:10px;padding:9px 13px;border-radius:7px;font-size:12px;font-weight:600;background:#DCFCE7;border:1px solid #BBF7D0;color:#15803D;';
             msg.innerHTML = '<i class="fas fa-check-circle"></i> ' + d.message;
             ['ccWhatsapp','ccName','ccReason'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
             var sel = document.getElementById('ccCategory'); if (sel) sel.value = '';
             if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> Submitted!'; }
           } else {
-            msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
+            msg.style.cssText = 'display:block;margin-top:10px;padding:9px 13px;border-radius:7px;font-size:12px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
             msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (d.error || 'Something went wrong.');
             if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request'; }
           }
@@ -1401,7 +1396,7 @@
       })
       .catch(function() {
         if (msg) {
-          msg.style.cssText = 'display:block;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
+          msg.style.cssText = 'display:block;margin-top:10px;padding:9px 13px;border-radius:7px;font-size:12px;font-weight:600;background:#FEE2E2;border:1px solid #FECACA;color:#B91C1C;';
           msg.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please try again.';
         }
         if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request'; }
@@ -1411,5 +1406,3 @@
 })();
 </script>
 {% endblock %}
-
-
