@@ -172,6 +172,7 @@ class ContactForm(forms.ModelForm):
             "surname": forms.TextInput(attrs={
                 "class": "form-control", "placeholder": "Surname",
             }),
+            # FIX: email is optional — no "required" attribute rendered on the widget
             "email": forms.EmailInput(attrs={
                 "class": "form-control", "placeholder": "your@email.com",
             }),
@@ -236,15 +237,17 @@ class ContactForm(forms.ModelForm):
         self.fields["category"].empty_label = "Select a category"
         self.fields["category"].required    = False
 
-        # Optional fields
+        # Optional fields — email is intentionally included here so it is
+        # never required, on the form OR on the rendered widget.
         for f in ["school_category", "school_name", "level_year",
                   "category", "region", "handle", "country_code",
                   "age_range", "platform", "follower_range",
-                  "referral_source", "referral_slug"]:
+                  "referral_source", "referral_slug",
+                  "email"]:                       # FIX: email is now optional
             self.fields[f].required = False
 
-        # Required fields
-        for f in ["first_name", "surname", "email",
+        # Required fields — email removed from this list
+        for f in ["first_name", "surname",
                   "whatsapp_number", "whatsapp_dial_code"]:
             self.fields[f].required = True
 
@@ -281,7 +284,17 @@ class ContactForm(forms.ModelForm):
         return num
 
     def clean_email(self):
-        email = self.cleaned_data.get("email", "").strip().lower()
+        """
+        FIX: email is optional now.
+        - Blank email is valid and simply stored as "" (no uniqueness check
+          is run against blank values, so multiple contacts can register
+          without an email without tripping a false "already registered").
+        - A non-blank email is still normalised and checked for uniqueness,
+          same as before.
+        """
+        email = (self.cleaned_data.get("email") or "").strip().lower()
+        if not email:
+            return ""
         qs = Contact.objects.filter(email=email)
         if self.instance.pk:
             qs = qs.exclude(pk=self.instance.pk)
