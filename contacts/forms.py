@@ -122,6 +122,13 @@ FOLLOWER_RANGE_CHOICES = [
     ("1M+",       "1M+"),
 ]
 
+GENDER_CHOICES = [
+    ("", "Prefer not to say"),
+    ("male", "Male"),
+    ("female", "Female"),
+    ("other", "Other"),
+]
+
 SCHOOL_CATEGORY_CHOICES = [
     ("",           "Select school type"),
     ("basic",      "Basic School"),
@@ -159,7 +166,7 @@ class ContactForm(forms.ModelForm):
             "first_name", "surname", "email",
             "whatsapp_number", "country_code",
             "age_range", "country", "region",
-            "category", "school_category", "school_name", "level_year",
+            "category", "gender", "school_category", "school_name", "level_year",
             "platform", "handle", "follower_range",
             "referral_source", "referral_slug",
         ]
@@ -197,6 +204,10 @@ class ContactForm(forms.ModelForm):
             }),
 
             # Optional
+            "gender": forms.Select(
+                attrs={"class": "form-control"},
+                choices=GENDER_CHOICES,
+            ),
             "school_category": forms.Select(
                 attrs={"class": "form-control"},
                 choices=SCHOOL_CATEGORY_CHOICES,
@@ -240,7 +251,7 @@ class ContactForm(forms.ModelForm):
         # Optional fields — email is intentionally included here so it is
         # never required, on the form OR on the rendered widget.
         for f in ["school_category", "school_name", "level_year",
-                  "category", "region", "handle", "country_code",
+                  "category", "gender", "region", "handle", "country_code",
                   "age_range", "platform", "follower_range",
                   "referral_source", "referral_slug",
                   "email"]:                       # FIX: email is now optional

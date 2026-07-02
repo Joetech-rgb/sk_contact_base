@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Join SK Community — Building Ghana's Biggest Community{% endblock %}
@@ -402,6 +402,14 @@
         {% if form.category.errors %}<p class="fw-error">{{ form.category.errors.0 }}</p>{% endif %}
       </div>
     </div>
+
+    <p class="fsec">Gender <span style="color:rgba(255,255,255,0.28);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></p>
+    <div class="fg">
+      <div class="fw">
+        <label class="fl" for="{{ form.gender.id_for_label }}">Gender</label>
+        {{ form.gender }}
+      </div>
+    </div>
     {% if education_enabled %}
     <p class="fsec">Education</p>
     <div class="fg" style="gap:10px;">
@@ -757,6 +765,7 @@
 
         <!-- Mirror hidden fields for optional modal -->
         <input type="hidden" name="category"        id="mirror_category">
+        <input type="hidden" name="gender" id="mirror_gender">
         <input type="hidden" name="school_category" id="mirror_school_category">
         <input type="hidden" name="school_name"     id="mirror_school_name">
         <input type="hidden" name="level_year"      id="mirror_level_year">
@@ -1236,6 +1245,7 @@
       var schNam = document.getElementById('id_school_name');
       var lvlYr  = document.getElementById('id_level_year');
       if(catSel) document.getElementById('mirror_category').value        = catSel.value;
+      var genSel = document.getElementById('id_gender'); if(genSel) document.getElementById('mirror_gender').value = genSel.value;
       if(schCat) document.getElementById('mirror_school_category').value = schCat.value;
       if(schNam) document.getElementById('mirror_school_name').value     = schNam.value;
       if(lvlYr)  document.getElementById('mirror_level_year').value      = lvlYr.value;

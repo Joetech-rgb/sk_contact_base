@@ -1,4 +1,4 @@
-﻿from django.db import models
+from django.db import models
 from django.utils import timezone
 import hashlib as _hashlib
 import secrets as _secrets
@@ -89,6 +89,13 @@ class Contact(models.Model):
         ("tertiary",    "Tertiary"),
     ]
 
+    GENDER_CHOICES = [
+        ("", "Prefer not to say"),
+        ("male", "Male"),
+        ("female", "Female"),
+        ("other", "Other"),
+    ]
+
     FOLLOWER_RANGE_CHOICES = [
         ("under_5k",  "Under 5K"),
         ("5k-10k",    "5K – 10K"),
@@ -127,6 +134,7 @@ class Contact(models.Model):
                           Category, on_delete=models.SET_NULL,
                           null=True, blank=True,
                           help_text="Selected in the optional pop-up during registration.")
+    gender          = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True)
     school_category = models.CharField(
                           max_length=20, choices=SCHOOL_CATEGORY_CHOICES, blank=True)
     school_name     = models.CharField(max_length=255, blank=True)
