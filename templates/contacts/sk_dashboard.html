@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 {% load static %}
 <html lang="en">
 {% load i18n %}
@@ -600,30 +600,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
         </div>
         <div class="wa-thread-list">
           {% for log in wa_logs %}
-          <div class="wa-thread" style="{% if log.direction == 'in' %}background:var(--green-50);border-left:3px solid var(--green);{% endif %}">
-            <div class="wa-thread-avatar" style="{% if log.direction == 'in' %}background:linear-gradient(135deg,var(--green),#128C7E);{% endif %}">
-              {% if log.contact %}{{ log.contact.full_name|slice:":2"|upper }}{% else %}??{% endif %}
-            </div>
-            <div class="wa-thread-info">
-              <div class="wa-thread-name">
-                {% if log.contact %}{{ log.contact.full_name }}{% else %}{{ log.phone }}{% endif %}
-                {% if log.direction == 'in' %}<span style="font-size:10px;font-weight:700;background:var(--green);color:#fff;padding:2px 8px;border-radius:100px;margin-left:6px;">&larr; REPLY</span>{% endif %}
-              </div>
-              <div class="wa-thread-preview">
-                {% if log.direction == 'in' %}<strong style="color:var(--green-700);">They said:</strong> {{ log.message_text|default:"(no text)" }}
-                {% else %}Template: <strong>{{ log.template }}</strong>{% if log.error %} — {{ log.error|truncatechars:60 }}{% endif %}{% endif %}
-              </div>
-            </div>
-            <div class="wa-thread-meta">
-              <div class="wa-thread-time">{{ log.timestamp|date:"d M H:i" }}</div>
-              <div class="wa-status-pill {% if log.direction == 'in' %}wa-status-sent{% elif log.status == 'sent' %}wa-status-sent{% else %}wa-status-failed{% endif %}">
-                <i class="fas fa-{% if log.direction == 'in' %}reply{% elif log.status == 'sent' %}check{% else %}times{% endif %}-circle"></i>
-                {% if log.direction == 'in' %}Received{% else %}{{ log.status|title }}{% endif %}
-              </div>
-            </div>
-            {% if log.direction == 'in' %}
-              {% if log.contact %}<a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Reply</a>
-              {% elif log.phone %}<a href="https://wa.me/{{ log.phone }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Reply</a>{% endif %}
+          <div class="wa-thread" style="{% if log.direction == 'in' %}
+<button class="wa-open-btn" onclick="openReplyBox({{ log.pk }}, '{{ log.contact.pk|default:"" }}', '{{ log.phone }}')"><i class="fab fa-whatsapp"></i> Reply</button>
+<div id="reply-box-{{ log.pk }}" style="display:none;margin-top:8px;gap:6px;"></div>
+{% endif %}
             {% else %}
               {% if log.contact %}<a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Chat</a>{% endif %}
             {% endif %}
@@ -1492,6 +1472,33 @@ window.toggleEducationSection = function(){
     .catch(function(){ toast('Network error','error'); });
 };
 
+// Inline reply - sends via WhatsApp API, same business number
+window.openReplyBox = function(logId, contactId, phone){
+  var box = document.getElementById('reply-box-'+logId);
+  if(!box) return;
+  if(box.style.display === 'flex'){ box.style.display='none'; return; }
+  box.style.display='flex';
+  box.innerHTML =
+    '<input type="text" class="fi" placeholder="Type your reply..." id="reply-input-'+logId+'" style="flex:1;">'
+    +'<button class="wa-open-btn" onclick="sendReply('+logId+',\''+contactId+'\',\''+phone+'\')"><i class="fas fa-paper-plane"></i> Send</button>';
+};
+
+window.sendReply = function(logId, contactId, phone){
+  var input = document.getElementById('reply-input-'+logId);
+  var message = input.value.trim();
+  if(!message) return;
+  var form = new FormData();
+  if(contactId) form.append('contact_id', contactId);
+  form.append('phone', phone);
+  form.append('message', message);
+  fetch('/dashboard/reply/send/', {method:'POST', headers:{'X-CSRFToken':CSRF}, body:form})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.ok){ toast('Reply sent!'); document.getElementById('reply-box-'+logId).style.display='none'; }
+      else { toast(d.error||'Failed to send', 'error'); }
+    })
+    .catch(function(){ toast('Network error','error'); });
+};
 // ── Init ──
 window.setTab('analytics');
 setTimeout(animateBars, 300);

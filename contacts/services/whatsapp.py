@@ -12,7 +12,7 @@ PHONE_ID     = os.getenv("WHATSAPP_PHONE_NUMBER_ID", "")
 ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN", "")
 API_URL      = f"https://graph.facebook.com/v19.0/{PHONE_ID}/messages"
 
-# Session with built-in retry + connection pooling — reused across all sends
+# Session with built-in retry + connection pooling - reused across all sends
 _session = requests.Session()
 _retry = Retry(
     total=3,
@@ -80,13 +80,61 @@ def send_whatsapp(to: str, template: str, params: list, contact=None, footer: st
         return False
 
 
-def _log(contact, template, status, error):
+def send_whatsapp_text(to: str, message: str, contact=None):
+    """
+    Sends a free-form text reply via the same Graph API phone number used for templates.
+    NOTE: Meta only allows free-form text within the 24-hour customer service window
+    after the user's last inbound message. Outside that window this call will be
+    rejected (error code 131047) and you must use an approved template instead.
+    Returns (success, error_message).
+    """
+    if not PHONE_ID or not ACCESS_TOKEN:
+        _log(contact, "[reply]", "failed", "Missing WHATSAPP_PHONE_NUMBER_ID or WHATSAPP_ACCESS_TOKEN",
+             direction="out", message_text=message, phone=to)
+        return False, "Missing API credentials"
+
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to,
+        "type": "text",
+        "text": {"body": message},
+    }
+    headers = {
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
+        "Content-Type": "application/json",
+    }
+    try:
+        resp = _session.post(API_URL, json=payload, headers=headers, timeout=(5, 20))
+        if resp.status_code == 200:
+            _log(contact, "[reply]", "sent", "", direction="out", message_text=message, phone=to)
+            return True, ""
+        else:
+            err_text = resp.text[:500]
+            _log(contact, "[reply]", "failed", err_text, direction="out", message_text=message, phone=to)
+            if "131047" in err_text or "24 hour" in err_text.lower() or "re-engagement" in err_text.lower():
+                return False, "Cannot send free text - the 24-hour reply window has closed. Use an approved template instead."
+            return False, "WhatsApp API rejected the message."
+    except requests.exceptions.Timeout as exc:
+        _log(contact, "[reply]", "failed", f"Timeout: {str(exc)[:300]}", direction="out", message_text=message, phone=to)
+        return False, "Request timed out."
+    except requests.exceptions.ConnectionError as exc:
+        _log(contact, "[reply]", "failed", f"ConnectionError: {str(exc)[:300]}", direction="out", message_text=message, phone=to)
+        return False, "Connection error."
+    except Exception as exc:
+        _log(contact, "[reply]", "failed", str(exc)[:500], direction="out", message_text=message, phone=to)
+        return False, "Unexpected error."
+
+
+def _log(contact, template, status, error, direction="out", message_text="", phone=""):
     try:
         WhatsAppLog.objects.create(
             contact=contact,
             template=template,
             status=status,
             error=error,
+            direction=direction,
+            message_text=message_text,
+            phone=phone or (contact.full_whatsapp if contact else ""),
             timestamp=timezone.now(),
         )
     except Exception:

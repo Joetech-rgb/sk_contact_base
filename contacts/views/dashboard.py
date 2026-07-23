@@ -1,4 +1,4 @@
-﻿import json
+import json
 import threading
 from datetime import timedelta
 
@@ -489,3 +489,28 @@ def settings_toggle_education_view(request):
         "ok": True,
         "education_section_enabled": settings_obj.education_section_enabled,
     })
+
+@login_required
+@admin_required
+@require_POST
+def send_reply_view(request):
+    from contacts.models import Contact
+    from contacts.services.whatsapp import send_whatsapp_text
+
+    contact_id = request.POST.get("contact_id", "").strip()
+    phone      = request.POST.get("phone", "").strip()
+    message    = request.POST.get("message", "").strip()
+
+    if not message:
+        return JsonResponse({"ok": False, "error": "Message text is required."})
+
+    contact = None
+    if contact_id:
+        contact = Contact.objects.filter(pk=contact_id).first()
+
+    to = contact.full_whatsapp if contact else phone
+    if not to:
+        return JsonResponse({"ok": False, "error": "No phone number to send to."})
+
+    success, err = send_whatsapp_text(to=to, message=message, contact=contact)
+    return JsonResponse({"ok": success, "error": err})

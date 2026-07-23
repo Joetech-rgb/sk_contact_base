@@ -1,4 +1,4 @@
-﻿# contacts/urls.py
+# contacts/urls.py
 from django.urls import path
 from . import views
 from contacts.views.whatsapp_webhook import whatsapp_webhook
@@ -65,4 +65,11 @@ urlpatterns = [
 
     # Site settings (dashboard toggles)
     path("dashboard/settings/toggle-education/", views.settings_toggle_education_view, name="settings-toggle-education"),
+]
+
+# --- Added by fix_whatsapp_reply script ---
+from contacts.views.dashboard import send_reply_view as _sk_send_reply_view
+
+urlpatterns += [
+    path("dashboard/reply/send/", _sk_send_reply_view, name="send-reply"),
 ]
