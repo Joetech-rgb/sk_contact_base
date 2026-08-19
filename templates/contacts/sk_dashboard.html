@@ -240,10 +240,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 .wa-avatar-6{background:linear-gradient(135deg,#ee46bc,#dd2590);}
 
 #waThreadView{
-  background-color:#0b141a;
-  background-image:url('https://raw.githubusercontent.com/Ahmadre/whatsapp-clone-wallpaper/main/whatsapp-wallpaper-dark.png');
-  background-repeat:repeat;
-  background-size:412px auto;
+  background-color:#1a2e22;
+  background-image:linear-gradient(rgba(11,20,26,0.55),rgba(11,20,26,0.55)),url('{% static "images/chat-wallpaper.jpg" %}');
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
   border-radius:0 0 12px 12px;
   overflow:hidden;
 }
@@ -700,13 +701,16 @@ html, body{ overflow-x:hidden; }
             <button type="button" id="waAttachBtn" onclick="document.getElementById('waMediaInput').click()" style="background:none;border:none;font-size:20px;color:#54656f;cursor:pointer;width:32px;flex-shrink:0;"><i class="fas fa-plus-circle"></i></button>
             <input type="file" id="waMediaInput" accept="image/*,video/*" style="display:none;" onchange="handleWaMediaPick(this)">
             <div style="flex:1;display:flex;align-items:center;background:#fff;border-radius:20px;padding:0 6px 0 16px;">
-              <input type="text" id="waThreadInput" placeholder="Message" style="flex:1;padding:9px 0;border:none;background:transparent;font-size:14px;font-family:inherit;outline:none;">
+              <input type="text" id="waThreadInput" placeholder="Message" style="flex:1;padding:9px 0;border:none;background:transparent;font-size:14px;font-family:inherit;outline:none;" onkeydown="if(event.key==='Enter'){event.preventDefault();sendWaThreadReply();}">
               <i class="far fa-smile" style="color:#8696a0;font-size:18px;padding:6px;"></i>
             </div>
             <button type="button" id="waCameraBtn" onclick="document.getElementById('waCameraInput').click()" style="background:none;border:none;font-size:19px;color:#54656f;cursor:pointer;width:28px;flex-shrink:0;"><i class="fas fa-camera"></i></button>
             <input type="file" id="waCameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleWaMediaPick(this)">
             <button type="button" id="waMicBtn" onclick="toggleWaVoiceRecording()" style="background:#00a884;border:none;border-radius:50%;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;">
               <i class="fas fa-microphone" id="waMicIcon"></i>
+            </button>
+            <button type="button" id="waSendThreadBtn" onclick="sendWaThreadReply()" style="background:#00a884;border:none;border-radius:50%;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;margin-left:4px;">
+              <i class="fas fa-paper-plane"></i>
             </button>
           </div>
           <div id="waMediaPreviewBar" style="display:none;padding:8px 14px;background:#f0f2f5;border-top:1px solid #d1d7db;align-items:center;gap:10px;">
@@ -1856,32 +1860,26 @@ window.toggleWaVoiceRecording = function(){
 
 window.sendWaThreadReply = function(){
   var input = document.getElementById('waThreadInput');
-  var text = input.value.trim();
-  if(!text && !waPendingMedia) return;
-  if(waVoiceRecorder && waVoiceRecorder.state === 'recording'){ waVoiceRecorder.stop(); }
+  var text = input ? input.value.trim() : '';
+  if(!text) return;
 
   var form = new FormData();
   if(waThreadState.contactId) form.append('contact_id', waThreadState.contactId);
   form.append('phone', waThreadState.phone || '');
   form.append('message', text);
-  if(waPendingMedia){
-    if(waPendingMedia._waExt) form.append('media', waPendingMedia, 'voice-note.' + waPendingMedia._waExt);
-    else form.append('media', waPendingMedia, waPendingMedia.name || 'attachment');
-  }
 
   input.value = '';
-  cancelWaMediaPick();
 
-  fetch('/dashboard/reply/send/', {method:'POST', headers:{'X-CSRFToken':CSRF}, body:form})
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if(d.ok){
-        openWaThread(waThreadState.contactId, waThreadState.phone, null, true);
-      } else {
-        toast(d.error || 'Failed to send');
-      }
-    })
-    .catch(function(){ toast('Failed to send'); });
+  fetch('/dashboard/reply/send/', {
+    method: 'POST',
+    body: form
+  })
+  .then(r => r.json())
+  .then(d => {
+    if(d.status === 'ok'){
+      loadWaThread(waThreadState.phone, null, true);
+    }
+  });
 };
 
 function refreshWaConversations(){
