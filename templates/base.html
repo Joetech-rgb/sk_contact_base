@@ -6,6 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SK Contact Base{% endblock %}</title>
+    <meta name="google-site-verification" content="U1PDWGQt7M8dQ6ZsvLOpEN8QvaJcH0cJGvlcdKuz9kI" />
+
+    {% block meta_description %}<meta name="description" content="S.K Community connects individuals, schools, professionals and organizations across all 16 regions of Ghana and beyond. Join Ghana's biggest community network for free.">{% endblock %}
+
+    <link rel="canonical" href="{% block canonical_url %}https://skcommunitybase.com/{% endblock %}">
+
+    <meta name="robots" content="index, follow">
+
+    {% block og_tags %}
+    <meta property="og:site_name" content="S.K Community">
+    <meta property="og:title" content="S.K Community — Connect. Grow. Empower.">
+    <meta property="og:description" content="Join Ghana's biggest community network. Connect with schools, organizations, and professionals across all 16 regions.">
+    <meta property="og:image" content="https://skcommunitybase.com{% static 'images/logo.png' %}">
+    <meta property="og:url" content="https://skcommunitybase.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="S.K Community — Connect. Grow. Empower.">
+    <meta name="twitter:description" content="Join Ghana's biggest community network. Connect with schools, organizations, and professionals across all 16 regions.">
+    <meta name="twitter:image" content="https://skcommunitybase.com{% static 'images/logo.png' %}">
+    {% endblock %}
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">

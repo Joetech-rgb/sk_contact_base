@@ -76,3 +76,34 @@ urlpatterns += [
     path('dashboard/wa-log/latest/', _sk_wa_latest_log_id_view, name='wa_latest_log_id'),
     path('dashboard/wa-log/thread/', __import__('contacts.views.dashboard', fromlist=['wa_thread_view']).wa_thread_view, name='wa-thread'),
 ]
+
+# --- SEO: robots.txt + sitemap.xml ---
+from django.http import HttpResponse
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "Disallow: /dashboard/",
+        "Disallow: /login/",
+        "Disallow: /api/",
+        "Disallow: /export/",
+        "Disallow: /request-category-change/",
+        "Sitemap: https://skcommunitybase.com/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
+
+def sitemap_xml(request):
+    xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://skcommunitybase.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://skcommunitybase.com/about/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://skcommunitybase.com/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://skcommunitybase.com/rules/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>'''
+    return HttpResponse(xml, content_type="application/xml")
+
+urlpatterns += [
+    path("robots.txt", robots_txt, name="robots-txt"),
+    path("sitemap.xml", sitemap_xml, name="sitemap-xml"),
+]

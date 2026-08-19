@@ -709,9 +709,7 @@ html, body{ overflow-x:hidden; }
             <button type="button" id="waMicBtn" onclick="toggleWaVoiceRecording()" style="background:#00a884;border:none;border-radius:50%;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;">
               <i class="fas fa-microphone" id="waMicIcon"></i>
             </button>
-            <button type="button" id="waSendThreadBtn" onclick="sendWaThreadReply()" style="background:#00a884;border:none;border-radius:50%;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;margin-left:4px;">
-              <i class="fas fa-paper-plane"></i>
-            </button>
+            <button type="button" id="waSendThreadBtn" onclick="sendWaThreadReply()" style="background:#00a884;border:none;border-radius:50%;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;margin-left:4px;"><i class="fas fa-paper-plane"></i></button>
           </div>
           <div id="waMediaPreviewBar" style="display:none;padding:8px 14px;background:#f0f2f5;border-top:1px solid #d1d7db;align-items:center;gap:10px;">
             <span id="waMediaPreviewLabel" style="font-size:12px;color:#54656f;flex:1;"></span>
@@ -1861,24 +1859,39 @@ window.toggleWaVoiceRecording = function(){
 window.sendWaThreadReply = function(){
   var input = document.getElementById('waThreadInput');
   var text = input ? input.value.trim() : '';
-  if(!text) return;
+  if(!text && !waPendingMedia) return;
 
   var form = new FormData();
   if(waThreadState.contactId) form.append('contact_id', waThreadState.contactId);
   form.append('phone', waThreadState.phone || '');
   form.append('message', text);
+  if(waPendingMedia){
+    var mediaName = (waPendingMediaLabel === 'Voice note') ? 'voice-note.webm' : (waPendingMedia.name || 'attachment');
+    form.append('media', waPendingMedia, mediaName);
+  }
 
   input.value = '';
+  waPendingMedia = null;
+  waPendingMediaLabel = '';
+  var previewLabelEl = document.getElementById('waMediaPreviewLabel');
+  if(previewLabelEl) previewLabelEl.textContent = '';
 
   fetch('/dashboard/reply/send/', {
     method: 'POST',
+    headers: {'X-CSRFToken': CSRF},
     body: form
   })
   .then(r => r.json())
   .then(d => {
-    if(d.status === 'ok'){
+    if(d.ok || d.status === 'ok'){
       loadWaThread(waThreadState.phone, null, true);
+    } else {
+      alert('Failed to send: ' + (d.error || 'Unknown error'));
     }
+  })
+  .catch(function(err){
+    console.error(err);
+    alert('Failed to send. Check your connection and try again.');
   });
 };
 
