@@ -239,6 +239,10 @@ class WhatsAppLog(models.Model):
                        default="out",
                        choices=[("in","Inbound"),("out","Outbound")]
                    )
+    media_url    = models.CharField(max_length=500, blank=True, default="")
+    media_type   = models.CharField(max_length=20, blank=True, default="")   # image, video, document
+    is_read      = models.BooleanField(default=True)   # unread only applies to inbound messages
+
     timestamp    = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -572,6 +576,17 @@ class SiteSettings(models.Model):
         help_text="When off, the Education section is hidden from the "
                    "registration form's optional details pop-up for everyone.",
     )
+
+    # ── Landing page public stats — admin-editable display numbers ────
+    # These are shown publicly on the landing page. They are intentionally
+    # NOT tied to live database counts (e.g. Contact.objects.count()) —
+    # admin sets these manually from the dashboard.
+    stat_contacts      = models.PositiveIntegerField(default=12842, help_text="Registered Contacts number shown on the public landing page.")
+    stat_organizations = models.PositiveIntegerField(default=568,   help_text="Organizations number shown on the public landing page.")
+    stat_schools       = models.PositiveIntegerField(default=1245,  help_text="Schools number shown on the public landing page.")
+    stat_regions       = models.PositiveIntegerField(default=16,    help_text="Regions Covered number shown on the public landing page.")
+    stat_countries     = models.PositiveIntegerField(default=5,     help_text="Countries Connected number shown on the public landing page.")
+
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:

@@ -69,7 +69,10 @@ urlpatterns = [
 
 # --- Added by fix_whatsapp_reply script ---
 from contacts.views.dashboard import send_reply_view as _sk_send_reply_view
+from contacts.views.dashboard import wa_latest_log_id_view as _sk_wa_latest_log_id_view
 
 urlpatterns += [
     path("dashboard/reply/send/", _sk_send_reply_view, name="send-reply"),
+    path('dashboard/wa-log/latest/', _sk_wa_latest_log_id_view, name='wa_latest_log_id'),
+    path('dashboard/wa-log/thread/', __import__('contacts.views.dashboard', fromlist=['wa_thread_view']).wa_thread_view, name='wa-thread'),
 ]

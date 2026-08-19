@@ -134,8 +134,30 @@ def sk_dashboard_view(request):
         for a in account_links_qs
     })
 
-    # ── WhatsApp log (inbox feed) ─────────────────────────────────
-    wa_logs = WhatsAppLog.objects.select_related("contact").order_by("-timestamp")[:50]
+    # ── WhatsApp log — grouped by conversation (contact or raw phone) ──
+    _wa_qs = WhatsAppLog.objects.select_related("contact").order_by("-timestamp")
+    _seen_keys = set()
+    wa_conversations = []
+    for log in _wa_qs:
+        key = log.contact_id if log.contact_id else f"phone:{log.phone}"
+        if key in _seen_keys:
+            continue
+        _seen_keys.add(key)
+        unread_count = WhatsAppLog.objects.filter(
+            direction="in", is_read=False,
+            **({"contact_id": log.contact_id} if log.contact_id else {"contact__isnull": True, "phone": log.phone})
+        ).count()
+        wa_conversations.append({
+            "key": key,
+            "contact_id": log.contact_id,
+            "phone": log.phone,
+            "name": log.contact.full_name if log.contact else log.phone,
+            "last_message": log,
+            "unread_count": unread_count,
+        })
+        if len(wa_conversations) >= 50:
+            break
+    wa_logs = wa_conversations
 
     # ── WhatsApp delivery summary ─────────────────────────────────
     wa_sent   = WhatsAppLog.objects.filter(status="sent").count()
@@ -494,23 +516,136 @@ def settings_toggle_education_view(request):
 @admin_required
 @require_POST
 def send_reply_view(request):
-    from contacts.models import Contact
-    from contacts.services.whatsapp import send_whatsapp_text
+    from contacts.models import Contact, WhatsAppLog
+    from contacts.services.whatsapp import upload_whatsapp_media, send_whatsapp_media, send_whatsapp_text
+    from django.core.files.storage import default_storage
+    import mimetypes
 
     contact_id = request.POST.get("contact_id", "").strip()
     phone      = request.POST.get("phone", "").strip()
     message    = request.POST.get("message", "").strip()
+    media_file = request.FILES.get("media")
 
-    if not message:
-        return JsonResponse({"ok": False, "error": "Message text is required."})
-
-    contact = None
-    if contact_id:
-        contact = Contact.objects.filter(pk=contact_id).first()
-
+    contact = Contact.objects.filter(pk=contact_id).first() if contact_id else None
     to = contact.full_whatsapp if contact else phone
     if not to:
         return JsonResponse({"ok": False, "error": "No phone number to send to."})
 
+    if media_file:
+        import subprocess, tempfile, os as _os
+        from django.core.files.uploadedfile import SimpleUploadedFile
+
+        mime_type = media_file.content_type or mimetypes.guess_type(media_file.name)[0] or "application/octet-stream"
+        if mime_type.startswith("image/"):
+            media_kind = "image"
+        elif mime_type.startswith("video/"):
+            media_kind = "video"
+        elif mime_type.startswith("audio/"):
+            media_kind = "audio"
+        else:
+            media_kind = "document"
+
+        if media_kind == "audio" and mime_type != "audio/ogg":
+            with tempfile.NamedTemporaryFile(suffix=".webm", delete=False) as tmp_in:
+                for chunk in media_file.chunks():
+                    tmp_in.write(chunk)
+                tmp_in_path = tmp_in.name
+            tmp_out_path = tmp_in_path.replace(".webm", ".ogg")
+            try:
+                subprocess.run(
+                    ["ffmpeg", "-y", "-i", tmp_in_path, "-c:a", "libopus", "-b:a", "32k", tmp_out_path],
+                    check=True, capture_output=True,
+                )
+                with open(tmp_out_path, "rb") as f:
+                    media_file = SimpleUploadedFile("voice-note.ogg", f.read(), content_type="audio/ogg")
+                mime_type = "audio/ogg"
+            finally:
+                _os.unlink(tmp_in_path)
+                if _os.path.exists(tmp_out_path):
+                    _os.unlink(tmp_out_path)
+
+        saved_path = default_storage.save(f"whatsapp_outgoing/{media_file.name}", media_file)
+        saved_url  = default_storage.url(saved_path)
+        media_file.seek(0)
+
+        media_id = upload_whatsapp_media(media_file, mime_type)
+        if not media_id:
+            return JsonResponse({"ok": False, "error": "Failed to upload media to WhatsApp."})
+
+        success, err = send_whatsapp_media(to=to, media_id=media_id, media_kind=media_kind, caption=message, contact=contact)
+
+        WhatsAppLog.objects.create(
+            contact=contact, template=f"[{media_kind.upper()}]", phone=to,
+            status="sent" if success else "failed", error="" if success else err,
+            direction="out", message_text=message, media_url=saved_url, media_type=media_kind,
+        )
+        return JsonResponse({"ok": success, "error": err})
+
+    if not message:
+        return JsonResponse({"ok": False, "error": "Message text is required."})
+
     success, err = send_whatsapp_text(to=to, message=message, contact=contact)
     return JsonResponse({"ok": success, "error": err})
+
+@login_required
+@admin_required
+def wa_latest_log_id_view(request):
+    from contacts.models import WhatsAppLog
+    latest = WhatsAppLog.objects.order_by('-pk').values_list('pk', flat=True).first()
+    return JsonResponse({"latest_id": latest or 0})
+
+
+# ──────────────────────────────────────────────────────────────────
+#  WHATSAPP — CONVERSATION THREAD VIEW (per-contact chat history)
+# ──────────────────────────────────────────────────────────────────
+
+@login_required
+@admin_required
+def wa_thread_view(request):
+    """Returns full message history with one person, marks their unread messages as read."""
+    contact_id = request.GET.get("contact_id", "").strip()
+    phone      = request.GET.get("phone", "").strip()
+
+    if contact_id:
+        logs_qs = WhatsAppLog.objects.filter(contact_id=contact_id).order_by("timestamp")
+        unread_filter = {"contact_id": contact_id}
+    elif phone:
+        logs_qs = WhatsAppLog.objects.filter(contact__isnull=True, phone=phone).order_by("timestamp")
+        unread_filter = {"contact__isnull": True, "phone": phone}
+    else:
+        return JsonResponse({"ok": False, "error": "contact_id or phone required"}, status=400)
+
+    # Mark all their unread inbound messages as read
+    WhatsAppLog.objects.filter(direction="in", is_read=False, **unread_filter).update(is_read=True)
+
+    messages_out = []
+    for log in logs_qs:
+        messages_out.append({
+            "id": log.pk,
+            "direction": log.direction,
+            "message_text": log.message_text,
+            "template": log.template,
+            "status": log.status,
+            "error": log.error,
+            "media_url": log.media_url,
+            "media_type": log.media_type,
+            "timestamp": log.timestamp.strftime("%d %b %H:%M"),
+        })
+
+    name = None
+    contact_pk = None
+    if contact_id:
+        c = Contact.objects.filter(pk=contact_id).first()
+        if c:
+            name = c.full_name
+            contact_pk = c.pk
+    if not name:
+        name = phone
+
+    return JsonResponse({
+        "ok": True,
+        "name": name,
+        "phone": phone or (logs_qs.first().phone if logs_qs.exists() else ""),
+        "contact_id": contact_pk,
+        "messages": messages_out,
+    })

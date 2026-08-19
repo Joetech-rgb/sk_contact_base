@@ -80,6 +80,54 @@ def send_whatsapp(to: str, template: str, params: list, contact=None, footer: st
         return False
 
 
+
+def upload_whatsapp_media(file_obj, mime_type):
+    """Uploads a file to Meta, returns a media_id or None."""
+    if not PHONE_ID or not ACCESS_TOKEN:
+        return None
+    files = {"file": (file_obj.name, file_obj, mime_type)}
+    data = {"messaging_product": "whatsapp"}
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
+    try:
+        resp = _session.post(
+            f"https://graph.facebook.com/v19.0/{PHONE_ID}/media",
+            files=files, data=data, headers=headers, timeout=(5, 60),
+        )
+        if resp.status_code == 200:
+            return resp.json().get("id")
+    except Exception:
+        pass
+    return None
+
+
+def send_whatsapp_media(to: str, media_id: str, media_kind: str, caption: str = "", contact=None):
+    """media_kind: 'image', 'video', 'audio', or 'document'. Returns (success, error)."""
+    if not PHONE_ID or not ACCESS_TOKEN:
+        return False, "Missing API credentials"
+    media_obj = {"id": media_id}
+    # WhatsApp's Cloud API does not support captions on audio messages — including
+    # one causes the whole request to be rejected, so drop it for that kind only.
+    if caption and media_kind != "audio":
+        media_obj["caption"] = caption
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to,
+        "type": media_kind,
+        media_kind: media_obj,
+    }
+    headers = {
+        "Authorization": f"Bearer {ACCESS_TOKEN}",
+        "Content-Type": "application/json",
+    }
+    try:
+        resp = _session.post(API_URL, json=payload, headers=headers, timeout=(5, 30))
+        if resp.status_code == 200:
+            return True, ""
+        return False, resp.text[:500]
+    except Exception as exc:
+        return False, str(exc)[:500]
+
+
 def send_whatsapp_text(to: str, message: str, contact=None):
     """
     Sends a free-form text reply via the same Graph API phone number used for templates.

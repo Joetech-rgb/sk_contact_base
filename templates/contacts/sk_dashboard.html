@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 {% load static %}
 <html lang="en">
 {% load i18n %}
@@ -226,9 +226,69 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
 .wa-thread-preview{font-size:12px;color:var(--gray-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .wa-thread-meta{text-align:right;flex-shrink:0;}
 .wa-thread-time{font-size:11px;color:var(--gray-400);}
+
+/* ── WhatsApp-style redesign ── */
+.wa-thread-avatar{
+  background:linear-gradient(135deg,#8b8b8b,#6b6b6b);
+  color:#fff; font-weight:700;
+}
+.wa-avatar-1{background:linear-gradient(135deg,#f97066,#e0483a);}
+.wa-avatar-2{background:linear-gradient(135deg,#f79009,#dc6803);}
+.wa-avatar-3{background:linear-gradient(135deg,#12b76a,#039855);}
+.wa-avatar-4{background:linear-gradient(135deg,#2e90fa,#1570ef);}
+.wa-avatar-5{background:linear-gradient(135deg,#7a5af8,#6938ef);}
+.wa-avatar-6{background:linear-gradient(135deg,#ee46bc,#dd2590);}
+
+#waThreadView{
+  background-color:#0b141a;
+  background-image:url('https://raw.githubusercontent.com/Ahmadre/whatsapp-clone-wallpaper/main/whatsapp-wallpaper-dark.png');
+  background-repeat:repeat;
+  background-size:412px auto;
+  border-radius:0 0 12px 12px;
+  overflow:hidden;
+}
+.wa-bubble img{max-height:260px;width:auto;max-width:100%;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px;background:#00000022;}
+.wa-bubble video{max-height:260px;border-radius:8px;display:block;margin-bottom:4px;background:#000;}
+#waThreadView > div:first-child{
+  background:#f0f2f5 !important;
+  border-bottom:1px solid #d1d7db !important;
+}
+#waThreadMessages{background:transparent;}
+.wa-bubble{
+  max-width:72%; padding:7px 10px 9px; border-radius:8px; font-size:13.5px; line-height:1.4;
+  box-shadow:0 1px 0.5px rgba(0,0,0,0.13); position:relative;
+}
+.wa-bubble-in{ align-self:flex-start; background:#ffffff; border-top-left-radius:2px; }
+.wa-bubble-out{ align-self:flex-end; background:#d9fdd3; border-top-right-radius:2px; }
+.wa-bubble-text{ white-space:pre-wrap; word-break:break-word; color:#111b21; }
+.wa-bubble-time{ font-size:10.5px; color:#667781; margin-top:3px; text-align:right; }
+
+#waThreadView > div:last-child{
+  background:#f0f2f5 !important; border-top:1px solid #d1d7db !important;
+}
+#waThreadInput{
+  border-radius:20px !important; border:1px solid #d1d7db !important;
+  padding:9px 16px !important; background:#fff !important;
+}
+#waThreadView button[onclick="sendWaThreadReply()"]{
+  width:42px; height:42px; border-radius:50% !important; padding:0 !important;
+  display:flex; align-items:center; justify-content:center;
+  background:#00a884 !important; font-size:16px;
+}
+
 .wa-status-pill{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:100px;font-size:10px;font-weight:700;margin-top:3px;}
 .wa-status-sent{background:var(--green-50);color:var(--green-700);}
 .wa-status-failed{background:var(--red-50);color:var(--red-700);}
+
+/* ── Mobile stability: stop horizontal shake and off-screen send button ── */
+html, body{ overflow-x:hidden; }
+.wa-inbox-wrap{ max-width:100%; box-sizing:border-box; }
+#waThreadView{ max-width:100%; box-sizing:border-box; }
+#waInputBar{ flex-wrap:nowrap; box-sizing:border-box; }
+#waInputBar > div{ min-width:0; }
+#waThreadInput{ min-width:0; width:100%; box-sizing:border-box; }
+#waMediaPreviewBar{ box-sizing:border-box; }
+.wa-thread-list{ max-width:100%; box-sizing:border-box; }
 .wa-open-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;background:#25D366;color:#fff;text-decoration:none;transition:all 0.2s;flex-shrink:0;}
 .wa-open-btn:hover{background:#128C7E;}
 .bulk-composer{background:var(--white);border:1px solid var(--blue-100);border-radius:12px;overflow:hidden;margin-bottom:16px;}
@@ -598,15 +658,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
           <div class="wa-inbox-title"><i class="fab fa-whatsapp"></i> Recent WhatsApp Sends</div>
           <div style="font-size:12px;color:rgba(255,255,255,0.55);">Last 50 messages</div>
         </div>
-        <div class="wa-thread-list">
-          {% for log in wa_logs %}
-          <div class="wa-thread" style="{% if log.direction == 'in' %}
-<button class="wa-open-btn" onclick="openReplyBox({{ log.pk }}, '{{ log.contact.pk|default:"" }}', '{{ log.phone }}')"><i class="fab fa-whatsapp"></i> Reply</button>
-<div id="reply-box-{{ log.pk }}" style="display:none;margin-top:8px;gap:6px;"></div>
-{% endif %}
-            {% else %}
-              {% if log.contact %}<a href="{{ log.contact.whatsapp_chat_url }}" target="_blank" class="wa-open-btn"><i class="fab fa-whatsapp"></i> Chat</a>{% endif %}
-            {% endif %}
+        <div class="wa-thread-list" id="waConvList" data-latest-id="0">
+          {% for conv in wa_logs %}
+          <div class="wa-thread" style="cursor:pointer;{% if conv.unread_count > 0 %}background:var(--green-50);border-left:3px solid var(--green);{% endif %}"
+               onclick="openWaThread('{{ conv.contact_id|default:'' }}', '{{ conv.phone }}', this)">
+            <div class="wa-thread-avatar wa-avatar-{{ forloop.counter0|divisibleby:6|yesno:'6,1' }}">
+              {{ conv.name|slice:":1"|upper }}
+            </div>
+            <div class="wa-thread-info">
+              <div class="wa-thread-name">
+                {{ conv.name }}
+              </div>
+              <div class="wa-thread-preview">
+                {% if conv.last_message.direction == 'in' %}{{ conv.last_message.message_text|default:"(no text)" }}
+                {% else %}You: {{ conv.last_message.message_text|default:conv.last_message.template }}{% endif %}
+              </div>
+            </div>
+            <div class="wa-thread-meta">
+              <div class="wa-thread-time">{{ conv.last_message.timestamp|date:"d M H:i" }}</div>
+              {% if conv.unread_count > 0 %}
+              <div style="margin-top:6px;background:var(--green);color:#fff;font-size:11px;font-weight:700;border-radius:100px;padding:2px 8px;display:inline-block;">{{ conv.unread_count }}</div>
+              {% endif %}
+            </div>
           </div>
           {% empty %}
           <div style="padding:40px;text-align:center;color:var(--gray-400);">
@@ -614,6 +687,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
             No messages yet. Use Bulk Messaging to send your first message.
           </div>
           {% endfor %}
+        </div>
+
+        <!-- WhatsApp-style thread view (hidden until a conversation is opened) -->
+        <div id="waThreadView" style="display:none;">
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--gray-50);background:var(--blue-50);">
+            <button type="button" onclick="closeWaThread()" style="background:none;border:none;font-size:16px;cursor:pointer;color:var(--blue-500);"><i class="fas fa-arrow-left"></i></button>
+            <div style="font-weight:700;font-size:14px;" id="waThreadName">—</div>
+          </div>
+          <div id="waThreadMessages" style="max-height:380px;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px;"></div>
+          <div id="waInputBar" style="display:flex;align-items:center;gap:8px;padding:10px 14px;">
+            <button type="button" id="waAttachBtn" onclick="document.getElementById('waMediaInput').click()" style="background:none;border:none;font-size:20px;color:#54656f;cursor:pointer;width:32px;flex-shrink:0;"><i class="fas fa-plus-circle"></i></button>
+            <input type="file" id="waMediaInput" accept="image/*,video/*" style="display:none;" onchange="handleWaMediaPick(this)">
+            <div style="flex:1;display:flex;align-items:center;background:#fff;border-radius:20px;padding:0 6px 0 16px;">
+              <input type="text" id="waThreadInput" placeholder="Message" style="flex:1;padding:9px 0;border:none;background:transparent;font-size:14px;font-family:inherit;outline:none;">
+              <i class="far fa-smile" style="color:#8696a0;font-size:18px;padding:6px;"></i>
+            </div>
+            <button type="button" id="waCameraBtn" onclick="document.getElementById('waCameraInput').click()" style="background:none;border:none;font-size:19px;color:#54656f;cursor:pointer;width:28px;flex-shrink:0;"><i class="fas fa-camera"></i></button>
+            <input type="file" id="waCameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handleWaMediaPick(this)">
+            <button type="button" id="waMicBtn" onclick="toggleWaVoiceRecording()" style="background:#00a884;border:none;border-radius:50%;width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;cursor:pointer;">
+              <i class="fas fa-microphone" id="waMicIcon"></i>
+            </button>
+          </div>
+          <div id="waMediaPreviewBar" style="display:none;padding:8px 14px;background:#f0f2f5;border-top:1px solid #d1d7db;align-items:center;gap:10px;">
+            <span id="waMediaPreviewLabel" style="font-size:12px;color:#54656f;flex:1;"></span>
+            <button type="button" onclick="cancelWaMediaPick()" style="background:none;border:none;color:#54656f;cursor:pointer;font-size:14px;"><i class="fas fa-times"></i></button>
+          </div>
         </div>
       </div>
       <div style="margin-top:14px;padding:14px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:10px;font-size:13px;color:var(--blue-700);">
@@ -977,6 +1076,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--gray-50);color:var(--blue
   </div>
 </div>
 
+<div class="modal-overlay" id="replyModal">
+  <div class="modal-box" style="width:min(480px,92vw);">
+    <button class="modal-close" onclick="closeModal('replyModal')"><i class="fas fa-times"></i></button>
+    <div class="modal-title">Reply on WhatsApp</div>
+    <p class="modal-sub" id="replyModalSub">Sends via your business number</p>
+    <div class="fw"><label class="fl">Message</label><textarea class="fi" id="replyModalInput" rows="4" placeholder="Type your reply..." style="resize:vertical;"></textarea></div>
+    <div class="fw"><label class="fl">Attach Image / Video (optional)</label><input type="file" class="fi" id="replyModalMedia" accept="image/*,video/*"></div>
+    <div class="fw">
+      <label class="fl">Or Record Voice Note</label>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button type="button" class="wa-open-btn" id="voiceRecordBtn" onclick="toggleVoiceRecording()"><i class="fas fa-microphone"></i> <span id="voiceRecordLabel">Record</span></button>
+        <span id="voiceRecordTimer" style="font-size:12px;color:var(--gray-500);"></span>
+        <audio id="voicePreview" controls style="display:none;height:32px;"></audio>
+      </div>
+    </div>
+    <button class="modal-save" id="replyModalSendBtn" onclick="sendReplyFromModal()"><i class="fas fa-paper-plane"></i> Send Reply</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="campContactsModal">
   <div class="modal-box" style="width:min(720px,95vw);">
     <button class="modal-close" onclick="closeModal('campContactsModal')"><i class="fas fa-times"></i></button>
@@ -1059,6 +1177,7 @@ window.setTab = function(tab){
   if(tab==='analytics') setTimeout(animateBars, 150);
   if(tab==='campaigns') setTimeout(animateCampaignBars, 200);
   if(tab==='account-links') renderAccountGrid();
+  try { localStorage.setItem('sk_dashboard_active_tab', tab); } catch(e){}
 };
 
 function animateBars(){ document.querySelectorAll('.bar-fill[data-w],.conv-rate-fill[data-w]').forEach(function(b){ b.style.width=b.dataset.w+'%'; }); }
@@ -1472,35 +1591,310 @@ window.toggleEducationSection = function(){
     .catch(function(){ toast('Network error','error'); });
 };
 
-// Inline reply - sends via WhatsApp API, same business number
+// ── WhatsApp Reply Modal ──
+var replyModalState = { logId: null, contactId: null, phone: null };
+
 window.openReplyBox = function(logId, contactId, phone){
-  var box = document.getElementById('reply-box-'+logId);
-  if(!box) return;
-  if(box.style.display === 'flex'){ box.style.display='none'; return; }
-  box.style.display='flex';
-  box.innerHTML =
-    '<input type="text" class="fi" placeholder="Type your reply..." id="reply-input-'+logId+'" style="flex:1;">'
-    +'<button class="wa-open-btn" onclick="sendReply('+logId+',\''+contactId+'\',\''+phone+'\')"><i class="fas fa-paper-plane"></i> Send</button>';
+  replyModalState = { logId: logId, contactId: contactId, phone: phone };
+  var sub = document.getElementById('replyModalSub');
+  if(sub) sub.textContent = 'Replying to ' + phone + ' — sends via your business number';
+  var input = document.getElementById('replyModalInput');
+  if(input) input.value = '';
+  var mediaInput = document.getElementById('replyModalMedia');
+  if(mediaInput) mediaInput.value = '';
+  voiceBlob = null;
+  var vp = document.getElementById('voicePreview');
+  if(vp){ vp.style.display = 'none'; vp.src = ''; }
+  openModal('replyModal');
+  setTimeout(function(){ if(input) input.focus(); }, 100);
 };
 
-window.sendReply = function(logId, contactId, phone){
-  var input = document.getElementById('reply-input-'+logId);
+var voiceRecorder = null, voiceChunks = [], voiceBlob = null, voiceTimerInt = null, voiceStartTime = null;
+
+window.toggleVoiceRecording = function(){
+  if(voiceRecorder && voiceRecorder.state === 'recording'){
+    voiceRecorder.stop();
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+    var mimeType = MediaRecorder.isTypeSupported('audio/ogg;codecs=opus') ? 'audio/ogg;codecs=opus' : 'audio/webm;codecs=opus';
+    voiceRecorder = new MediaRecorder(stream, { mimeType: mimeType });
+    voiceChunks = [];
+    voiceRecorder.ondataavailable = function(e){ if(e.data.size > 0) voiceChunks.push(e.data); };
+    voiceRecorder.onstop = function(){
+      voiceBlob = new Blob(voiceChunks, { type: mimeType });
+      var preview = document.getElementById('voicePreview');
+      preview.src = URL.createObjectURL(voiceBlob);
+      preview.style.display = 'inline-block';
+      stream.getTracks().forEach(function(t){ t.stop(); });
+      clearInterval(voiceTimerInt);
+      document.getElementById('voiceRecordTimer').textContent = '';
+      document.getElementById('voiceRecordLabel').textContent = 'Record';
+      document.getElementById('voiceRecordBtn').classList.remove('recording-active');
+    };
+    voiceRecorder.start();
+    voiceStartTime = Date.now();
+    document.getElementById('voiceRecordLabel').textContent = 'Stop';
+    document.getElementById('voiceRecordBtn').classList.add('recording-active');
+    voiceTimerInt = setInterval(function(){
+      var secs = Math.floor((Date.now() - voiceStartTime) / 1000);
+      document.getElementById('voiceRecordTimer').textContent = String(Math.floor(secs/60)).padStart(2,'0') + ':' + String(secs%60).padStart(2,'0');
+    }, 500);
+  }).catch(function(){
+    toast('Microphone access denied or unavailable', 'error');
+  });
+};
+
+function doSendReply(){
+  var input = document.getElementById('replyModalInput');
+  var mediaInput = document.getElementById('replyModalMedia');
+  var btn = document.getElementById('replyModalSendBtn');
   var message = input.value.trim();
-  if(!message) return;
+  var file = mediaInput && mediaInput.files[0];
+  var hasMedia = file || voiceBlob;
+  if(!message && !hasMedia){ toast('Please type a message or attach media', 'error'); btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Reply'; return; }
+
+  var contactId = replyModalState.contactId;
+  var phone = replyModalState.phone;
+
   var form = new FormData();
   if(contactId) form.append('contact_id', contactId);
   form.append('phone', phone);
   form.append('message', message);
+
+  if(voiceBlob){
+    var ext = voiceBlob.type.indexOf('ogg') > -1 ? 'ogg' : 'webm';
+    form.append('media', voiceBlob, 'voice-note.' + ext);
+  } else if(file){
+    form.append('media', file);
+  }
+
   fetch('/dashboard/reply/send/', {method:'POST', headers:{'X-CSRFToken':CSRF}, body:form})
     .then(function(r){ return r.json(); })
     .then(function(d){
-      if(d.ok){ toast('Reply sent!'); document.getElementById('reply-box-'+logId).style.display='none'; }
+      if(d.ok){
+        toast('Reply sent!'); closeModal('replyModal');
+        voiceBlob = null;
+        var vp = document.getElementById('voicePreview');
+        if(vp) vp.style.display = 'none';
+      }
       else { toast(d.error||'Failed to send', 'error'); }
     })
-    .catch(function(){ toast('Network error','error'); });
+    .catch(function(){ toast('Network error','error'); })
+    .finally(function(){
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Reply';
+    });
+}
+
+window.sendReplyFromModal = function(){
+  var btn = document.getElementById('replyModalSendBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+  if(voiceRecorder && voiceRecorder.state === 'recording'){
+    var prevOnStop = voiceRecorder.onstop;
+    voiceRecorder.onstop = function(){
+      if(prevOnStop) prevOnStop();
+      doSendReply();
+    };
+    voiceRecorder.stop();
+    return;
+  }
+
+  doSendReply();
 };
+
+// ── WA Log Auto-refresh — NO page reload, just a quiet badge + live thread update ──
+(function(){
+  var knownId = 0;
+  setInterval(function(){
+    fetch('/dashboard/wa-log/latest/')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d.latest_id) return;
+        if(knownId === 0){ knownId = d.latest_id; return; } // first check just establishes baseline, no action
+        if(d.latest_id > knownId){
+          knownId = d.latest_id;
+          // Show a small unread indicator on the WA Log nav item instead of reloading
+          var waNav = document.getElementById('sb-whatsapp');
+          if(waNav && !waNav.querySelector('.wa-new-dot')){
+            var dot = document.createElement('span');
+            dot.className = 'wa-new-dot';
+            dot.style.cssText = 'display:inline-block;width:8px;height:8px;background:var(--green);border-radius:50%;margin-left:6px;';
+            waNav.appendChild(dot);
+          }
+          // If a thread is currently open, refresh it quietly in place
+          if(waThreadState && (waThreadState.contactId || waThreadState.phone)){
+            openWaThread(waThreadState.contactId, waThreadState.phone, null, true);
+          }
+        }
+      })
+      .catch(function(){});
+  }, 8000);
+})();
+
+// ── WA THREAD VIEW ──
+var waThreadState = { contactId: null, phone: null };
+
+var waThreadRenderedIds = {};
+
+function renderWaBubble(m, container){
+  var bubble = document.createElement('div');
+  var isIn = m.direction === 'in';
+  bubble.className = 'wa-bubble ' + (isIn ? 'wa-bubble-in' : 'wa-bubble-out');
+  var text = m.message_text || m.template || '';
+  var mediaHtml = '';
+  if(m.media_url){
+    if(m.media_type === 'image') mediaHtml = '<img src="'+m.media_url+'" style="max-width:200px;border-radius:8px;display:block;margin-bottom:4px;">';
+    else if(m.media_type === 'video') mediaHtml = '<video src="'+m.media_url+'" controls style="max-width:220px;border-radius:8px;display:block;margin-bottom:4px;"></video>';
+    else if(m.media_type === 'audio') mediaHtml = '<audio src="'+m.media_url+'" controls preload="metadata" style="width:220px;display:block;margin-bottom:4px;"></audio>';
+  }
+  bubble.innerHTML = mediaHtml + (text ? '<div class="wa-bubble-text">' + text.replace(/</g,'&lt;') + '</div>' : '') +
+    '<div class="wa-bubble-time">' + m.timestamp + (isIn ? '' : ' <i class="fas fa-check-double" style="color:#53bdeb;"></i>') + '</div>';
+  container.appendChild(bubble);
+}
+
+window.openWaThread = function(contactId, phone, el, silent){
+  var isReopen = (waThreadState.contactId == contactId && waThreadState.phone == phone) && silent;
+  waThreadState = { contactId: contactId || null, phone: phone || null };
+  document.getElementById('waConvList').style.display = 'none';
+  document.getElementById('waThreadView').style.display = 'block';
+  if(!isReopen){
+    document.getElementById('waThreadName').textContent = 'Loading...';
+    document.getElementById('waThreadMessages').innerHTML = '';
+    waThreadRenderedIds = {};
+  }
+
+  var params = new URLSearchParams();
+  if(contactId){ params.set('contact_id', contactId); } else { params.set('phone', phone); }
+
+  fetch('/dashboard/wa-log/thread/?' + params.toString())
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d.ok) return;
+      document.getElementById('waThreadName').textContent = d.name;
+      waThreadState.contactId = d.contact_id;
+      waThreadState.phone = d.phone;
+      var container = document.getElementById('waThreadMessages');
+      var hadNew = false;
+      d.messages.forEach(function(m){
+        if(waThreadRenderedIds[m.id]) return; // already shown — append-only, no flicker
+        waThreadRenderedIds[m.id] = true;
+        renderWaBubble(m, container);
+        hadNew = true;
+      });
+      if(hadNew || !isReopen) container.scrollTop = container.scrollHeight;
+    })
+    .catch(function(){ if(!isReopen) document.getElementById('waThreadName').textContent = 'Error loading thread'; });
+};
+
+window.closeWaThread = function(){
+  document.getElementById('waThreadView').style.display = 'none';
+  document.getElementById('waConvList').style.display = 'block';
+};
+
+// ── WA media/voice staging (used by attach, camera, and mic buttons) ──
+var waPendingMedia = null;
+var waPendingMediaLabel = '';
+var waVoiceRecorder = null, waVoiceChunks = [], waVoiceStartTime = null, waVoiceTimerInt = null;
+
+window.handleWaMediaPick = function(inputEl){
+  var file = inputEl.files && inputEl.files[0];
+  if(!file) return;
+  waPendingMedia = file;
+  waPendingMediaLabel = file.name || 'Attachment';
+  document.getElementById('waMediaPreviewLabel').textContent = waPendingMediaLabel;
+  document.getElementById('waMediaPreviewBar').style.display = 'flex';
+};
+
+window.cancelWaMediaPick = function(){
+  waPendingMedia = null;
+  waPendingMediaLabel = '';
+  var mi = document.getElementById('waMediaInput'); if(mi) mi.value = '';
+  var ci = document.getElementById('waCameraInput'); if(ci) ci.value = '';
+  document.getElementById('waMediaPreviewBar').style.display = 'none';
+};
+
+window.toggleWaVoiceRecording = function(){
+  if(waVoiceRecorder && waVoiceRecorder.state === 'recording'){
+    waVoiceRecorder.stop();
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+    var mimeType = MediaRecorder.isTypeSupported('audio/ogg;codecs=opus') ? 'audio/ogg;codecs=opus' : 'audio/webm;codecs=opus';
+    waVoiceRecorder = new MediaRecorder(stream, { mimeType: mimeType });
+    waVoiceChunks = [];
+    waVoiceRecorder.ondataavailable = function(e){ if(e.data.size > 0) waVoiceChunks.push(e.data); };
+    waVoiceRecorder.onstop = function(){
+      var blob = new Blob(waVoiceChunks, { type: mimeType });
+      blob._waExt = mimeType.indexOf('ogg') > -1 ? 'ogg' : 'webm';
+      waPendingMedia = blob;
+      waPendingMediaLabel = 'Voice note';
+      document.getElementById('waMediaPreviewLabel').textContent = waPendingMediaLabel;
+      document.getElementById('waMediaPreviewBar').style.display = 'flex';
+      stream.getTracks().forEach(function(t){ t.stop(); });
+      clearInterval(waVoiceTimerInt);
+      document.getElementById('waMicIcon').className = 'fas fa-microphone';
+      document.getElementById('waMicBtn').style.background = '#00a884';
+    };
+    waVoiceRecorder.start();
+    waVoiceStartTime = Date.now();
+    document.getElementById('waMicIcon').className = 'fas fa-stop';
+    document.getElementById('waMicBtn').style.background = '#e53935';
+    waVoiceTimerInt = setInterval(function(){
+      var secs = Math.floor((Date.now() - waVoiceStartTime) / 1000);
+      var label = 'Voice note (' + String(Math.floor(secs/60)).padStart(2,'0') + ':' + String(secs%60).padStart(2,'0') + ')';
+      document.getElementById('waMediaPreviewLabel').textContent = label;
+      document.getElementById('waMediaPreviewBar').style.display = 'flex';
+      waPendingMediaLabel = label;
+    }, 500);
+  }).catch(function(){
+    toast('Microphone access denied or unavailable', 'error');
+  });
+};
+
+window.sendWaThreadReply = function(){
+  var input = document.getElementById('waThreadInput');
+  var text = input.value.trim();
+  if(!text && !waPendingMedia) return;
+  if(waVoiceRecorder && waVoiceRecorder.state === 'recording'){ waVoiceRecorder.stop(); }
+
+  var form = new FormData();
+  if(waThreadState.contactId) form.append('contact_id', waThreadState.contactId);
+  form.append('phone', waThreadState.phone || '');
+  form.append('message', text);
+  if(waPendingMedia){
+    if(waPendingMedia._waExt) form.append('media', waPendingMedia, 'voice-note.' + waPendingMedia._waExt);
+    else form.append('media', waPendingMedia, waPendingMedia.name || 'attachment');
+  }
+
+  input.value = '';
+  cancelWaMediaPick();
+
+  fetch('/dashboard/reply/send/', {method:'POST', headers:{'X-CSRFToken':CSRF}, body:form})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.ok){
+        openWaThread(waThreadState.contactId, waThreadState.phone, null, true);
+      } else {
+        toast(d.error || 'Failed to send');
+      }
+    })
+    .catch(function(){ toast('Failed to send'); });
+};
+
+function refreshWaConversations(){
+  // Simplest reliable approach: reload only if thread view is closed, to avoid disrupting active chat
+  // (full conversation-list refresh without reload is a further enhancement)
+}
+
 // ── Init ──
-window.setTab('analytics');
+(function(){
+  var savedTab = 'analytics';
+  try { savedTab = localStorage.getItem('sk_dashboard_active_tab') || 'analytics'; } catch(e){}
+  window.setTab(savedTab);
+})();
 setTimeout(animateBars, 300);
 bsUpdatePreview();
 renderAccountGrid();

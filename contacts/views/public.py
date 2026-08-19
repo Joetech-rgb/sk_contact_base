@@ -42,15 +42,22 @@ def landing_view(request):
         form = ContactForm(initial=initial)
 
     notifications = Notification.objects.filter(is_active=True).order_by("-created_at")[:3]
+    site_settings = SiteSettings.load()
 
     return render(request, "contacts/landing.html", {
         "form":           form,
-        "total_contacts": Contact.objects.count(),
         "ref_slug":       ref_slug,
         "notifications":  notifications,
         "community_posts":    CommunityPost.objects.filter(is_visible=True).order_by("-created_at"),
         "active_categories":  Category.objects.filter(is_active=True).order_by("name"),
-        "education_enabled":  SiteSettings.load().education_section_enabled,
+        "education_enabled":  site_settings.education_section_enabled,
+        # Public display stats — admin-controlled, NOT live DB counts.
+        # Real Contact.objects.count() stays admin-dashboard-only.
+        "stat_contacts":      site_settings.stat_contacts,
+        "stat_organizations": site_settings.stat_organizations,
+        "stat_schools":       site_settings.stat_schools,
+        "stat_regions":       site_settings.stat_regions,
+        "stat_countries":     site_settings.stat_countries,
     })
 
 
