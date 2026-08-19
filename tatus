@@ -1,0 +1,11 @@
+[0;1;32m●[0m sk_contact_base.service - Gunicorn instance for sk_contact_base
+     Loaded: loaded (]8;;file://srv1807852/etc/systemd/system/sk_contact_base.service/etc/systemd/system/sk_contact_base.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Wed 2026-08-19 01:00:11 UTC; 16ms ago
+   Main PID: 590589 (gunicorn)
+      Tasks: 1 (limit: 9483)
+     Memory: 180.0K (peak: 840.0K)
+        CPU: 4ms
+     CGroup: /system.slice/sk_contact_base.service
+             └─[0;38;5;245m590589 /var/www/sk_contact_base/venv/bin/python3 /var/www/sk_contact_base/venv/bin/gunicorn --workers 3 --bind unix:/var/www/sk_contact_base/sk_contact_base.sock sk_contact_base.wsgi:application[0m
+
+Aug 19 01:00:11 srv1807852 systemd[1]: Started sk_contact_base.service - Gunicorn instance for sk_contact_base.
