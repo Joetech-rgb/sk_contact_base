@@ -166,15 +166,14 @@
   .hero-ghana-backdrop {
     position: absolute;
     top: 0;
-    left: -5%;
-    width: 65%;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
     height: 100%;
     background: url("https://commons.wikimedia.org/wiki/Special:FilePath/Black_Star_Gate_located_in_Accra.jpg") left center/cover no-repeat;
-    opacity: 0.22;
+    opacity: 0.30;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(to right, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
   }
 
   .hero-wrap {
@@ -298,7 +297,9 @@
 
   /* RIGHT FORM CARD */
   .hero-form-card {
-    background: var(--white);
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid rgba(226, 232, 240, 0.9);
     border-radius: 20px;
     padding: 28px 24px;
@@ -562,14 +563,14 @@
 
   .callout-banner-bg {
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 50%;
-    background: url("https://commons.wikimedia.org/wiki/Special:FilePath/Accra%20International%20Conference%20Center,%20Accra.jpg") center/cover no-repeat;
-    opacity: 0.15;
-    mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
-    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+  .callout-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(4,17,45,0.88) 0%, rgba(4,17,45,0.55) 100%);
   }
 
   .callout-content {
@@ -637,6 +638,13 @@
   .footer-logo-img { height: 36px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
   .footer-desc { font-size: 12px; line-height: 1.65; color: rgba(255,255,255,0.5); margin-bottom: 18px; max-width: 280px; }
   
+  .footer-why-us { margin: 4px 0 22px; max-width: 360px; }
+  .footer-why-us summary { cursor: pointer; font-size: 12.5px; font-weight: 700; color: #fff; list-style: none; }
+  .footer-why-us summary::-webkit-details-marker { display: none; }
+  .footer-why-us summary::after { content: ' +'; color: var(--blue-400); margin-left: 4px; }
+  .footer-why-us[open] summary::after { content: ' \u2212'; }
+  .footer-why-us p { font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.55); margin-top: 8px; }
+
   .footer-social { display: flex; gap: 8px; }
   .footer-social a {
     width: 30px; height: 30px; border-radius: 50%;
@@ -1027,11 +1035,12 @@
 <!-- ================= BE PART OF SOMETHING BIGGER BANNER ================= -->
 <div class="callout-banner-wrap">
   <div class="callout-banner">
-    <div class="callout-banner-bg"></div>
+    <div class="callout-banner-bg" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1200&auto=format&fit=crop&q=80');"></div>
+    <div class="callout-banner-overlay"></div>
     <div class="callout-content">
-      <h3 class="callout-title">Be Part of Something <span class="hl">Bigger.</span></h3>
-      <p class="callout-sub">
-        Join a growing network of individuals, schools and organizations driving change and creating impact.
+      <h3 class="callout-title">Real people. Real <span class="hl">opportunities.</span></h3>
+      <p class="callout-sub" style="font-weight:600;">
+        Every day, members of S.K Community get connected to brand campaigns, paid gigs and giveaways they would never have found on their own. Yours could be next.
       </p>
       <button class="btn-callout" onclick="document.getElementById('joinCard').scrollIntoView({behavior:'smooth'});" type="button">
         Join Now <i class="fas fa-arrow-right"></i>
@@ -1045,6 +1054,10 @@
   <div class="footer-compact-wrap">
     <img src="{% static 'images/logo.png' %}" alt="S.K Community" class="footer-compact-logo">
     <p class="footer-compact-tagline">Building Ghana's biggest contact base. Connecting, growing, and empowering lives.</p>
+    <details class="footer-why-us">
+      <summary>Why work with S.K Community?</summary>
+      <p>We are building Ghana's largest verified network of creators, students and organizations, putting real brand campaigns, paid opportunities and giveaways directly in front of the right people, with no middlemen and no fees to join.</p>
+    </details>
     <div class="footer-compact-cols">
       <div>
         <div class="footer-col-title">Explore</div>
