@@ -1260,37 +1260,47 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // Live Smooth Counter Animation
+    // Live Smooth Counter Animation - triggers when scrolled into view
     const statNums = document.querySelectorAll('.stat-num-live');
 
-    function animateCounters() {
-      statNums.forEach(el => {
-        const targetRaw = el.getAttribute('data-count-to');
-        if (!targetRaw) return;
-        const target = parseInt(targetRaw, 10);
-        const suffix = el.getAttribute('data-suffix') || '';
-        let start = 0;
-        const duration = 1800;
-        const frameRate = 1000 / 60;
-        const totalFrames = Math.round(duration / frameRate);
-        let frame = 0;
+    function animateCounter(el) {
+      const targetRaw = el.getAttribute('data-count-to');
+      if (!targetRaw) return;
+      const target = parseInt(targetRaw, 10);
+      const suffix = el.getAttribute('data-suffix') || '';
+      el.textContent = '0' + suffix;
+      const duration = 2200;
+      const frameRate = 1000 / 60;
+      const totalFrames = Math.round(duration / frameRate);
+      let frame = 0;
 
-        const timer = setInterval(() => {
-          frame++;
-          const progress = frame / totalFrames;
-          const currentCount = Math.floor(target * (1 - Math.pow(1 - progress, 3)));
+      const timer = setInterval(() => {
+        frame++;
+        const progress = frame / totalFrames;
+        const currentCount = Math.floor(target * (1 - Math.pow(1 - progress, 3)));
 
-          el.textContent = currentCount.toLocaleString() + suffix;
+        el.textContent = currentCount.toLocaleString() + suffix;
 
-          if (frame >= totalFrames) {
-            clearInterval(timer);
-            el.textContent = target.toLocaleString() + suffix;
-          }
-        }, frameRate);
-      });
+        if (frame >= totalFrames) {
+          clearInterval(timer);
+          el.textContent = target.toLocaleString() + suffix;
+        }
+      }, frameRate);
     }
 
-    animateCounters();
+    if ('IntersectionObserver' in window) {
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      statNums.forEach(el => counterObserver.observe(el));
+    } else {
+      statNums.forEach(el => animateCounter(el));
+    }
   });
 </script>
 
