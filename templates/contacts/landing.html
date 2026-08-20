@@ -720,11 +720,11 @@
     .sk-hero { padding: 24px 4% 40px; }
     
     .hero-ghana-backdrop {
-      width: 100%;
-      opacity: 0.12;
+      width: 100vw;
+      left: 50%;
+      margin-left: -50vw;
+      opacity: 0.30;
       background-position: center top;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
     }
 
     .why-cards-grid {
@@ -754,7 +754,12 @@
     .footer-grid { grid-template-columns: 1fr; }
   }
 
-  .footer-compact-wrap{max-width:1240px;margin:0 auto;padding-bottom:28px;}
+  .footer-compact-wrap{max-width:1240px;margin:0 auto;padding-bottom:28px;display:flex;gap:48px;justify-content:space-between;flex-wrap:wrap;}
+  .footer-compact-left{flex:1;min-width:260px;}
+  .footer-compact-visual{width:280px;flex-shrink:0;}
+  .footer-compact-visual img{width:100%;height:180px;object-fit:cover;border-radius:14px;display:block;}
+  .footer-compact-visual-caption{font-size:12px;color:rgba(255,255,255,0.5);margin-top:10px;line-height:1.5;}
+  @media (max-width: 768px) { .footer-compact-visual{display:none;} }
   .footer-compact-logo{width:44px;height:44px;border-radius:10px;object-fit:cover;margin-bottom:14px;display:block;}
   .footer-compact-tagline{font-size:12.5px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:360px;margin-bottom:24px;}
   .footer-compact-cols{display:flex;gap:60px;flex-wrap:wrap;}
@@ -1052,25 +1057,31 @@
 <!-- ================= FOOTER ================= -->
 <footer class="pg-footer" id="contact">
   <div class="footer-compact-wrap">
-    <img src="{% static 'images/logo.png' %}" alt="S.K Community" class="footer-compact-logo">
-    <p class="footer-compact-tagline">Building Ghana's biggest contact base. Connecting, growing, and empowering lives.</p>
-    <details class="footer-why-us">
-      <summary>Why work with S.K Community?</summary>
-      <p>We are building Ghana's largest verified network of creators, students and organizations, putting real brand campaigns, paid opportunities and giveaways directly in front of the right people, with no middlemen and no fees to join.</p>
-    </details>
-    <div class="footer-compact-cols">
-      <div>
-        <div class="footer-col-title">Explore</div>
-        <a href="#why-join">Why join</a>
-        <button type="button" onclick="openModal('howModal')">How it works</button>
-        <a href="#top" onclick="document.getElementById('joinCard').scrollIntoView({behavior:'smooth'});return false;">Join the network</a>
+    <div class="footer-compact-left">
+      <img src="{% static 'images/logo.png' %}" alt="S.K Community" class="footer-compact-logo">
+      <p class="footer-compact-tagline">Building Ghana's biggest contact base. Connecting, growing, and empowering lives.</p>
+      <details class="footer-why-us">
+        <summary>Why work with S.K Community?</summary>
+        <p>We are building Ghana's largest verified network of creators, students and organizations, putting real brand campaigns, paid opportunities and giveaways directly in front of the right people, with no middlemen and no fees to join.</p>
+      </details>
+      <div class="footer-compact-cols">
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <a href="#why-join">Why join</a>
+          <button type="button" onclick="openModal('howModal')">How it works</button>
+          <a href="#top" onclick="document.getElementById('joinCard').scrollIntoView({behavior:'smooth'});return false;">Join the network</a>
+        </div>
+        <div>
+          <div class="footer-col-title">Connect</div>
+          <a href="#contact">Contact us</a>
+          <button type="button" onclick="openModal('aboutModal')">About us</button>
+          <button type="button" onclick="openModal('faqModal')">FAQs</button>
+        </div>
       </div>
-      <div>
-        <div class="footer-col-title">Connect</div>
-        <a href="#contact">Contact us</a>
-        <button type="button" onclick="openModal('aboutModal')">About us</button>
-        <button type="button" onclick="openModal('faqModal')">FAQs</button>
-      </div>
+    </div>
+    <div class="footer-compact-visual">
+      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop&q=80" alt="S.K Community member">
+      <p class="footer-compact-visual-caption">Every week, members across Ghana get matched with new brand campaigns and opportunities.</p>
     </div>
   </div>
   <div class="footer-bottom">
